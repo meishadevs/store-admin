@@ -10,7 +10,7 @@ function resolve (dir) {
   return path.join(__dirname, dir)
 }
 
-// check Git
+// 检测 git
 function getGitHash () {
   try {
     return GitRevision.version()
@@ -20,6 +20,7 @@ function getGitHash () {
 
 // eslint-disable-next-line no-unused-vars
 const isProd = process.env.NODE_ENV === 'production'
+
 // eslint-disable-next-line no-unused-vars
 const assetsCDN = {
   // webpack build externals
@@ -39,10 +40,10 @@ const assetsCDN = {
   ]
 }
 
-// vue.config.js
+// vue 配置
 const vueConfig = {
   configureWebpack: {
-    // webpack plugins
+    // webpack 插件
     plugins: [
       // Ignore all locale files of moment.js
       new webpack.IgnorePlugin({
@@ -122,22 +123,10 @@ const vueConfig = {
     }
   },
 
-  devServer: {
-    // development server port 8000
-    port: 8000
-    // If you want to turn on the proxy, please remove the mockjs /src/main.jsL11
-    // proxy: {
-    //   '/api': {
-    //     target: 'https://mock.ihx.me/mock/5baf3052f7da7e07e04a5116/antd-pro',
-    //     ws: false,
-    //     changeOrigin: true
-    //   }
-    // }
-  },
-
-  // disable source map in production
+  // 在生产环境中禁用 souce map
   productionSourceMap: false,
   lintOnSave: undefined,
+
   // babel-loader no-ignore node_modules/*
   transpileDependencies: []
 }
