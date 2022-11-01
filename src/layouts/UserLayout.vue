@@ -1,33 +1,24 @@
 <template>
-
   <div id="userLayout" :class="['user-layout-wrapper', isMobile && 'mobile']">
     <div class="container">
-      <div class="user-layout-lang">
-        <select-lang class="select-lang-trigger" />
-      </div>
       <div class="user-layout-content">
         <div class="top">
           <div class="header">
             <a href="/">
               <img src="~@/assets/logo.svg" class="logo" alt="logo">
-              <span class="title">Ant Design</span>
+              <span class="title">Store Admin</span>
             </a>
           </div>
           <div class="desc">
-            {{ $t('layouts.userLayout.title') }}
+            Store Admin 是一个电商后台管理系统
           </div>
         </div>
 
         <router-view />
 
         <div class="footer">
-          <div class="links">
-            <a href="_self">帮助</a>
-            <a href="_self">隐私</a>
-            <a href="_self">条款</a>
-          </div>
           <div class="copyright">
-            Copyright &copy; 2018 vueComponent
+            Copyright &copy; 2022 Store Admin
           </div>
         </div>
       </div>
@@ -37,17 +28,16 @@
 
 <script>
 import { deviceMixin } from '@/store/device-mixin'
-import SelectLang from '@/components/SelectLang'
 
 export default {
   name: 'UserLayout',
-  components: {
-    SelectLang
-  },
+
   mixins: [deviceMixin],
+
   mounted () {
     document.body.classList.add('userLayout')
   },
+
   beforeDestroy () {
     document.body.classList.remove('userLayout')
   }
