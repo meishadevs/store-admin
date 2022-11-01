@@ -19,16 +19,20 @@ const user = {
     SET_TOKEN: (state, token) => {
       state.token = token
     },
+
     SET_NAME: (state, { name, welcome }) => {
       state.name = name
       state.welcome = welcome
     },
+
     SET_AVATAR: (state, avatar) => {
       state.avatar = avatar
     },
+
     SET_ROLES: (state, roles) => {
       state.roles = roles
     },
+
     SET_INFO: (state, info) => {
       state.info = info
     }
@@ -40,6 +44,7 @@ const user = {
       return new Promise((resolve, reject) => {
         login(userInfo).then(response => {
           const result = response.result
+          console.log('result:', result)
           storage.set(ACCESS_TOKEN, result.token, new Date().getTime() + 7 * 24 * 60 * 60 * 1000)
           commit('SET_TOKEN', result.token)
           resolve()

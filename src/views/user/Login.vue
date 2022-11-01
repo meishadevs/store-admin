@@ -38,8 +38,8 @@
           type="primary"
           htmlType="submit"
           class="login-button"
-          :loading="state.loginBtn"
-          :disabled="state.loginBtn"
+          :loading="loading"
+          :disabled="loading"
         >登录</a-button>
       </a-form-item>
     </a-form>
@@ -55,16 +55,13 @@ export default {
     return {
       form: this.$form.createForm(this),
 
-      state: {
-        time: 60,
-        loginBtn: false,
-        smsSendBtn: false
-      }
+      // 是否显示 loading 效果
+      loading: false
     }
   },
 
   methods: {
-    ...mapActions(['Login', 'Logout']),
+    ...mapActions(['Login']),
 
     handleSubmit (e) {
       // 阻止事件的默认行为
@@ -72,11 +69,10 @@ export default {
 
       const {
         form: { validateFields },
-        state,
         Login
       } = this
 
-      state.loginBtn = true
+      this.loading = true
 
       validateFields(['userName', 'password'], { force: true }, (err, values) => {
         if (!err) {
@@ -85,34 +81,26 @@ export default {
           loginParams.userName = values.userName
           loginParams.password = values.password
           Login(loginParams)
-            .then((res) => this.loginSuccess(res))
-            .catch((err) => this.requestFailed(err))
+            .then((res) => {
+              this.$router.push({ path: '/' })
+              // 延迟 1 秒显示欢迎信息
+              setTimeout(() => {
+                this.$notification.success({
+                  message: '欢迎',
+                  description: `${timeFix()}，欢迎回来`
+                })
+              }, 1000)
+            })
+            .catch(error => {
+              this.loading = false
+              console.log('error:', error)
+              this.$message.error('请填写完整成员信息。')
+            })
         } else {
           setTimeout(() => {
-            state.loginBtn = false
+            this.loading = false
           }, 600)
         }
-      })
-    },
-
-    // 登录成功
-    loginSuccess (res) {
-      this.$router.push({ path: '/' })
-      // 延迟 1 秒显示欢迎信息
-      setTimeout(() => {
-        this.$notification.success({
-          message: '欢迎',
-          description: `${timeFix()}，欢迎回来`
-        })
-      }, 1000)
-    },
-
-    // 登录失败
-    requestFailed (err) {
-      this.$notification['error']({
-        message: '错误',
-        description: ((err.response || {}).data || {}).message || '请求出现错误，请稍后再试',
-        duration: 4
       })
     }
   }
