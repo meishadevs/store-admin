@@ -7,20 +7,13 @@
       :form="form"
       @submit="handleSubmit"
     >
-      <a-alert
-        v-if="isLoginError"
-        type="error"
-        showIcon
-        style="margin-bottom: 24px"
-        :message="$t('user.login.message-invalid-credentials')"
-      />
       <a-form-item>
         <a-input
           size="large"
           type="text"
           placeholder="请输入用户名"
           v-decorator="[
-            'username',
+            'userName',
             {
               rules: [{ required: true, message: '用户名不能为空' }],
               validateTrigger: 'change',
@@ -60,7 +53,6 @@ import { timeFix } from '@/utils/util'
 export default {
   data () {
     return {
-      isLoginError: false,
       form: this.$form.createForm(this),
 
       state: {
@@ -69,9 +61,6 @@ export default {
         smsSendBtn: false
       }
     }
-  },
-
-  created () {
   },
 
   methods: {
@@ -89,18 +78,15 @@ export default {
 
       state.loginBtn = true
 
-      validateFields(['username', 'password'], { force: true }, (err, values) => {
+      validateFields(['userName', 'password'], { force: true }, (err, values) => {
         if (!err) {
           const loginParams = { ...values }
-          delete loginParams.username
-          loginParams.username = values.username
+          delete loginParams.userName
+          loginParams.userName = values.userName
           loginParams.password = values.password
           Login(loginParams)
             .then((res) => this.loginSuccess(res))
             .catch((err) => this.requestFailed(err))
-            .finally(() => {
-              state.loginBtn = false
-            })
         } else {
           setTimeout(() => {
             state.loginBtn = false
@@ -119,7 +105,15 @@ export default {
           description: `${timeFix()}，欢迎回来`
         })
       }, 1000)
-      this.isLoginError = false
+    },
+
+    // 登录失败
+    requestFailed (err) {
+      this.$notification['error']({
+        message: '错误',
+        description: ((err.response || {}).data || {}).message || '请求出现错误，请稍后再试',
+        duration: 4
+      })
     }
   }
 }
