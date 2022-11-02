@@ -93,8 +93,7 @@ export default {
             })
             .catch(error => {
               this.loading = false
-              console.log('error:', error)
-              this.$message.error('请填写完整成员信息。')
+              this.$message.error(error.msg)
             })
         } else {
           setTimeout(() => {

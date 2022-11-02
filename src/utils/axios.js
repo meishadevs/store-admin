@@ -47,18 +47,25 @@ class HttpRequest {
     instance.interceptors.response.use(async (response) => {
       this.destroy(url)
 
-      console.log('response:', response)
+      // 如果发起的 api 请求需要验证 token
       if (response.data.code && response.data.code !== 200 && !url.includes('/user/login')) {
         // token 过期应该返回登陆页面
         if (response.data.code === 1010) {
-          console.log('返回到登录页')
-        } else if (response.data.code !== 1010) {
+
+        // 请求错误
+        } else {
           return Promise.reject(response.data)
         }
       } else if (contentTypeList.includes(response.headers['content-type'])) {
         return response
+
+      // 不需要验证 token 的请求
       } else {
-        return response.data
+        if (response.data.code === 200) {
+          return response.data
+        } else {
+          return Promise.reject(response.data)
+        }
       }
     }, error => {
       // 错误的请求结果处理，这里的代码根据后台的状态码来决定错误的输出信息

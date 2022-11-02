@@ -3,7 +3,7 @@ import axios from '@/utils/request'
 // 登录
 export function login (param) {
   return axios.request({
-    url: 'user/login',
+    url: '/user/login',
     method: 'post',
     data: param
   })
@@ -12,7 +12,7 @@ export function login (param) {
 // 获得用户信息
 export function getUserInfo () {
   return axios.request({
-    url: 'user/logout',
+    url: '/user/logout',
     method: 'get'
   })
 }
