@@ -1,8 +1,8 @@
-import request from '@/utils/request'
+import axios from '@/utils/request'
 
 // 登录
 export function login (param) {
-  return request({
+  return axios.request({
     url: 'user/login',
     method: 'post',
     data: param
@@ -11,7 +11,7 @@ export function login (param) {
 
 // 获得用户信息
 export function getUserInfo () {
-  return request({
+  return axios.request({
     url: 'user/logout',
     method: 'get'
   })
@@ -19,7 +19,7 @@ export function getUserInfo () {
 
 // 退出登录
 export function logout () {
-  return request({
+  return axios.request({
     url: '',
     method: 'post',
     headers: {

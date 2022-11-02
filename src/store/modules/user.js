@@ -16,23 +16,28 @@ const user = {
   },
 
   mutations: {
+    // 设置 token
     SET_TOKEN: (state, token) => {
       state.token = token
     },
 
+    // 设置姓名
     SET_NAME: (state, { name, welcome }) => {
       state.name = name
       state.welcome = welcome
     },
 
+    // 设置头像
     SET_AVATAR: (state, avatar) => {
       state.avatar = avatar
     },
 
+    // 设置角色
     SET_ROLES: (state, roles) => {
       state.roles = roles
     },
 
+    // 设置用户信息
     SET_INFO: (state, info) => {
       state.info = info
     }
@@ -42,7 +47,9 @@ const user = {
     // 登录
     Login ({ commit }, userInfo) {
       return new Promise((resolve, reject) => {
+        console.log('userInfo:', userInfo)
         login(userInfo).then(response => {
+          console.log('response:', response)
           const result = response.result
           console.log('result:', result)
           storage.set(ACCESS_TOKEN, result.token, new Date().getTime() + 7 * 24 * 60 * 60 * 1000)

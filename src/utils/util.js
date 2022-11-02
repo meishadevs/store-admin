@@ -1,3 +1,18 @@
+import Cookies from 'js-cookie'
+import config from '@/config'
+
+export const TOKEN_KEY = 'token'
+
+export const setToken = (token) => {
+  Cookies.set(TOKEN_KEY, token, { expires: config.cookieExpires || 1 })
+}
+
+export const getToken = () => {
+  const token = Cookies.get(TOKEN_KEY)
+  if (token) return token
+  else return false
+}
+
 export function timeFix () {
   const time = new Date()
   const hour = time.getHours()
@@ -65,6 +80,7 @@ export function removeLoadingAnimate (id = '', timeout = 1500) {
     document.body.removeChild(document.getElementById(id))
   }, timeout)
 }
+
 export function scorePassword (pass) {
   let score = 0
   if (!pass) {
