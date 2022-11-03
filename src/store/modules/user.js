@@ -47,8 +47,8 @@ const user = {
     // 登录
     Login ({ commit }, userInfo) {
       return new Promise((resolve, reject) => {
-        login(userInfo).then(response => {
-          const token = response.token || ''
+        login(userInfo).then(res => {
+          const token = res.data.accessToken
           storage.set(ACCESS_TOKEN, token, new Date().getTime() + 7 * 24 * 60 * 60 * 1000)
           commit('SET_TOKEN', token)
           resolve()
@@ -58,8 +58,8 @@ const user = {
       })
     },
 
-    // 获取用户信息
-    GetInfo ({ commit }) {
+    // 获得当前登录的用户信息
+    getUserInfo ({ commit }) {
       return new Promise((resolve, reject) => {
         // 请求后端获取用户信息 /api/user/info
         getUserInfo().then(response => {
@@ -84,7 +84,7 @@ const user = {
             // 下游
             resolve(result)
           } else {
-            reject(new Error('getInfo: roles must be a non-null array !'))
+            reject(new Error('getUserInfo: roles must be a non-null array !'))
           }
         }).catch(error => {
           reject(error)

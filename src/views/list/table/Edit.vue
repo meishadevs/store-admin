@@ -139,9 +139,10 @@ export default {
         }
       })
     },
-    handleGetInfo () {
 
+    handleGetInfo () {
     },
+
     loadEditInfo (data) {
       const { form } = this
       // ajax

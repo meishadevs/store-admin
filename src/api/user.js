@@ -12,7 +12,7 @@ export function login (param) {
 // 获得用户信息
 export function getUserInfo () {
   return axios.request({
-    url: '/user/logout',
+    url: '/user/info',
     method: 'get'
   })
 }
@@ -20,7 +20,7 @@ export function getUserInfo () {
 // 退出登录
 export function logout () {
   return axios.request({
-    url: '',
+    url: '/user/logout',
     method: 'post',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8'
