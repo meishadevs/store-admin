@@ -1,5 +1,6 @@
 import axios from 'axios'
-import { getToken } from '@/utils/util'
+import storage from 'store'
+import { ACCESS_TOKEN } from '@/store/mutation-types'
 
 // 请求内容的类型
 const contentTypeList = [
@@ -32,13 +33,14 @@ class HttpRequest {
       // 如果不是登录
       if (!request.url.includes('/user/login')) {
         request.headers['Content-type'] = 'application/json;charset=UTF-8'
-        request.headers['X-URL-PATH'] = location.pathname
-        request.headers['Authorization'] = 'Bearer ' + getToken()
+        // request.headers['X-URL-PATH'] = location.pathname
+        request.headers['Authorization'] = 'Bearer ' + storage.get(ACCESS_TOKEN)
       }
 
       this.queue[url] = true
       return request
     }, error => {
+      console.log('error:', error)
       this.destroy(url)
       return Promise.reject(error)
     })

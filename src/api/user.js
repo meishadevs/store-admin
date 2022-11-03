@@ -21,9 +21,6 @@ export function getUserInfo () {
 export function logout () {
   return axios.request({
     url: '/user/logout',
-    method: 'post',
-    headers: {
-      'Content-Type': 'application/json;charset=UTF-8'
-    }
+    method: 'post'
   })
 }

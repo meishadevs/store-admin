@@ -19,6 +19,7 @@ const loginRoutePath = '/user/login'
 // 工作台的路由
 const defaultRoutePath = '/dashboard/workplace'
 
+// 前置导航守卫
 router.beforeEach((to, from, next) => {
   NProgress.start()
 
@@ -60,7 +61,8 @@ router.beforeEach((to, from, next) => {
               }
             })
           })
-          .catch(() => {
+          .catch((error) => {
+            console.log('error:', error)
             notification.error({
               message: '错误',
               description: '请求用户信息失败，请重试'
@@ -87,6 +89,7 @@ router.beforeEach((to, from, next) => {
   }
 })
 
+// 后置导航守卫
 router.afterEach(() => {
   NProgress.done()
 })
