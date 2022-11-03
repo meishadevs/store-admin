@@ -1,6 +1,5 @@
 import * as loginService from '@/api/user'
 
-// eslint-disable-next-line
 import { BasicLayout, BlankLayout, PageView, RouteView } from '@/layouts'
 
 // 前端路由表 (基于动态)
@@ -75,10 +74,6 @@ const rootRouter = {
   children: []
 }
 
-// export const generatorStaticRouter = () => {
-
-// }
-
 /**
  * 动态生成菜单
  * @param token
@@ -86,14 +81,14 @@ const rootRouter = {
  */
 export const generatorDynamicRouter = token => {
   return new Promise((resolve, reject) => {
-    loginService
-      .getCurrentUserNav(token)
+    loginService.getCurrentUserNav(token)
       .then(res => {
         console.log('generatorDynamicRouter response:', res)
         const { result } = res
         const menuNav = []
         const childrenNav = []
-        //      后端数据, 根级树数组,  根级 PID
+
+        // 后端数据, 根级树数组,  根级 PID
         listToTree(result, childrenNav, 0)
         rootRouter.children = childrenNav
         menuNav.push(rootRouter)
@@ -111,7 +106,6 @@ export const generatorDynamicRouter = token => {
 
 /**
  * 格式化树形结构数据 生成 vue-router 层级路由表
- *
  * @param routerMap
  * @param parent
  * @returns {*}
