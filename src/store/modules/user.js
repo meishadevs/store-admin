@@ -61,12 +61,14 @@ const user = {
     // 获得当前登录的用户信息
     getUserInfo ({ commit }) {
       return new Promise((resolve, reject) => {
-        // 请求后端获取用户信息 /api/user/info
-        getUserInfo().then(response => {
-          const { result } = response
-          if (result.role && result.role.permissions.length > 0) {
-            const role = { ...result.role }
-            role.permissions = result.role.permissions.map(permission => {
+        // 请求后端获取用户信息
+        getUserInfo().then(res => {
+          const { data } = res
+
+          // 如果给用户分配了角色，并且角色分配了权限
+          if (data.role && data.role.permissions.length > 0) {
+            const role = { ...data.role }
+            role.permissions = data.role.permissions.map(permission => {
               const per = {
                 ...permission,
                 actionList: (permission.actionEntitySet || {}).map(item => item.action)
@@ -75,14 +77,14 @@ const user = {
             })
             role.permissionList = role.permissions.map(permission => { return permission.permissionId })
             // 覆盖响应体的 role, 供下游使用
-            result.role = role
+            data.role = role
 
             commit('SET_ROLES', role)
-            commit('SET_INFO', result)
-            commit('SET_NAME', { name: result.name, welcome: welcome() })
-            commit('SET_AVATAR', result.avatar)
+            commit('SET_INFO', data)
+            commit('SET_NAME', { name: data.useName, welcome: welcome() })
+            commit('SET_AVATAR', data.avatar)
             // 下游
-            resolve(result)
+            resolve(data)
           } else {
             reject(new Error('getUserInfo: roles must be a non-null array !'))
           }
