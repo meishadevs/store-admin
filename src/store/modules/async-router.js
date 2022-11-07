@@ -9,12 +9,14 @@ const permission = {
     routers: constantRouterMap,
     addRouters: []
   },
+
   mutations: {
     SET_ROUTERS: (state, routers) => {
       state.addRouters = routers
       state.routers = constantRouterMap.concat(routers)
     }
   },
+
   actions: {
     GenerateRoutes ({ commit }, data) {
       return new Promise((resolve, reject) => {

@@ -5,14 +5,26 @@ import { ACCESS_TOKEN } from '@/store/mutation-types'
 import { welcome } from '@/utils/util'
 
 storage.addPlugin(expirePlugin)
+
 const user = {
   state: {
     token: '',
+
+    // 用户名
     name: '',
     welcome: '',
+
+    // 头像
     avatar: '',
+
+    // 角色
     roles: [],
-    info: {}
+
+    // 用户信息
+    info: {},
+
+    // 权限
+    permissions: []
   },
 
   mutations: {
@@ -40,6 +52,11 @@ const user = {
     // 设置用户信息
     SET_INFO: (state, info) => {
       state.info = info
+    },
+
+    // 设置权限
+    SET_PERMISSION: (state, permissions) => {
+      state.permissions = permissions
     }
   },
 
@@ -65,29 +82,12 @@ const user = {
         getUserInfo().then(res => {
           const { data } = res
 
-          // 如果给用户分配了角色，并且角色分配了权限
-          if (data.role && data.role.permissions.length > 0) {
-            const role = { ...data.role }
-            role.permissions = data.role.permissions.map(permission => {
-              const per = {
-                ...permission,
-                actionList: (permission.actionEntitySet || {}).map(item => item.action)
-               }
-              return per
-            })
-            role.permissionList = role.permissions.map(permission => { return permission.permissionId })
-            // 覆盖响应体的 role, 供下游使用
-            data.role = role
-
-            commit('SET_ROLES', role)
-            commit('SET_INFO', data)
-            commit('SET_NAME', { name: data.useName, welcome: welcome() })
-            commit('SET_AVATAR', data.avatar)
-            // 下游
-            resolve(data)
-          } else {
-            reject(new Error('getUserInfo: roles must be a non-null array !'))
-          }
+          commit('SET_ROLES', data.roleList)
+          commit('SET_INFO', data)
+          commit('SET_NAME', { name: data.useName, welcome: welcome() })
+          commit('SET_AVATAR', data.avatar)
+          commit('SET_PERMISSION', data.permissions)
+          resolve(data)
         }).catch(error => {
           reject(error)
         })
