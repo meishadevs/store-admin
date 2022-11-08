@@ -33,7 +33,6 @@ class HttpRequest {
       // 如果不是登录
       if (!request.url.includes('/user/login')) {
         request.headers['Content-type'] = 'application/json;charset=UTF-8'
-        // request.headers['X-URL-PATH'] = location.pathname
         request.headers['Authorization'] = 'Bearer ' + storage.get(ACCESS_TOKEN)
       }
 

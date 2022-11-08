@@ -34,7 +34,6 @@
 import { i18nRender } from '@/locales'
 import { mapState } from 'vuex'
 import { CONTENT_WIDTH_TYPE, SIDEBAR_TYPE, TOGGLE_MOBILE_TYPE } from '@/store/mutation-types'
-
 import defaultSettings from '@/config/defaultSettings'
 import GlobalFooter from '@/components/GlobalFooter'
 import RightContent from '@/components/GlobalHeader/RightContent'
@@ -109,6 +108,7 @@ export default {
 
   mounted () {
     const userAgent = navigator.userAgent
+
     if (userAgent.indexOf('Edge') > -1) {
       this.$nextTick(() => {
         this.collapsed = !this.collapsed

@@ -32,6 +32,7 @@ const app = {
     lang: 'en-US',
     _antLocale: {}
   },
+
   mutations: {
     [SIDEBAR_TYPE]: (state, type) => {
       state.sideCollapsed = type

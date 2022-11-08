@@ -23,6 +23,7 @@ import './utils/filter'
 // 全局样式
 import './global.less'
 
+// 默认配置
 import defaultSettings from '@/config/defaultSettings'
 
 Vue.config.productionTip = false
