@@ -31,7 +31,7 @@ export const constantRouterMap = [
     name: 'index',
     component: BasicLayout,
     meta: {
-      title: 'menu.home'
+      title: '首页'
     },
     redirect: '/dashboard/workplace',
     children: [
@@ -41,29 +41,19 @@ export const constantRouterMap = [
         redirect: '/dashboard/workplace',
         component: RouteView,
         meta: {
-          title: 'menu.dashboard',
+          title: '工作台',
           keepAlive: true,
           icon: bxAnaalyse,
           permission: ['dashboard']
         },
         children: [
           {
-            path: '/dashboard/analysis/:pageNo([1-9]\\d*)?',
-            name: 'Analysis',
-            component: () => import('@/views/dashboard/Analysis'),
-            meta: {
-              title: 'menu.dashboard.analysis',
-              keepAlive: false,
-              permission: ['dashboard']
-            }
-          },
-          {
-            path: '/dashboard/workplace',
+            path: '/dashboard/workplace/:pageNo([1-9]\\d*)?',
             name: 'Workplace',
-            component: () => import('@/views/dashboard/Workplace'),
+            component: () => import('@/views/dashboard'),
             meta: {
-              title: 'menu.dashboard.workplace',
-              keepAlive: true,
+              title: '工作台',
+              keepAlive: false,
               permission: ['dashboard']
             }
           }

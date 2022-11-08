@@ -2,48 +2,48 @@
   <div>
     <a-row :gutter="24">
       <a-col :sm="24" :md="12" :xl="6" :style="{ marginBottom: '24px' }">
-        <chart-card :loading="loading" :title="$t('dashboard.analysis.total-sales')" total="￥126,560">
-          <a-tooltip :title="$t('dashboard.analysis.introduce')" slot="action">
+        <chart-card :loading="loading" title="总销售额" total="￥126,560">
+          <a-tooltip title="指标说明" slot="action">
             <a-icon type="info-circle-o" />
           </a-tooltip>
           <div>
             <trend flag="up" style="margin-right: 16px;">
-              <span slot="term">{{ $t('dashboard.analysis.week') }}</span>
+              <span slot="term">周同比</span>
               12%
             </trend>
             <trend flag="down">
-              <span slot="term">{{ $t('dashboard.analysis.day') }}</span>
+              <span slot="term">日同比</span>
               11%
             </trend>
           </div>
-          <template slot="footer">{{ $t('dashboard.analysis.day-sales') }}<span>￥ 234.56</span></template>
+          <template slot="footer">日均销售额<span>￥ 234.56</span></template>
         </chart-card>
       </a-col>
       <a-col :sm="24" :md="12" :xl="6" :style="{ marginBottom: '24px' }">
-        <chart-card :loading="loading" :title="$t('dashboard.analysis.visits')" :total="8846 | NumberFormat">
-          <a-tooltip :title="$t('dashboard.analysis.introduce')" slot="action">
+        <chart-card :loading="loading" title="访问量" :total="8846 | NumberFormat">
+          <a-tooltip title="指标说明" slot="action">
             <a-icon type="info-circle-o" />
           </a-tooltip>
           <div>
             <mini-area />
           </div>
-          <template slot="footer">{{ $t('dashboard.analysis.day-visits') }}<span> {{ '1234' | NumberFormat }}</span></template>
+          <template slot="footer">日访问量<span> {{ '1234' | NumberFormat }}</span></template>
         </chart-card>
       </a-col>
       <a-col :sm="24" :md="12" :xl="6" :style="{ marginBottom: '24px' }">
-        <chart-card :loading="loading" :title="$t('dashboard.analysis.payments')" :total="6560 | NumberFormat">
-          <a-tooltip :title="$t('dashboard.analysis.introduce')" slot="action">
+        <chart-card :loading="loading" title="支付笔数" :total="6560 | NumberFormat">
+          <a-tooltip title="指标说明" slot="action">
             <a-icon type="info-circle-o" />
           </a-tooltip>
           <div>
             <mini-bar />
           </div>
-          <template slot="footer">{{ $t('dashboard.analysis.conversion-rate') }} <span>60%</span></template>
+          <template slot="footer">转化率<span>60%</span></template>
         </chart-card>
       </a-col>
       <a-col :sm="24" :md="12" :xl="6" :style="{ marginBottom: '24px' }">
-        <chart-card :loading="loading" :title="$t('dashboard.analysis.operational-effect')" total="78%">
-          <a-tooltip :title="$t('dashboard.analysis.introduce')" slot="action">
+        <chart-card :loading="loading" title="运营活动效果" total="78%">
+          <a-tooltip title="指标说明" slot="action">
             <a-icon type="info-circle-o" />
           </a-tooltip>
           <div>
@@ -51,11 +51,11 @@
           </div>
           <template slot="footer">
             <trend flag="down" style="margin-right: 16px;">
-              <span slot="term">{{ $t('dashboard.analysis.week') }}</span>
+              <span slot="term">周同比</span>
               12%
             </trend>
             <trend flag="up">
-              <span slot="term">{{ $t('dashboard.analysis.day') }}</span>
+              <span slot="term">日同比</span>
               80%
             </trend>
           </template>
@@ -68,30 +68,30 @@
         <a-tabs default-active-key="1" size="large" :tab-bar-style="{marginBottom: '24px', paddingLeft: '16px'}">
           <div class="extra-wrapper" slot="tabBarExtraContent">
             <div class="extra-item">
-              <a>{{ $t('dashboard.analysis.all-day') }}</a>
-              <a>{{ $t('dashboard.analysis.all-week') }}</a>
-              <a>{{ $t('dashboard.analysis.all-month') }}</a>
-              <a>{{ $t('dashboard.analysis.all-year') }}</a>
+              <a>今日</a>
+              <a>本周</a>
+              <a>本月</a>
+              <a>全年</a>
             </div>
             <a-range-picker :style="{width: '256px'}" />
           </div>
-          <a-tab-pane loading="true" :tab="$t('dashboard.analysis.sales')" key="1">
+          <a-tab-pane loading="true" tab="销售额" key="1">
             <a-row>
               <a-col :xl="16" :lg="12" :md="12" :sm="24" :xs="24">
-                <bar :data="barData" :title="$t('dashboard.analysis.sales-trend')" />
+                <bar :data="barData" title="销售趋势" />
               </a-col>
               <a-col :xl="8" :lg="12" :md="12" :sm="24" :xs="24">
-                <rank-list :title="$t('dashboard.analysis.sales-ranking')" :list="rankList"/>
+                <rank-list title="门店销售额排名" :list="rankList"/>
               </a-col>
             </a-row>
           </a-tab-pane>
-          <a-tab-pane :tab="$t('dashboard.analysis.visits')" key="2">
+          <a-tab-pane tab="访问量" key="2">
             <a-row>
               <a-col :xl="16" :lg="12" :md="12" :sm="24" :xs="24">
-                <bar :data="barData2" :title="$t('dashboard.analysis.visits-trend')" />
+                <bar :data="barData2" title="访问量趋势" />
               </a-col>
               <a-col :xl="8" :lg="12" :md="12" :sm="24" :xs="24">
-                <rank-list :title="$t('dashboard.analysis.visits-ranking')" :list="rankList"/>
+                <rank-list title="门店访问量排名" :list="rankList"/>
               </a-col>
             </a-row>
           </a-tab-pane>
@@ -99,20 +99,20 @@
       </div>
     </a-card>
 
-    <div class="antd-pro-pages-dashboard-analysis-twoColLayout" :class="!isMobile && 'desktop'">
+    <div class="antd-pro-pages-dashboard-workplace-twoColLayout" :class="!isMobile && 'desktop'">
       <a-row :gutter="24" type="flex" :style="{ marginTop: '24px' }">
         <a-col :xl="12" :lg="24" :md="24" :sm="24" :xs="24">
-          <a-card :loading="loading" :bordered="false" :title="$t('dashboard.analysis.online-top-search')" :style="{ height: '100%' }">
+          <a-card :loading="loading" :bordered="false" title="线上热门搜索" :style="{ height: '100%' }">
             <a-dropdown :trigger="['click']" placement="bottomLeft" slot="extra">
               <a class="ant-dropdown-link" href="#">
                 <a-icon type="ellipsis" />
               </a>
               <a-menu slot="overlay">
                 <a-menu-item>
-                  <a href="javascript:;">{{ $t('dashboard.analysis.dropdown-option-one') }}</a>
+                  <a href="javascript:;">操作一</a>
                 </a-menu-item>
                 <a-menu-item>
-                  <a href="javascript:;">{{ $t('dashboard.analysis.dropdown-option-two') }}</a>
+                  <a href="javascript:;">操作二</a>
                 </a-menu-item>
               </a-menu>
             </a-dropdown>
@@ -120,13 +120,12 @@
               <a-col :xs="24" :sm="12" :style="{ marginBottom: ' 24px'}">
                 <number-info :total="12321" :sub-total="17.1">
                   <span slot="subtitle">
-                    <span>{{ $t('dashboard.analysis.search-users') }}</span>
-                    <a-tooltip :title="$t('dashboard.analysis.introduce')" slot="action">
+                    <span>搜索用户数</span>
+                    <a-tooltip title="指标说明" slot="action">
                       <a-icon type="info-circle-o" :style="{ marginLeft: '8px' }" />
                     </a-tooltip>
                   </span>
                 </number-info>
-                <!-- miniChart -->
                 <div>
                   <mini-smooth-area :style="{ height: '45px' }" :dataSource="searchUserData" :scale="searchUserScale" />
                 </div>
@@ -134,13 +133,12 @@
               <a-col :xs="24" :sm="12" :style="{ marginBottom: ' 24px'}">
                 <number-info :total="2.7" :sub-total="26.2" status="down">
                   <span slot="subtitle">
-                    <span>{{ $t('dashboard.analysis.per-capita-search') }}</span>
-                    <a-tooltip :title="$t('dashboard.analysis.introduce')" slot="action">
+                    <span>人均搜索次数</span>
+                    <a-tooltip title="指标说明" slot="action">
                       <a-icon type="info-circle-o" :style="{ marginLeft: '8px' }" />
                     </a-tooltip>
                   </span>
                 </number-info>
-                <!-- miniChart -->
                 <div>
                   <mini-smooth-area :style="{ height: '45px' }" :dataSource="searchUserData" :scale="searchUserScale" />
                 </div>
@@ -164,39 +162,36 @@
           </a-card>
         </a-col>
         <a-col :xl="12" :lg="24" :md="24" :sm="24" :xs="24">
-          <a-card class="antd-pro-pages-dashboard-analysis-salesCard" :loading="loading" :bordered="false" :title="$t('dashboard.analysis.the-proportion-of-sales')" :style="{ height: '100%' }">
+          <a-card class="antd-pro-pages-dashboard-workplace-salesCard" :loading="loading" :bordered="false" title="销售额类别占比" :style="{ height: '100%' }">
             <div slot="extra" style="height: inherit;">
-              <!-- style="bottom: 12px;display: inline-block;" -->
-              <span class="dashboard-analysis-iconGroup">
+              <span class="dashboard-workplace-iconGroup">
                 <a-dropdown :trigger="['click']" placement="bottomLeft">
                   <a-icon type="ellipsis" class="ant-dropdown-link" />
                   <a-menu slot="overlay">
                     <a-menu-item>
-                      <a href="javascript:;">{{ $t('dashboard.analysis.dropdown-option-one') }}</a>
+                      <a href="javascript:;">操作一</a>
                     </a-menu-item>
                     <a-menu-item>
-                      <a href="javascript:;">{{ $t('dashboard.analysis.dropdown-option-two') }}</a>
+                      <a href="javascript:;">操作二</a>
                     </a-menu-item>
                   </a-menu>
                 </a-dropdown>
               </span>
-              <div class="analysis-salesTypeRadio">
+              <div class="workplace-salesTypeRadio">
                 <a-radio-group defaultValue="a">
-                  <a-radio-button value="a">{{ $t('dashboard.analysis.channel.all') }}</a-radio-button>
-                  <a-radio-button value="b">{{ $t('dashboard.analysis.channel.online') }}</a-radio-button>
-                  <a-radio-button value="c">{{ $t('dashboard.analysis.channel.stores') }}</a-radio-button>
+                  <a-radio-button value="a">全部渠道</a-radio-button>
+                  <a-radio-button value="b">线上</a-radio-button>
+                  <a-radio-button value="c">门店</a-radio-button>
                 </a-radio-group>
               </div>
 
             </div>
-            <h4>{{ $t('dashboard.analysis.sales') }}</h4>
+            <h4>销售额</h4>
             <div>
-              <!-- style="width: calc(100% - 240px);" -->
               <div>
                 <v-chart :force-fit="true" :height="405" :data="pieData" :scale="pieScale">
                   <v-tooltip :showTitle="false" dataKey="item*percent" />
                   <v-axis />
-                  <!-- position="right" :offsetX="-140" -->
                   <v-legend dataKey="item"/>
                   <v-pie position="percent" color="item" :vStyle="pieStyle" />
                   <v-coord type="theta" :radius="0.75" :innerRadius="0.6" />
@@ -213,6 +208,7 @@
 
 <script>
 import moment from 'moment'
+import { baseMixin } from '@/store/app-mixin'
 import {
   ChartCard,
   MiniArea,
@@ -224,10 +220,10 @@ import {
   NumberInfo,
   MiniSmoothArea
 } from '@/components'
-import { baseMixin } from '@/store/app-mixin'
 
 const barData = []
 const barData2 = []
+
 for (let i = 0; i < 12; i += 1) {
   barData.push({
     x: `${i + 1}月`,
@@ -240,6 +236,7 @@ for (let i = 0; i < 12; i += 1) {
 }
 
 const rankList = []
+
 for (let i = 0; i < 7; i++) {
   rankList.push({
     name: '白鹭岛 ' + (i + 1) + ' 号店',
@@ -248,12 +245,14 @@ for (let i = 0; i < 7; i++) {
 }
 
 const searchUserData = []
+
 for (let i = 0; i < 7; i++) {
   searchUserData.push({
     x: moment().add(i, 'days').format('YYYY-MM-DD'),
     y: Math.ceil(Math.random() * 10)
   })
 }
+
 const searchUserScale = [
   {
     dataKey: 'x',
@@ -267,6 +266,7 @@ const searchUserScale = [
   }]
 
 const searchData = []
+
 for (let i = 0; i < 50; i += 1) {
   searchData.push({
     index: i + 1,
@@ -295,17 +295,21 @@ const pieScale = [{
 }]
 
 const dv = new DataSet.View().source(sourceData)
+
 dv.transform({
   type: 'percent',
   field: 'count',
   dimension: 'item',
   as: 'percent'
 })
+
 const pieData = dv.rows
 
 export default {
-  name: 'Analysis',
+  name: 'Workplace',
+
   mixins: [baseMixin],
+
   components: {
     ChartCard,
     MiniArea,
@@ -317,6 +321,7 @@ export default {
     NumberInfo,
     MiniSmoothArea
   },
+
   data () {
     return {
       loading: true,
@@ -340,25 +345,26 @@ export default {
       }
     }
   },
+
   computed: {
     searchTableColumns () {
         return [
       {
         dataIndex: 'index',
-        title: this.$t('dashboard.analysis.table.rank'),
+        title: '排名',
         width: 90
       },
       {
         dataIndex: 'keyword',
-        title: this.$t('dashboard.analysis.table.search-keyword')
+        title: '搜索关键词'
       },
       {
         dataIndex: 'count',
-        title: this.$t('dashboard.analysis.table.users')
+        title: '用户数'
       },
       {
         dataIndex: 'range',
-        title: this.$t('dashboard.analysis.table.weekly-range'),
+        title: '周涨幅',
         align: 'right',
         sorter: (a, b) => a.range - b.range,
         scopedSlots: { customRender: 'range' }
@@ -366,6 +372,7 @@ export default {
       ]
     }
   },
+
   created () {
     setTimeout(() => {
       this.loading = !this.loading
@@ -389,21 +396,21 @@ export default {
     }
   }
 
-  .antd-pro-pages-dashboard-analysis-twoColLayout {
+  .antd-pro-pages-dashboard-workplace-twoColLayout {
     position: relative;
     display: flex;
     display: block;
     flex-flow: row wrap;
   }
 
-  .antd-pro-pages-dashboard-analysis-salesCard {
+  .antd-pro-pages-dashboard-workplace-salesCard {
     height: calc(100% - 24px);
     :deep(.ant-card-head) {
       position: relative;
     }
   }
 
-  .dashboard-analysis-iconGroup {
+  .dashboard-workplace-iconGroup {
     i {
       margin-left: 16px;
       color: rgba(0,0,0,.45);
@@ -412,7 +419,8 @@ export default {
       color: black;
     }
   }
-  .analysis-salesTypeRadio {
+
+  .workplace-salesTypeRadio {
     position: absolute;
     right: 54px;
     bottom: 12px;
