@@ -51,6 +51,8 @@ import { mapActions } from 'vuex'
 import { timeFix } from '@/utils/util'
 
 export default {
+  name: 'Login',
+
   data () {
     return {
       form: this.$form.createForm(this),
