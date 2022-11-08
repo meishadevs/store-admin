@@ -11,13 +11,13 @@ import { i18nRender } from '@/locales'
 NProgress.configure({ showSpinner: false })
 
 // 不需要验证 token 就能访问的路由
-const allowList = ['login', 'register', 'registerResult']
+const allowList = ['login']
 
 // 登录页的路由
 const loginRoutePath = '/user/login'
 
 // 工作台的路由
-const defaultRoutePath = '/dashboard/workplace'
+const defaultRoutePath = '/dashboard/analysis'
 
 // 前置导航守卫
 router.beforeEach((to, from, next) => {
