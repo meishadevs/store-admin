@@ -7,9 +7,6 @@ import user from './modules/user'
 // 默认路由模式为静态路由 (router.config.js)
 import permission from './modules/static-router'
 
-// 动态路由模式（api请求后端生成）
-// import permission from './modules/async-router'
-
 import getters from './getters'
 
 Vue.use(Vuex)
