@@ -6,12 +6,11 @@ const RouteView = {
   render: h => h('router-view')
 }
 
+// 需要权限才能访问的路由
 export const asyncRouterMap = [
 ]
 
-/**
- * 基础路由
- */
+// 基础路由
 export const constantRouterMap = [
   {
     path: '/user',
@@ -62,7 +61,7 @@ export const constantRouterMap = [
     ]
   },
   {
-    path: '/404',
+    path: '*',
     component: () => import(/* webpackChunkName: "fail" */ '@/views/exception/404')
   }
 ]
