@@ -57,6 +57,18 @@ const user = {
     // 设置权限
     SET_PERMISSION: (state, permissions) => {
       state.permissions = permissions
+    },
+
+    // 清空用户数据
+    CLEAR_USER_DATA: (state) => {
+      state.token = ''
+      state.userName = ''
+      state.welcome = ''
+      state.avatar = ''
+      state.roles = []
+      state.info = {}
+      state.permissions = []
+      storage.remove(ACCESS_TOKEN)
     }
   },
 
@@ -98,9 +110,7 @@ const user = {
     Logout ({ commit, state }) {
       return new Promise((resolve) => {
         logout(state.token).then(() => {
-          commit('SET_TOKEN', '')
-          commit('SET_ROLES', [])
-          storage.remove(ACCESS_TOKEN)
+          commit('CLEAR_USER_DATA')
           resolve()
         }).catch((err) => {
           console.log('logout fail:', err)
@@ -109,7 +119,6 @@ const user = {
         })
       })
     }
-
   }
 }
 

@@ -1,5 +1,7 @@
 import axios from 'axios'
 import storage from 'store'
+import router from '@/router'
+import store from '@/store'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 
 // 请求内容的类型
@@ -50,9 +52,12 @@ class HttpRequest {
 
       // 如果发起的 api 请求需要验证 token
       if (response.data.code && response.data.code !== 200 && !url.includes('/user/login')) {
-        // token 过期应该返回登陆页面
-        if (response.data.code === 1010) {
-
+        // token 过期返回登陆页面
+        if (response.data.code === 401) {
+          store.commit('CLEAR_USER_DATA')
+          router.push({
+            name: 'login'
+          })
         // 请求错误
         } else {
           return Promise.reject(response.data)
