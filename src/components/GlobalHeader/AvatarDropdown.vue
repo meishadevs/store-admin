@@ -58,12 +58,13 @@ export default {
       Modal.confirm({
         title: '提示',
         content: '确定要退出吗？',
+        okText: '确认',
+        cancelText: '取消',
         onOk: () => {
           return this.$store.dispatch('Logout').then(() => {
             this.$router.push({ name: 'login' })
           })
-        },
-        onCancel () {}
+        }
       })
     }
   }
