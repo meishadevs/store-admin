@@ -11,7 +11,7 @@ const user = {
     token: '',
 
     // 用户名
-    name: '',
+    userName: '',
     welcome: '',
 
     // 头像
@@ -33,9 +33,9 @@ const user = {
       state.token = token
     },
 
-    // 设置姓名
-    SET_NAME: (state, { name, welcome }) => {
-      state.name = name
+    // 设置用户名
+    SET_USER_NAME: (state, { userName, welcome }) => {
+      state.userName = userName
       state.welcome = welcome
     },
 
@@ -84,7 +84,7 @@ const user = {
 
           commit('SET_ROLES', data.roleList)
           commit('SET_INFO', data)
-          commit('SET_NAME', { name: data.useName, welcome: welcome() })
+          commit('SET_USER_NAME', { userName: data.userName, welcome: welcome() })
           commit('SET_AVATAR', data.avatar)
           commit('SET_PERMISSION', data.permissions)
           resolve(data)

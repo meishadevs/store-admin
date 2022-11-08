@@ -151,8 +151,8 @@ export default {
       user: {},
 
       projects: [],
-      loading: true,
-      radarLoading: true,
+      loading: false,
+      radarLoading: false,
       activities: [],
       teams: [],
 

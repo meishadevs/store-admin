@@ -15,6 +15,7 @@ export default {
     return {
     }
   },
+
   computed: {
     locale () {
       // 只是为了切换语言时，更新标题
