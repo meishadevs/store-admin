@@ -71,6 +71,7 @@ export default {
     GlobalFooter,
     Ads
   },
+
   data () {
     return {
       // preview.pro.antdv.com only use.

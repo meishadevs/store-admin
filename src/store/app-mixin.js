@@ -16,10 +16,12 @@ const baseMixin = {
       sideCollapsed: state => state.app.sideCollapsed,
       multiTab: state => state.app.multiTab
     }),
+
     isTopMenu () {
       return this.layout === 'topmenu'
     }
   },
+
   methods: {
     isSideMenu () {
       return !this.isTopMenu

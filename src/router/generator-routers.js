@@ -132,25 +132,31 @@ export const generator = (routerMap, parent) => {
         permission: item.name
       }
     }
+
     // 是否设置了隐藏菜单
     if (show === false) {
       currentRouter.hidden = true
     }
+
     // 是否设置了隐藏子菜单
     if (hideChildren) {
       currentRouter.hideChildrenInMenu = true
     }
+
     // 为了防止出现后端返回结果不规范，处理有可能出现拼接出两个 反斜杠
     if (!currentRouter.path.startsWith('http')) {
       currentRouter.path = currentRouter.path.replace('//', '/')
     }
+
     // 重定向
     item.redirect && (currentRouter.redirect = item.redirect)
+
     // 是否有子菜单，并递归处理
     if (item.children && item.children.length > 0) {
       // Recursion
       currentRouter.children = generator(item.children, currentRouter)
     }
+
     return currentRouter
   })
 }
