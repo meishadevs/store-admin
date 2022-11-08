@@ -29,12 +29,6 @@
         </a-tooltip>
       </div>
     </template>
-
-    <setting-drawer v-if="isDev" :settings="settings" @change="handleSettingChange">
-      <div style="margin: 12px 0;">
-        This is SettingDrawer custom footer content.
-      </div>
-    </setting-drawer>
     <template v-slot:rightContentRender>
       <right-content :top-menu="settings.layout === 'topmenu'" :is-mobile="isMobile" :theme="settings.theme" />
     </template>
@@ -47,7 +41,6 @@
 </template>
 
 <script>
-import { SettingDrawer, updateTheme } from '@ant-design-vue/pro-layout'
 import { i18nRender } from '@/locales'
 import { mapState } from 'vuex'
 import { CONTENT_WIDTH_TYPE, SIDEBAR_TYPE, TOGGLE_MOBILE_TYPE } from '@/store/mutation-types'
@@ -59,8 +52,8 @@ import Ads from '@/components/Other/CarbonAds'
 
 export default {
   name: 'BasicLayout',
+
   components: {
-    SettingDrawer,
     RightContent,
     GlobalFooter,
     Ads
@@ -68,21 +61,23 @@ export default {
 
   data () {
     return {
-      // 是否处于开发环境下
-      isDev: process.env.NODE_ENV === 'development',
-
       // base
       menus: [],
       // 侧栏收起状态
       collapsed: false,
+
       title: defaultSettings.title,
+
       settings: {
         // 布局类型
-        layout: defaultSettings.layout, // 'sidemenu', 'topmenu'
+        layout: defaultSettings.layout,
+
         // CONTENT_WIDTH_TYPE
         contentWidth: defaultSettings.layout === 'sidemenu' ? CONTENT_WIDTH_TYPE.Fluid : defaultSettings.contentWidth,
-        // 主题 'dark' | 'light'
+
+        // 主题
         theme: defaultSettings.navTheme,
+
         // 主色调
         primaryColor: defaultSettings.primaryColor,
         fixedHeader: defaultSettings.fixedHeader,
@@ -100,6 +95,7 @@ export default {
       isMobile: false
     }
   },
+
   computed: {
     ...mapState({
       // 动态主路由
@@ -110,6 +106,7 @@ export default {
   created () {
     const routes = this.mainMenu.find(item => item.path === '/')
     this.menus = (routes && routes.children) || []
+
     // 处理侧栏收起状态
     this.$watch('collapsed', () => {
       this.$store.commit(SIDEBAR_TYPE, this.collapsed)
@@ -130,32 +127,29 @@ export default {
         }, 16)
       })
     }
-
-    // first update color
-    // TIPS: THEME COLOR HANDLER!! PLEASE CHECK THAT!!
-    if (process.env.NODE_ENV !== 'production') {
-      updateTheme(this.settings.primaryColor)
-    }
   },
 
   methods: {
     i18nRender,
     handleMediaQuery (val) {
       this.query = val
+
       if (this.isMobile && !val['screen-xs']) {
         this.isMobile = false
         return
       }
+
       if (!this.isMobile && val['screen-xs']) {
         this.isMobile = true
         this.collapsed = false
         this.settings.contentWidth = CONTENT_WIDTH_TYPE.Fluid
-        // this.settings.fixSiderbar = false
       }
     },
+
     handleCollapse (val) {
       this.collapsed = val
     },
+
     handleSettingChange ({ type, value }) {
       console.log('type', type, value)
       type && (this.settings[type] = value)
