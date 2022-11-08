@@ -43,7 +43,7 @@ export default {
 
   iconfontUrl: '',
 
-  production: process.env.NODE_ENV === 'production' && process.env.VUE_APP_PREVIEW !== 'true',
+  production: process.env.NODE_ENV === 'production',
 
   // token 在 Cookie 中存储的天数，默认 1 天
   cookieExpires: 1,

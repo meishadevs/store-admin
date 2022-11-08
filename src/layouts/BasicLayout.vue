@@ -9,12 +9,6 @@
     :i18nRender="i18nRender"
     v-bind="settings"
   >
-    <!-- Ads begin
-      广告代码 真实项目中请移除
-      production remove this Ads
-    -->
-    <ads v-if="isProPreviewSite && !collapsed"/>
-    <!-- Ads end -->
 
     <!-- 1.0.0+ 版本 pro-layout 提供 API，
           我们推荐使用这种方式进行 LOGO 和 title 自定义
@@ -74,10 +68,8 @@ export default {
 
   data () {
     return {
-      // preview.pro.antdv.com only use.
-      isProPreviewSite: process.env.VUE_APP_PREVIEW === 'true' && process.env.NODE_ENV !== 'development',
-      // end
-      isDev: process.env.NODE_ENV === 'development' || process.env.VUE_APP_PREVIEW === 'true',
+      // 是否处于开发环境下
+      isDev: process.env.NODE_ENV === 'development',
 
       // base
       menus: [],
@@ -100,6 +92,7 @@ export default {
         hideHintAlert: false,
         hideCopyButton: false
       },
+
       // 媒体查询
       query: {},
 
@@ -113,6 +106,7 @@ export default {
       mainMenu: state => state.permission.addRouters
     })
   },
+
   created () {
     const routes = this.mainMenu.find(item => item.path === '/')
     this.menus = (routes && routes.children) || []
@@ -120,10 +114,12 @@ export default {
     this.$watch('collapsed', () => {
       this.$store.commit(SIDEBAR_TYPE, this.collapsed)
     })
+
     this.$watch('isMobile', () => {
       this.$store.commit(TOGGLE_MOBILE_TYPE, this.isMobile)
     })
   },
+
   mounted () {
     const userAgent = navigator.userAgent
     if (userAgent.indexOf('Edge') > -1) {
@@ -137,10 +133,11 @@ export default {
 
     // first update color
     // TIPS: THEME COLOR HANDLER!! PLEASE CHECK THAT!!
-    if (process.env.NODE_ENV !== 'production' || process.env.VUE_APP_PREVIEW === 'true') {
+    if (process.env.NODE_ENV !== 'production') {
       updateTheme(this.settings.primaryColor)
     }
   },
+
   methods: {
     i18nRender,
     handleMediaQuery (val) {

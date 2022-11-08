@@ -137,16 +137,13 @@ import { mapState } from 'vuex'
 import { PageHeaderWrapper } from '@ant-design-vue/pro-layout'
 import { Radar } from '@/components'
 
-import { getRoleList, getServiceList } from '@/api/manage'
-
-const DataSet = require('@antv/data-set')
-
 export default {
   name: 'Workplace',
   components: {
     PageHeaderWrapper,
     Radar
   },
+
   data () {
     return {
       timeFix: timeFix(),
@@ -218,54 +215,12 @@ export default {
   created () {
     this.user = this.userInfo
     this.avatar = this.userInfo.avatar
-
-    getRoleList().then(res => {
-      // console.log('workplace -> call getRoleList()', res)
-    })
-
-    getServiceList().then(res => {
-      // console.log('workplace -> call getServiceList()', res)
-    })
   },
+
   mounted () {
-    this.getProjects()
-    this.getActivity()
-    this.getTeams()
-    this.initRadar()
   },
+
   methods: {
-    getProjects () {
-      this.$http.get('/list/search/projects').then(res => {
-        this.projects = res.result && res.result.data
-        this.loading = false
-      })
-    },
-    getActivity () {
-      this.$http.get('/workplace/activity').then(res => {
-        this.activities = res.result
-      })
-    },
-    getTeams () {
-      this.$http.get('/workplace/teams').then(res => {
-        this.teams = res.result
-      })
-    },
-    initRadar () {
-      this.radarLoading = true
-
-      this.$http.get('/workplace/radar').then(res => {
-        const dv = new DataSet.View().source(res.result)
-        dv.transform({
-          type: 'fold',
-          fields: ['个人', '团队', '部门'],
-          key: 'user',
-          value: 'score'
-        })
-
-        this.radarData = dv.rows
-        this.radarLoading = false
-      })
-    }
   }
 }
 </script>
