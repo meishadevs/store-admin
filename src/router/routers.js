@@ -29,12 +29,12 @@ export const constantRouterMap = [
     meta: {
       title: '首页'
     },
-    redirect: '/dashboard/workplace',
+    redirect: '/dashboard',
     children: [
       {
-        path: '/dashboard/workplace/:pageNo([1-9]\\d*)?',
-        name: 'Workplace',
-        component: () => import('@/views/dashboard'),
+        path: 'dashboard',
+        name: 'dashboard',
+        component: () => import(/* webpackChunkName: "dashboard" */ '@/views/dashboard'),
         meta: {
           title: '主页',
           keepAlive: false

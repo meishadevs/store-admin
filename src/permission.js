@@ -17,7 +17,7 @@ const allowList = ['login']
 const loginRoutePath = '/user/login'
 
 // 工作台的路由
-const defaultRoutePath = '/dashboard/workplace'
+const defaultRoutePath = '/dashboard'
 
 // 前置导航守卫
 router.beforeEach((to, from, next) => {
