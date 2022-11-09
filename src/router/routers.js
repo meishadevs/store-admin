@@ -1,10 +1,4 @@
 import { UserLayout, BasicLayout } from '@/layouts'
-import { bxAnaalyse } from '@/core/icons'
-
-const RouteView = {
-  name: 'RouteView',
-  render: h => h('router-view')
-}
 
 // 需要权限才能访问的路由
 export const asyncRouterMap = [
@@ -38,32 +32,19 @@ export const constantRouterMap = [
     redirect: '/dashboard/workplace',
     children: [
       {
-        path: '/dashboard',
-        name: 'dashboard',
-        redirect: '/dashboard/workplace',
-        component: RouteView,
+        path: '/dashboard/workplace/:pageNo([1-9]\\d*)?',
+        name: 'Workplace',
+        component: () => import('@/views/dashboard'),
         meta: {
           title: '主页',
-          keepAlive: true,
-          icon: bxAnaalyse,
-          permission: ['dashboard']
-        },
-        children: [
-          {
-            path: '/dashboard/workplace/:pageNo([1-9]\\d*)?',
-            name: 'Workplace',
-            component: () => import('@/views/dashboard'),
-            meta: {
-              title: '主页',
-              keepAlive: false
-            }
-          }
-        ]
+          keepAlive: false
+        }
       }
     ]
   },
   {
     path: '*',
+    hidden: true,
     component: () => import(/* webpackChunkName: "fail" */ '@/views/exception/404')
   }
 ]
