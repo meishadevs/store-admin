@@ -21,6 +21,9 @@ export const constantRouterMap = [
       {
         path: 'login',
         name: 'login',
+        meta: {
+          title: '登录'
+        },
         component: () => import(/* webpackChunkName: "user" */ '@/views/login')
       }
     ]
@@ -40,7 +43,7 @@ export const constantRouterMap = [
         redirect: '/dashboard/workplace',
         component: RouteView,
         meta: {
-          title: '工作台',
+          title: '主页',
           keepAlive: true,
           icon: bxAnaalyse,
           permission: ['dashboard']
@@ -51,9 +54,8 @@ export const constantRouterMap = [
             name: 'Workplace',
             component: () => import('@/views/dashboard'),
             meta: {
-              title: '工作台',
-              keepAlive: false,
-              permission: ['dashboard']
+              title: '主页',
+              keepAlive: false
             }
           }
         ]
