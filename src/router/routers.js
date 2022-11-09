@@ -30,7 +30,7 @@ export const constantRouterMap = [
     name: 'index',
     component: BasicLayout,
     meta: {
-      title: '仪表盘'
+      title: '首页'
     },
     redirect: '/dashboard/workplace',
     children: [
