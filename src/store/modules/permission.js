@@ -1,4 +1,4 @@
-import { asyncRouterMap, constantRouterMap } from '@/router/routers'
+import { asyncRouter, baseRouter } from '@/router/routers'
 import cloneDeep from 'lodash.clonedeep'
 
 /**
@@ -62,14 +62,14 @@ function filterAsyncRouter (routerMap, permissionList) {
 
 const permission = {
   state: {
-    routers: constantRouterMap,
+    routers: baseRouter,
     addRouters: []
   },
 
   mutations: {
     SET_ROUTERS: (state, routers) => {
       state.addRouters = routers
-      state.routers = constantRouterMap.concat(routers)
+      state.routers = baseRouter.concat(routers)
     }
   },
 
@@ -77,7 +77,7 @@ const permission = {
     GenerateRoutes ({ commit }, data) {
       return new Promise(resolve => {
         const { permissions } = data
-        const routerMap = cloneDeep(asyncRouterMap)
+        const routerMap = cloneDeep(asyncRouter)
         const accessedRouters = filterAsyncRouter(routerMap, permissions)
         commit('SET_ROUTERS', accessedRouters)
         resolve()

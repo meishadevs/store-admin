@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import { constantRouterMap } from '@/router/routers'
+import { baseRouter } from '@/router/routers'
 
 // hack router push callback
 const originalPush = Router.prototype.push
@@ -11,10 +11,11 @@ Router.prototype.push = function push (location, onResolve, onReject) {
 
 Vue.use(Router)
 
+// 创建路由
 const createRouter = () =>
   new Router({
     mode: 'history',
-    routes: constantRouterMap
+    routes: baseRouter
   })
 
 const router = createRouter()

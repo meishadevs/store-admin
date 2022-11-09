@@ -1,11 +1,11 @@
 import { UserLayout, BasicLayout } from '@/layouts'
 
 // 需要权限才能访问的路由
-export const asyncRouterMap = [
+export const asyncRouter = [
 ]
 
 // 基础路由
-export const constantRouterMap = [
+export const baseRouter = [
   {
     path: '/user',
     component: UserLayout,
