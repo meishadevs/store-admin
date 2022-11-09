@@ -34,7 +34,7 @@
 import { i18nRender } from '@/locales'
 import { mapState } from 'vuex'
 import { CONTENT_WIDTH_TYPE, SIDEBAR_TYPE, TOGGLE_MOBILE_TYPE } from '@/store/mutation-types'
-import defaultSettings from '@/config/defaultSettings'
+import config from '@/config'
 import GlobalFooter from '@/components/GlobalFooter'
 import RightContent from '@/components/GlobalHeader/RightContent'
 
@@ -55,23 +55,23 @@ export default {
       collapsed: false,
 
       // 标题
-      title: defaultSettings.title,
+      title: config.title,
 
       settings: {
         // 布局类型
-        layout: defaultSettings.layout,
+        layout: config.layout,
 
         // CONTENT_WIDTH_TYPE
-        contentWidth: defaultSettings.layout === 'sidemenu' ? CONTENT_WIDTH_TYPE.Fluid : defaultSettings.contentWidth,
+        contentWidth: config.layout === 'sidemenu' ? CONTENT_WIDTH_TYPE.Fluid : config.contentWidth,
 
         // 主题
-        theme: defaultSettings.navTheme,
+        theme: config.navTheme,
 
         // 主色调
-        primaryColor: defaultSettings.primaryColor,
-        fixedHeader: defaultSettings.fixedHeader,
-        fixSiderbar: defaultSettings.fixSiderbar,
-        colorWeak: defaultSettings.colorWeak,
+        primaryColor: config.primaryColor,
+        fixedHeader: config.fixedHeader,
+        fixSiderbar: config.fixSiderbar,
+        colorWeak: config.colorWeak,
 
         hideHintAlert: false,
         hideCopyButton: false

@@ -1,8 +1,7 @@
+import config from '@/config'
 import HttpRequest from '@/utils/axios'
 
-import defaultSettings from '@/config/defaultSettings'
-
-const baseUrl = process.env.NODE_ENV === 'development' ? defaultSettings.baseUrl.dev : defaultSettings.baseUrl.pro
+const baseUrl = process.env.NODE_ENV === 'development' ? config.baseUrl.dev : config.baseUrl.pro
 
 const axios = new HttpRequest(baseUrl)
 

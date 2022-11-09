@@ -24,7 +24,7 @@ import './utils/filter'
 import './global.less'
 
 // 默认配置
-import defaultSettings from '@/config/defaultSettings'
+import config from '@/config'
 
 Vue.config.productionTip = false
 
@@ -36,7 +36,7 @@ Vue.component('page-header-wrapper', PageHeaderWrapper)
 window.umi_plugin_ant_themeVar = themePluginConfig.theme
 
 // 获得 api 请求的基础地址
-const baseUrl = process.env.NODE_ENV === 'development' ? defaultSettings.baseUrl.dev : defaultSettings.baseUrl.pro
+const baseUrl = process.env.NODE_ENV === 'development' ? config.baseUrl.dev : config.baseUrl.pro
 
 // 全局注册后端基础路径
 Vue.prototype.$baseUrl = baseUrl
