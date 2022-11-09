@@ -2,6 +2,26 @@ import { UserLayout, BasicLayout } from '@/layouts'
 
 // 需要权限才能访问的路由
 export const asyncRouter = [
+  {
+    path: '/setting',
+    name: 'setting',
+    component: BasicLayout,
+    meta: {
+      title: '系统设置',
+      permission: [ 'setting' ]
+    },
+    children: [
+      {
+        path: 'user',
+        name: 'user',
+        component: () => import(/* webpackChunkName: "user" */ '@/views/setting/user'),
+        meta: {
+          title: '用户管理',
+          permission: [ 'user' ]
+        }
+      }
+    ]
+  }
 ]
 
 // 基础路由

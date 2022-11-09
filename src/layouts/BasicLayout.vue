@@ -48,9 +48,6 @@ export default {
 
   data () {
     return {
-      // base
-      menus: [],
-
       // 侧栏收起状态
       collapsed: false,
 
@@ -87,15 +84,12 @@ export default {
 
   computed: {
     ...mapState({
-      // 动态主路由
-      mainMenu: state => state.permission.addRouters
+      // 动态路由
+      menus: state => state.permission.addRouters
     })
   },
 
   created () {
-    const routes = this.mainMenu.find(item => item.path === '/')
-    this.menus = (routes && routes.children) || []
-
     // 处理侧栏收起状态
     this.$watch('collapsed', () => {
       this.$store.commit(SIDEBAR_TYPE, this.collapsed)
