@@ -1,24 +1,69 @@
 import { UserLayout, BasicLayout } from '@/layouts'
+import { bxAnaalyse } from '@/core/icons'
+
+const RouteView = {
+  name: 'RouteView',
+  render: h => h('router-view')
+}
 
 // 需要权限才能访问的路由
 export const asyncRouter = [
   {
-    path: '/setting',
-    name: 'setting',
+    path: '/',
+    name: 'index',
     component: BasicLayout,
     meta: {
-      title: '系统设置',
-      permission: [ 'setting' ]
+      title: '首页'
     },
+    redirect: '/dashboard/workplace',
     children: [
       {
-        path: 'user',
-        name: 'user',
-        component: () => import(/* webpackChunkName: "user" */ '@/views/setting/user'),
+        path: '/dashboard',
+        name: 'dashboard',
+        redirect: '/dashboard/workplace',
+        component: RouteView,
         meta: {
-          title: '用户管理',
-          permission: [ 'user' ]
-        }
+          title: '仪表盘',
+          keepAlive: true,
+          icon: bxAnaalyse,
+          permission: ['dashboard']
+        },
+        children: [
+          {
+            path: '/dashboard/workplace',
+            name: 'workplace',
+            component: () => import('@/views/dashboard'),
+            meta: {
+              title: '工作台',
+              keepAlive: false,
+              permission: ['dashboard']
+            }
+          }
+        ]
+      },
+      {
+        path: '/system',
+        name: 'system',
+        redirect: '/system/user',
+        component: RouteView,
+        meta: {
+          title: '系统设置',
+          icon: 'table',
+          permission: ['system']
+        },
+        children: [
+          {
+            path: '/system/user',
+            name: 'user',
+            hideChildrenInMenu: true,
+            meta: {
+              title: '用户管理',
+              keepAlive: true,
+              permission: ['user']
+            },
+            component: () => import('@/views/system/user')
+          }
+        ]
       }
     ]
   }
@@ -39,26 +84,6 @@ export const baseRouter = [
           title: '登录'
         },
         component: () => import(/* webpackChunkName: "user" */ '@/views/login')
-      }
-    ]
-  },
-  {
-    path: '/',
-    name: 'index',
-    component: BasicLayout,
-    meta: {
-      title: '首页'
-    },
-    redirect: '/dashboard',
-    children: [
-      {
-        path: 'dashboard',
-        name: 'dashboard',
-        component: () => import(/* webpackChunkName: "dashboard" */ '@/views/dashboard'),
-        meta: {
-          title: '主页',
-          keepAlive: false
-        }
       }
     ]
   },

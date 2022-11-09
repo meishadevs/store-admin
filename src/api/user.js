@@ -24,3 +24,12 @@ export function logout () {
     method: 'post'
   })
 }
+
+// 获得用户列表
+export function getUserList (query) {
+  return axios.request({
+    url: '/user/list',
+    method: 'get',
+    params: query
+  })
+}
