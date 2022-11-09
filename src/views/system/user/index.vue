@@ -27,6 +27,7 @@
         :columns="tablecolumn"
         :data-source="list"
         :rowKey="record => record.id"
+        bordered
       >
       </a-table>
     </a-card>
