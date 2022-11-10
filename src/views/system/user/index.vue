@@ -78,6 +78,16 @@ export default {
 
       tablecolumn: [
         {
+          title: '序号',
+          key: 'index',
+          dataIndex: 'index',
+          width: 80,
+          align: 'center',
+          customRender: (text, record, index) => {
+            return index + (this.listQuery.pageNumber - 1) * this.listQuery.pageSize + 1
+          }
+        },
+        {
           title: '用户名',
           key: 'userName',
           dataIndex: 'userName'
@@ -98,7 +108,9 @@ export default {
           dataIndex: 'status',
           width: 150,
           align: 'center',
-          scopedSlots: { customRender: 'status' }
+          scopedSlots: {
+            customRender: 'status'
+          }
         },
         {
           title: '创建时间',
@@ -164,6 +176,7 @@ export default {
 
 <style lang="less" scoped>
 .page-wrapper {
+  margin-right: -6px;
   margin-top: 10px;
   display: flex;
   justify-content: flex-end;
