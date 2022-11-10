@@ -29,6 +29,13 @@
         :rowKey="record => record.id"
         bordered
       >
+        <template slot="status" slot-scope="status">
+          <a-tag
+            :color="status ? 'green' : 'red'"
+          >
+            {{ status ? '启用' : '禁用' }}
+          </a-tag>
+        </template>
       </a-table>
     </a-card>
   </page-header-wrapper>
@@ -75,7 +82,10 @@ export default {
         {
           title: '用户状态',
           key: 'status',
-          dataIndex: 'status'
+          dataIndex: 'status',
+          width: 150,
+          align: 'center',
+          scopedSlots: { customRender: 'status' }
         },
         {
           title: '创建时间',
