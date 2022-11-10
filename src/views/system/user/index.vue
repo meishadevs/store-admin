@@ -10,7 +10,6 @@
                   v-model="listQuery.status"
                   allowClear
                   placeholder="请选择用户状态"
-                  default-value="null"
                   @change="handleSearch"
                 >
                   <a-select-option :value="1">启用</a-select-option>
@@ -137,7 +136,7 @@ export default {
       // 查询条件
       listQuery: {
         userName: '',
-        status: null,
+        status: undefined,
         pageNumber: 1,
         pageSize: 10
       }
@@ -172,7 +171,7 @@ export default {
 
     handleClear () {
       this.listQuery.userName = ''
-      this.listQuery.status = null
+      this.listQuery.status = undefined
       this.listQuery.pageNumber = 1
       this.getList()
     },
