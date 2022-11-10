@@ -25,6 +25,7 @@
 
       <a-table
         :loading="tableLoading"
+        :pagination="false"
         :columns="tablecolumn"
         :data-source="list"
         :rowKey="record => record.id"
@@ -38,6 +39,16 @@
           </a-tag>
         </template>
       </a-table>
+      <div class="page-wrapper">
+        <a-pagination
+          show-size-changer
+          v-model="listQuery.pageNumber"
+          :total="total"
+          :page-size.sync="listQuery.pageSize"
+          @change="getList"
+          @showSizeChange="handlePageSizeChange"
+        />
+      </div>
     </a-card>
   </page-header-wrapper>
 </template>
@@ -121,6 +132,11 @@ export default {
       })
     },
 
+    handlePageSizeChange (current, pageSize) {
+      this.listQuery.pageSize = pageSize
+      this.getList()
+    },
+
     handleSearch () {
       this.listQuery.pageNumber = 1
       this.getList()
@@ -145,3 +161,11 @@ export default {
   }
 }
 </script>
+
+<style lang="less" scoped>
+.page-wrapper {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+</style>
