@@ -73,6 +73,11 @@ export default {
           dataIndex: 'email'
         },
         {
+          title: '用户状态',
+          key: 'status',
+          dataIndex: 'status'
+        },
+        {
           title: '创建时间',
           key: 'createTime',
           dataIndex: 'createTime'
@@ -94,7 +99,7 @@ export default {
 
   methods: {
     getList () {
-      getUserList().then(res => {
+      getUserList(this.listQuery).then(res => {
         this.list = res.data.list
         this.total = res.data.count
       }).catch(error => {
@@ -103,10 +108,14 @@ export default {
     },
 
     handleSearch () {
+      this.listQuery.pageNumber = 1
       this.getList()
     },
 
     handleClear () {
+      this.listQuery.userName = ''
+      this.listQuery.pageNumber = 1
+      this.getList()
     },
 
     // 新增用户信息
