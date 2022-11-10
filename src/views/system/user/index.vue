@@ -6,7 +6,7 @@
           <a-row :gutter="48">
             <a-col :md="8" :sm="24">
               <a-form-item label="用户名">
-                <a-input v-model="listQuery.userName" placeholder="" />
+                <a-input v-model="listQuery.userName" placeholder="请输入用户名" />
               </a-form-item>
             </a-col>
             <a-col :md="8" :sm="24">
@@ -63,6 +63,11 @@ export default {
           dataIndex: 'userName'
         },
         {
+          title: '所属角色',
+          key: 'roleNames',
+          dataIndex: 'roleNames'
+        },
+        {
           title: '邮箱',
           key: 'email',
           dataIndex: 'email'
@@ -76,7 +81,9 @@ export default {
 
       // 查询条件
       listQuery: {
-        userName: ''
+        userName: '',
+        pageNumber: 1,
+        pageSize: 10
       }
     }
   },
