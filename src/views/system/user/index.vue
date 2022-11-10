@@ -24,6 +24,7 @@
       </div>
 
       <a-table
+        :loading="tableLoading"
         :columns="tablecolumn"
         :data-source="list"
         :rowKey="record => record.id"
@@ -55,6 +56,7 @@ export default {
   data () {
     return {
       visible: false,
+      tableLoading: false,
       userId: 0,
 
       // 数据条数
@@ -109,9 +111,11 @@ export default {
 
   methods: {
     getList () {
+      this.tableLoading = true
       getUserList(this.listQuery).then(res => {
         this.list = res.data.list
         this.total = res.data.count
+        this.tableLoading = false
       }).catch(error => {
         this.$message.error(error.msg)
       })
