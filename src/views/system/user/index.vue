@@ -5,6 +5,20 @@
         <a-form layout="inline">
           <a-row :gutter="48">
             <a-col :md="8" :sm="24">
+              <a-form-item label="用户状态">
+                <a-select
+                  v-model="listQuery.status"
+                  allowClear
+                  placeholder="请选择用户状态"
+                  default-value="null"
+                  @change="handleSearch"
+                >
+                  <a-select-option :value="1">启用</a-select-option>
+                  <a-select-option :value="0">禁用</a-select-option>
+                </a-select>
+              </a-form-item>
+            </a-col>
+            <a-col :md="8" :sm="24">
               <a-form-item label="用户名">
                 <a-input v-model="listQuery.userName" placeholder="请输入用户名" />
               </a-form-item>
@@ -41,6 +55,7 @@
       </a-table>
       <div class="page-wrapper">
         <a-pagination
+          v-if="total > 0"
           show-size-changer
           v-model="listQuery.pageNumber"
           :total="total"
@@ -122,6 +137,7 @@ export default {
       // 查询条件
       listQuery: {
         userName: '',
+        status: null,
         pageNumber: 1,
         pageSize: 10
       }
@@ -156,6 +172,7 @@ export default {
 
     handleClear () {
       this.listQuery.userName = ''
+      this.listQuery.status = null
       this.listQuery.pageNumber = 1
       this.getList()
     },
