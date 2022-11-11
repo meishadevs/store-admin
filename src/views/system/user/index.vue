@@ -63,6 +63,12 @@
           @showSizeChange="handlePageSizeChange"
         />
       </div>
+      <user-form
+        v-if="userFormVisible"
+        :userId="userId"
+        @refresh-data="refreshUserData"
+        @close-dialog="closeUserDialog"
+      />
     </a-card>
   </page-header-wrapper>
 </template>
@@ -80,7 +86,7 @@ export default {
 
   data () {
     return {
-      visible: false,
+      userFormVisible: false,
       tableLoading: false,
       userId: 0,
 
@@ -179,12 +185,22 @@ export default {
     // 新增用户信息
     handleAdd () {
       this.userId = 0
-      this.visible = true
+      this.userFormVisible = true
     },
 
     // 编辑用户信息
     handleEdit (record) {
-      this.visible = true
+      this.userFormVisible = true
+    },
+
+    refreshUserData () {
+      this.userFormVisible = false
+      this.handleSearch()
+    },
+
+    // 关闭新增、编辑用户信息对话框后的回调
+    closeUserDialog () {
+      this.userFormVisible = false
     }
   }
 }

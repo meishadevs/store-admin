@@ -1,11 +1,11 @@
 import axios from '@/utils/request'
 
 // 登录
-export function login (param) {
+export function login (formData) {
   return axios.request({
     url: '/user/login',
     method: 'post',
-    data: param
+    data: formData
   })
 }
 
@@ -31,5 +31,14 @@ export function getUserList (query) {
     url: '/user/list',
     method: 'get',
     params: query
+  })
+}
+
+// 保存用户数据
+export function saveUserData (formData) {
+  return axios.request({
+    url: '/user/save',
+    method: 'post',
+    data: formData
   })
 }
