@@ -26,4 +26,4 @@ export default {
   'app.setting.themecolor.green': 'Polar Green',
   'app.setting.themecolor.geekblue': 'Geek Blue',
   'app.setting.themecolor.purple': 'Golden Purple'
-}
+};

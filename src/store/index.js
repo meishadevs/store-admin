@@ -1,15 +1,15 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
 
-import app from './modules/app'
-import user from './modules/user'
+import app from './modules/app';
+import user from './modules/user';
 
 // 默认路由模式为静态路由
-import permission from './modules/permission'
+import permission from './modules/permission';
 
-import getters from './getters'
+import getters from './getters';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
@@ -22,4 +22,4 @@ export default new Vuex.Store({
   mutations: {},
   actions: {},
   getters
-})
+});

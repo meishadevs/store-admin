@@ -1,5 +1,5 @@
-import { asyncRouter, baseRouter } from '@/router/routers'
-import cloneDeep from 'lodash.clonedeep'
+import { asyncRouter, baseRouter } from '@/router/routers';
+import cloneDeep from 'lodash.clonedeep';
 
 /**
  * 过滤账户是否拥有某一个权限，并将菜单从加载列表移除
@@ -10,23 +10,23 @@ import cloneDeep from 'lodash.clonedeep'
 function hasPermission (permission, route) {
   if (route.meta && route.meta.permission) {
     if (permission === undefined) {
-      return false
+      return false;
     }
 
-    let flag = false
+    let flag = false;
 
     for (let i = 0, len = permission.length; i < len; i++) {
-      flag = route.meta.permission.includes(permission[i])
+      flag = route.meta.permission.includes(permission[i]);
 
       if (flag) {
-        return true
+        return true;
       }
     }
 
-    return false
+    return false;
   }
 
-  return true
+  return true;
 }
 
 /**
@@ -38,9 +38,9 @@ function hasPermission (permission, route) {
 // eslint-disable-next-line
 function hasRole(roles, route) {
   if (route.meta && route.meta.roles) {
-    return route.meta.roles.includes(roles.id)
+    return route.meta.roles.includes(roles.id);
   } else {
-    return true
+    return true;
   }
 }
 
@@ -48,16 +48,16 @@ function filterAsyncRouter (routerMap, permissionList) {
   const accessedRouters = routerMap.filter(route => {
     if (hasPermission(permissionList, route)) {
       if (route.children && route.children.length) {
-        route.children = filterAsyncRouter(route.children, permissionList)
+        route.children = filterAsyncRouter(route.children, permissionList);
       }
 
-      return true
+      return true;
     }
 
-    return false
-  })
+    return false;
+  });
 
-  return accessedRouters
+  return accessedRouters;
 }
 
 const permission = {
@@ -68,22 +68,22 @@ const permission = {
 
   mutations: {
     SET_ROUTERS: (state, routers) => {
-      state.addRouters = routers
-      state.routers = baseRouter.concat(routers)
+      state.addRouters = routers;
+      state.routers = baseRouter.concat(routers);
     }
   },
 
   actions: {
     GenerateRoutes ({ commit }, data) {
       return new Promise(resolve => {
-        const { permissions } = data
-        const routerMap = cloneDeep(asyncRouter)
-        const accessedRouters = filterAsyncRouter(routerMap, permissions)
-        commit('SET_ROUTERS', accessedRouters)
-        resolve()
-      })
+        const { permissions } = data;
+        const routerMap = cloneDeep(asyncRouter);
+        const accessedRouters = filterAsyncRouter(routerMap, permissions);
+        commit('SET_ROUTERS', accessedRouters);
+        resolve();
+      });
     }
   }
-}
+};
 
-export default permission
+export default permission;

@@ -41,13 +41,7 @@ module.exports = {
         'allowTemplateLiterals': true
       }
     ],
-    'semi': [
-      2,
-      'never',
-      {
-        'beforeStatementContinuationChars': 'never'
-      }
-    ],
+    'semi': ['error', 'always'],
     'no-delete-var': 2,
     'prefer-const': [
       2,
@@ -72,4 +66,4 @@ module.exports = {
       }
     }
   ]
-}
+};

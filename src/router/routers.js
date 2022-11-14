@@ -1,10 +1,10 @@
-import { UserLayout, BasicLayout } from '@/layouts'
-import { bxAnaalyse } from '@/core/icons'
+import { UserLayout, BasicLayout } from '@/layouts';
+import { bxAnaalyse } from '@/core/icons';
 
 const RouteView = {
   name: 'RouteView',
   render: h => h('router-view')
-}
+};
 
 // 需要权限才能访问的路由
 export const asyncRouter = [
@@ -67,7 +67,7 @@ export const asyncRouter = [
       }
     ]
   }
-]
+];
 
 // 基础路由
 export const baseRouter = [
@@ -92,4 +92,4 @@ export const baseRouter = [
     hidden: true,
     component: () => import(/* webpackChunkName: "fail" */ '@/views/exception/404')
   }
-]
+];

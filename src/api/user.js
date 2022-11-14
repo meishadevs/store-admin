@@ -1,4 +1,4 @@
-import axios from '@/utils/request'
+import axios from '@/utils/request';
 
 // 登录
 export function login (formData) {
@@ -6,7 +6,7 @@ export function login (formData) {
     url: '/user/login',
     method: 'post',
     data: formData
-  })
+  });
 }
 
 // 获得用户信息
@@ -14,7 +14,7 @@ export function getUserInfo () {
   return axios.request({
     url: '/user/info',
     method: 'get'
-  })
+  });
 }
 
 // 退出登录
@@ -22,7 +22,7 @@ export function logout () {
   return axios.request({
     url: '/user/logout',
     method: 'post'
-  })
+  });
 }
 
 // 获得用户列表
@@ -31,7 +31,7 @@ export function getUserList (query) {
     url: '/user/list',
     method: 'get',
     params: query
-  })
+  });
 }
 
 // 获得用户详情
@@ -42,7 +42,7 @@ export function getUserDetail (userId) {
     params: {
       userId
     }
-  })
+  });
 }
 
 // 保存用户数据
@@ -51,5 +51,5 @@ export function saveUserData (formData) {
     url: '/user/save',
     method: 'post',
     data: formData
-  })
+  });
 }

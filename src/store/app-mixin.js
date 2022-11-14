@@ -1,4 +1,4 @@
-import { mapState } from 'vuex'
+import { mapState } from 'vuex';
 
 const baseMixin = {
   computed: {
@@ -18,17 +18,17 @@ const baseMixin = {
     }),
 
     isTopMenu () {
-      return this.layout === 'topmenu'
+      return this.layout === 'topmenu';
     }
   },
 
   methods: {
     isSideMenu () {
-      return !this.isTopMenu
+      return !this.isTopMenu;
     }
   }
-}
+};
 
 export {
   baseMixin
-}
+};

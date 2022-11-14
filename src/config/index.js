@@ -53,4 +53,4 @@ export default {
      dev: 'http://localhost:8002',
      pro: 'http://localhost:8002'
    }
-}
+};

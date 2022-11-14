@@ -61,8 +61,8 @@
 </template>
 
 <script>
-import { getAllRoleList } from '@/api/role'
-import { saveUserData } from '@/api/user'
+import { getAllRoleList } from '@/api/role';
+import { getUserDetail, saveUserData } from '@/api/user';
 
 export default {
   name: 'UserForm',
@@ -80,29 +80,29 @@ export default {
     // 验证用户名
     const validateUserName = (rule, value, callback) => {
       if (!this.userDetail.userName) {
-        callback(new Error('请填写用户名'))
+        callback(new Error('请填写用户名'));
       } else if (this.userDetail.userName.length < 3 || this.userDetail.userName.length > 15) {
-         callback(new Error('长度应为3~15个字符'))
+         callback(new Error('长度应为3~15个字符'));
       } else if (!(/^[A-Za-z]/.test(this.userDetail.userName))) {
-        callback(new Error('用户名必须以英文字母开头'))
+        callback(new Error('用户名必须以英文字母开头'));
       } else if (!(/^[a-zA-Z0-9_]*$/.test(this.userDetail.userName))) {
-        callback(new Error('用户名须由字母数字下划线组成'))
+        callback(new Error('用户名须由字母数字下划线组成'));
       } else {
-        callback()
+        callback();
       }
-    }
+    };
 
     // 验证邮箱
     const validateEmail = (rule, value, callback) => {
       // 验证邮箱格式的正则表达式
-      const emailReg = /^\w+([_\\.\\-]\w+)*@\w+([_\-\\.]\w+)*\.\w+([_\\.]\w+)*$/
+      const emailReg = /^\w+([_\\.\\-]\w+)*@\w+([_\-\\.]\w+)*\.\w+([_\\.]\w+)*$/;
 
       if (this.userDetail.email && !emailReg.test(this.userDetail.email)) {
-         callback(new Error('邮箱格式不正确'))
+         callback(new Error('邮箱格式不正确'));
       } else {
-        callback()
+        callback();
       }
-    }
+    };
 
     return {
       visible: false,
@@ -153,57 +153,60 @@ export default {
         // 是否接受服务条款
         isAgree: 0
       }
-    }
+    };
   },
 
   computed: {
     dialogTitle () {
-      return this.userId ? '编辑用户' : '新增用户'
+      return this.userId ? '编辑用户' : '新增用户';
     }
   },
 
   created () {
-    this.visible = true
-    this.getAllRoleList()
+    this.visible = true;
+    this.getAllRoleList();
   },
 
   mounted () {
+    if (this.userId) {
+      getUserDetail();
+    }
   },
 
   methods: {
     getAllRoleList () {
       getAllRoleList().then(res => {
-        this.roleList = res.data.list
+        this.roleList = res.data.list;
       }).catch(error => {
-        this.$message.error(error.msg)
-      })
+        this.$message.error(error.msg);
+      });
     },
 
     handleSubmit () {
       this.$refs.userForm.validate(valid => {
         if (valid) {
-          this.loading = true
+          this.loading = true;
           saveUserData(this.userDetail).then(res => {
-            this.loading = false
-            this.visible = false
-            this.$emit('refresh-data')
-            this.$message.success(res.msg)
+            this.loading = false;
+            this.visible = false;
+            this.$emit('refresh-data');
+            this.$message.success(res.msg);
           }).catch(err => {
-            this.loading = false
-            this.$message.error(err.msg)
-          })
+            this.loading = false;
+            this.$message.error(err.msg);
+          });
         } else {
-          return false
+          return false;
         }
-      })
+      });
     },
 
     handleCloseDialog () {
-      this.visible = false
-      this.$emit('close-dialog', this.visible)
+      this.visible = false;
+      this.$emit('close-dialog', this.visible);
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
