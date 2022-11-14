@@ -24,7 +24,7 @@ import './permission'
 import './utils/filter'
 
 // 全局样式
-import './global.less'
+import '@/assets/less/global.less'
 
 // 默认配置
 import config from '@/config'

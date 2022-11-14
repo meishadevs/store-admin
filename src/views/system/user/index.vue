@@ -255,18 +255,4 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.page-wrapper {
-  margin-right: -6px;
-  margin-top: 10px;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.oprate-btn {
-  margin-right: 10px;
-}
-
-.btn-del {
-  color: #f00;
-}
 </style>
