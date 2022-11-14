@@ -34,6 +34,17 @@ export function getUserList (query) {
   })
 }
 
+// 获得用户详情
+export function getUserDetail (userId) {
+  return axios.request({
+    url: '/user/detail',
+    method: 'get',
+    params: {
+      userId
+    }
+  })
+}
+
 // 保存用户数据
 export function saveUserData (formData) {
   return axios.request({

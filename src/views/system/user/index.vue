@@ -51,6 +51,20 @@
             {{ status ? '启用' : '禁用' }}
           </a-tag>
         </template>
+        <template slot="action" slot-scope="row">
+          <a class="oprate-btn" @click="handlePublish(row.id, row.status)" href="javascript:;">
+            {{ row.status ? '禁用' : '启用' }}
+          </a>
+          <a class="oprate-btn" @click="handleEdit(row.id)" href="javascript:;">
+            编辑
+          </a>
+          <a class="oprate-btn" @click="handleResetPassword(row.id)" href="javascript:;">
+            重置密码
+          </a>
+          <a class="oprate-btn btn-del" @click="handleDelete(row.id)" href="javascript:;">
+            删除
+          </a>
+        </template>
       </a-table>
       <div class="page-wrapper">
         <a-pagination
@@ -110,7 +124,8 @@ export default {
         {
           title: '用户名',
           key: 'userName',
-          dataIndex: 'userName'
+          dataIndex: 'userName',
+          width: 180
         },
         {
           title: '所属角色',
@@ -120,7 +135,8 @@ export default {
         {
           title: '邮箱',
           key: 'email',
-          dataIndex: 'email'
+          dataIndex: 'email',
+          width: 200
         },
         {
           title: '用户状态',
@@ -135,7 +151,16 @@ export default {
         {
           title: '创建时间',
           key: 'createTime',
-          dataIndex: 'createTime'
+          dataIndex: 'createTime',
+          width: 180
+        },
+        {
+          title: '操作',
+          key: 'action',
+          width: 240,
+          scopedSlots: {
+            customRender: 'action'
+          }
         }
       ],
 
@@ -188,9 +213,18 @@ export default {
       this.userFormVisible = true
     },
 
+    // 启用/禁用用户
+    handlePublish (id, status) {
+    },
+
     // 编辑用户信息
-    handleEdit (record) {
+    handleEdit (id) {
+      this.userId = id
       this.userFormVisible = true
+    },
+
+    // 重置密码
+    handleResetPassword (id) {
     },
 
     refreshUserData () {
@@ -212,5 +246,13 @@ export default {
   margin-top: 10px;
   display: flex;
   justify-content: flex-end;
+}
+
+.oprate-btn {
+  margin-right: 10px;
+}
+
+.btn-del {
+  color: #f00;
 }
 </style>
