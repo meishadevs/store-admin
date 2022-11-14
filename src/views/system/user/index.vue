@@ -52,7 +52,7 @@
           </a-tag>
         </template>
         <template slot="action" slot-scope="row">
-          <a class="oprate-btn" @click="handlePublish(row.id, row.status)" href="javascript:;">
+          <a class="oprate-btn" @click="handlePublish(row.id)" href="javascript:;">
             {{ row.status ? '禁用' : '启用' }}
           </a>
           <a class="oprate-btn" @click="handleEdit(row.id)" href="javascript:;">
@@ -89,7 +89,7 @@
 
 <script>
 import UserForm from './UserForm';
-import { getUserList } from '@/api/user';
+import { getUserList, changeUserStatus } from '@/api/user';
 
 export default {
   name: 'User',
@@ -205,6 +205,7 @@ export default {
     },
 
     handlePageSizeChange (current, pageSize) {
+      this.listQuery.pageNumber = 1;
       this.listQuery.pageSize = pageSize;
       this.getList();
     },
@@ -228,7 +229,13 @@ export default {
     },
 
     // 启用/禁用用户
-    handlePublish (id, status) {
+    handlePublish (id) {
+      changeUserStatus(id).then(res => {
+        this.$message.success(res.msg);
+        this.getList();
+      }).catch(error => {
+        this.$message.error(error.msg);
+      });
     },
 
     // 编辑用户信息
@@ -239,6 +246,7 @@ export default {
 
     // 重置密码
     handleResetPassword (id) {
+
     },
 
     refreshUserData () {

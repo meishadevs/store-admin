@@ -53,3 +53,14 @@ export function saveUserData (formData) {
     data: formData
   });
 }
+
+// 改变用户状态
+export function changeUserStatus (userId) {
+  return axios.request({
+    url: '/user/change_status',
+    method: 'post',
+    data: {
+      userId
+    }
+  });
+}
