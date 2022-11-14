@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { Modal } from 'ant-design-vue'
+import { Modal } from 'ant-design-vue';
 
 export default {
   name: 'AvatarDropdown',
@@ -47,11 +47,11 @@ export default {
 
   methods: {
     handleToCenter () {
-      this.$router.push({ path: '/account/center' })
+      this.$router.push({ path: '/account/center' });
     },
 
     handleToSettings () {
-      this.$router.push({ path: '/account/settings' })
+      this.$router.push({ path: '/account/settings' });
     },
 
     handleLogout (e) {
@@ -62,13 +62,13 @@ export default {
         cancelText: '取消',
         onOk: () => {
           return this.$store.dispatch('Logout').then(() => {
-            this.$router.push({ name: 'login' })
-          })
+            this.$router.push({ name: 'login' });
+          });
         }
-      })
+      });
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>

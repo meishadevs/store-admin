@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import AvatarDropdown from './AvatarDropdown'
-import SelectLang from '@/components/SelectLang'
+import AvatarDropdown from './AvatarDropdown';
+import SelectLang from '@/components/SelectLang';
 
 export default {
   name: 'RightContent',
@@ -42,7 +42,7 @@ export default {
     return {
       showMenu: true,
       currentUser: {}
-    }
+    };
   },
 
   computed: {
@@ -50,18 +50,18 @@ export default {
       return {
         'ant-pro-global-header-index-right': true,
         [`ant-pro-global-header-index-${(this.isMobile || !this.topMenu) ? 'light' : this.theme}`]: true
-      }
+      };
     },
 
     userName () {
-      return this.$store.state.user.userName
+      return this.$store.state.user.userName;
     }
   },
 
   mounted () {
     this.currentUser = {
       name: this.userName
-    }
+    };
   }
-}
+};
 </script>

@@ -47,8 +47,8 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-import { timeFix } from '@/utils/util'
+import { mapActions } from 'vuex';
+import { timeFix } from '@/utils/util';
 
 export default {
   name: 'Login',
@@ -59,7 +59,7 @@ export default {
 
       // 是否显示 loading 效果
       loading: false
-    }
+    };
   },
 
   methods: {
@@ -67,48 +67,48 @@ export default {
 
     handleSubmit (e) {
       // 阻止事件的默认行为
-      e.preventDefault()
+      e.preventDefault();
 
       const {
         form: { validateFields },
         Login
-      } = this
+      } = this;
 
-      this.loading = true
+      this.loading = true;
 
       validateFields(['userName', 'password'], { force: true }, (err, values) => {
         if (!err) {
-          const loginParams = { ...values }
-          delete loginParams.userName
-          loginParams.userName = values.userName
-          loginParams.password = values.password
+          const loginParams = { ...values };
+          delete loginParams.userName;
+          loginParams.userName = values.userName;
+          loginParams.password = values.password;
           Login(loginParams)
             .then((res) => {
-              this.$message.success(res.msg)
+              this.$message.success(res.msg);
               this.$router.push({
                 path: '/'
-              })
+              });
               // 延迟 1 秒显示欢迎信息
               setTimeout(() => {
                 this.$notification.success({
                   message: '欢迎',
                   description: `${timeFix()}，欢迎回来`
-                })
-              }, 1000)
+                });
+              }, 1000);
             })
             .catch(error => {
-              this.loading = false
-              this.$message.error(error.msg)
-            })
+              this.loading = false;
+              this.$message.error(error.msg);
+            });
         } else {
           setTimeout(() => {
-            this.loading = false
-          }, 600)
+            this.loading = false;
+          }, 600);
         }
-      })
+      });
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>

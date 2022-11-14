@@ -14,8 +14,8 @@ export default {
 
   methods: {
     toHome () {
-      this.$router.push({ path: '/' })
+      this.$router.push({ path: '/' });
     }
   }
-}
+};
 </script>

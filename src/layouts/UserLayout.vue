@@ -5,7 +5,7 @@
         <div class="top">
           <div class="header">
             <a href="/">
-              <img src="~@/assets/icons/logo.svg" class="logo" alt="logo">
+              <img src="~@/assets/svg/logo.svg" class="logo" alt="logo">
               <span class="title">Store Admin</span>
             </a>
           </div>
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { deviceMixin } from '@/store/device-mixin'
+import { deviceMixin } from '@/store/device-mixin';
 
 export default {
   name: 'UserLayout',
@@ -35,13 +35,13 @@ export default {
   mixins: [deviceMixin],
 
   mounted () {
-    document.body.classList.add('userLayout')
+    document.body.classList.add('userLayout');
   },
 
   beforeDestroy () {
-    document.body.classList.remove('userLayout')
+    document.body.classList.remove('userLayout');
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
@@ -60,7 +60,7 @@ export default {
   .container {
     width: 100%;
     min-height: 100%;
-    background: #f0f2f5 url(~@/assets/icons/background.svg) no-repeat 50%;
+    background: #f0f2f5 url(~@/assets/svg/background.svg) no-repeat 50%;
     background-size: 100%;
     position: relative;
 

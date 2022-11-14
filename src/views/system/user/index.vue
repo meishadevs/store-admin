@@ -88,8 +88,8 @@
 </template>
 
 <script>
-import UserForm from './UserForm'
-import { getUserList } from '@/api/user'
+import UserForm from './UserForm';
+import { getUserList } from '@/api/user';
 
 export default {
   name: 'User',
@@ -118,7 +118,7 @@ export default {
           width: 80,
           align: 'center',
           customRender: (text, record, index) => {
-            return index + (this.listQuery.pageNumber - 1) * this.listQuery.pageSize + 1
+            return index + (this.listQuery.pageNumber - 1) * this.listQuery.pageSize + 1;
           }
         },
         {
@@ -130,7 +130,7 @@ export default {
               style: {
                 'min-width': '180px'
               }
-            }
+            };
           }
         },
         {
@@ -142,7 +142,7 @@ export default {
               style: {
                 'min-width': '200px'
               }
-            }
+            };
           }
         },
         {
@@ -185,46 +185,46 @@ export default {
         pageNumber: 1,
         pageSize: 10
       }
-    }
+    };
   },
 
   created () {
-    this.getList()
+    this.getList();
   },
 
   methods: {
     getList () {
-      this.tableLoading = true
+      this.tableLoading = true;
       getUserList(this.listQuery).then(res => {
-        this.list = res.data.list
-        this.total = res.data.count
-        this.tableLoading = false
+        this.list = res.data.list;
+        this.total = res.data.count;
+        this.tableLoading = false;
       }).catch(error => {
-        this.$message.error(error.msg)
-      })
+        this.$message.error(error.msg);
+      });
     },
 
     handlePageSizeChange (current, pageSize) {
-      this.listQuery.pageSize = pageSize
-      this.getList()
+      this.listQuery.pageSize = pageSize;
+      this.getList();
     },
 
     handleSearch () {
-      this.listQuery.pageNumber = 1
-      this.getList()
+      this.listQuery.pageNumber = 1;
+      this.getList();
     },
 
     handleClear () {
-      this.listQuery.userName = ''
-      this.listQuery.status = undefined
-      this.listQuery.pageNumber = 1
-      this.getList()
+      this.listQuery.userName = '';
+      this.listQuery.status = undefined;
+      this.listQuery.pageNumber = 1;
+      this.getList();
     },
 
     // 新增用户信息
     handleAdd () {
-      this.userId = 0
-      this.userFormVisible = true
+      this.userId = 0;
+      this.userFormVisible = true;
     },
 
     // 启用/禁用用户
@@ -233,8 +233,8 @@ export default {
 
     // 编辑用户信息
     handleEdit (id) {
-      this.userId = id
-      this.userFormVisible = true
+      this.userId = id;
+      this.userFormVisible = true;
     },
 
     // 重置密码
@@ -242,16 +242,16 @@ export default {
     },
 
     refreshUserData () {
-      this.userFormVisible = false
-      this.handleSearch()
+      this.userFormVisible = false;
+      this.handleSearch();
     },
 
     // 关闭新增、编辑用户信息对话框后的回调
     closeUserDialog () {
-      this.userFormVisible = false
+      this.userFormVisible = false;
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>

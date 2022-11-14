@@ -13,8 +13,8 @@
     name: 'Exception500',
     methods: {
       toHome () {
-        this.$router.push({ path: '/' })
+        this.$router.push({ path: '/' });
       }
     }
-  }
+  };
 </script>

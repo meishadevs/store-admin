@@ -1,5 +1,5 @@
 <script>
-const googleAdsUrl = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'
+const googleAdsUrl = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
 export default {
   props: {
     isMobile: Boolean

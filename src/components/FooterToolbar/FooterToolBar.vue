@@ -36,10 +36,10 @@ export default {
   },
   computed: {
     barWidth () {
-      return this.isMobile ? undefined : `calc(100% - ${this.collapsed ? 80 : this.siderWidth || 256}px)`
+      return this.isMobile ? undefined : `calc(100% - ${this.collapsed ? 80 : this.siderWidth || 256}px)`;
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
