@@ -10,8 +10,7 @@
                   v-model="listQuery.status"
                   allowClear
                   placeholder="请选择用户状态"
-                  @change="handleSearch"
-                >
+                  @change="handleSearch">
                   <a-select-option :value="1">启用</a-select-option>
                   <a-select-option :value="0">禁用</a-select-option>
                 </a-select>
@@ -41,29 +40,33 @@
         :pagination="false"
         :columns="tablecolumn"
         :data-source="list"
-        :rowKey="record => record.id"
+        :rowKey="(record) => record.id"
         bordered
       >
         <template slot="status" slot-scope="status">
-          <a-tag
-            :color="status ? 'green' : 'red'"
-          >
+          <a-tag :color="status ? 'green' : 'red'">
             {{ status ? '启用' : '禁用' }}
           </a-tag>
         </template>
         <template slot="action" slot-scope="row">
-          <a class="oprate-btn" @click="handlePublish(row.id)" href="javascript:;">
+          <a
+            class="oprate-btn"
+            @click="handlePublish(row.id)"
+            href="javascript:;">
             {{ row.status ? '禁用' : '启用' }}
           </a>
-          <a class="oprate-btn" @click="handleEdit(row.id)" href="javascript:;">
-            编辑
-          </a>
-          <a class="oprate-btn" @click="handleResetPassword(row.id)" href="javascript:;">
-            重置密码
-          </a>
-          <a class="oprate-btn btn-del" @click="handleDelete(row.id)" href="javascript:;">
-            删除
-          </a>
+          <a
+            class="oprate-btn"
+            @click="handleEdit(row.id)"
+            href="javascript:;"> 编辑 </a>
+          <a
+            class="oprate-btn"
+            @click="handleResetPassword(row.id)"
+            href="javascript:;"> 重置密码 </a>
+          <a
+            class="oprate-btn btn-del"
+            @click="handleDelete(row.id)"
+            href="javascript:;"> 删除 </a>
         </template>
       </a-table>
       <div class="page-wrapper">
@@ -89,7 +92,7 @@
 
 <script>
 import UserForm from './UserForm';
-import { getUserList, changeUserStatus } from '@/api/user';
+import { getUserList, changeUserStatus, resetPassword } from '@/api/user';
 
 export default {
   name: 'User',
@@ -125,7 +128,7 @@ export default {
           title: '用户名',
           key: 'userName',
           dataIndex: 'userName',
-          customHeaderCell: column => {
+          customHeaderCell: (column) => {
             return {
               style: {
                 'min-width': '180px'
@@ -137,7 +140,7 @@ export default {
           title: '所属角色',
           key: 'roleNames',
           dataIndex: 'roleNames',
-          customHeaderCell: column => {
+          customHeaderCell: (column) => {
             return {
               style: {
                 'min-width': '200px'
@@ -195,13 +198,15 @@ export default {
   methods: {
     getList () {
       this.tableLoading = true;
-      getUserList(this.listQuery).then(res => {
-        this.list = res.data.list;
-        this.total = res.data.count;
-        this.tableLoading = false;
-      }).catch(error => {
-        this.$message.error(error.msg);
-      });
+      getUserList(this.listQuery)
+        .then((res) => {
+          this.list = res.data.list;
+          this.total = res.data.count;
+          this.tableLoading = false;
+        })
+        .catch((error) => {
+          this.$message.error(error.msg);
+        });
     },
 
     handlePageSizeChange (current, pageSize) {
@@ -230,12 +235,14 @@ export default {
 
     // 启用/禁用用户
     handlePublish (id) {
-      changeUserStatus(id).then(res => {
-        this.$message.success(res.msg);
-        this.getList();
-      }).catch(error => {
-        this.$message.error(error.msg);
-      });
+      changeUserStatus(id)
+        .then((res) => {
+          this.$message.success(res.msg);
+          this.getList();
+        })
+        .catch((error) => {
+          this.$message.error(error.msg);
+        });
     },
 
     // 编辑用户信息
@@ -246,7 +253,14 @@ export default {
 
     // 重置密码
     handleResetPassword (id) {
-
+      resetPassword(id)
+        .then((res) => {
+          this.$message.success(res.msg);
+          this.getList();
+        })
+        .catch((error) => {
+          this.$message.error(error.msg);
+        });
     },
 
     refreshUserData () {

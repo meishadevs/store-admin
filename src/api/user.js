@@ -64,3 +64,14 @@ export function changeUserStatus (userId) {
     }
   });
 }
+
+// 重置用户密码
+export function resetPassword (userId) {
+  return axios.request({
+    url: '/user/reset_password',
+    method: 'post',
+    data: {
+      userId
+    }
+  });
+}
