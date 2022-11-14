@@ -165,11 +165,9 @@ export default {
   created () {
     this.visible = true;
     this.getAllRoleList();
-  },
 
-  mounted () {
     if (this.userId) {
-      getUserDetail();
+      this.getUserDetail();
     }
   },
 
@@ -177,6 +175,17 @@ export default {
     getAllRoleList () {
       getAllRoleList().then(res => {
         this.roleList = res.data.list;
+      }).catch(error => {
+        this.$message.error(error.msg);
+      });
+    },
+
+    getUserDetail () {
+      getUserDetail(this.userId).then(res => {
+        this.userDetail = {
+          ...this.userDetail,
+          ...res.data
+        };
       }).catch(error => {
         this.$message.error(error.msg);
       });
