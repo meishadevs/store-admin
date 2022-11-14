@@ -125,12 +125,25 @@ export default {
           title: '用户名',
           key: 'userName',
           dataIndex: 'userName',
-          width: 180
+          customHeaderCell: column => {
+            return {
+              style: {
+                'min-width': '180px'
+              }
+            }
+          }
         },
         {
           title: '所属角色',
           key: 'roleNames',
-          dataIndex: 'roleNames'
+          dataIndex: 'roleNames',
+          customHeaderCell: column => {
+            return {
+              style: {
+                'min-width': '200px'
+              }
+            }
+          }
         },
         {
           title: '邮箱',
@@ -158,6 +171,7 @@ export default {
           title: '操作',
           key: 'action',
           width: 240,
+          fixed: 'right',
           scopedSlots: {
             customRender: 'action'
           }
