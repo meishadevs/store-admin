@@ -75,3 +75,14 @@ export function resetPassword (userId) {
     }
   });
 }
+
+// 删除用户信息
+export function deleteUserInfo (userId) {
+  return axios.request({
+    url: '/user/delete',
+    method: 'post',
+    data: {
+      userId
+    }
+  });
+}

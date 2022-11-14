@@ -63,10 +63,11 @@
             class="oprate-btn"
             @click="handleResetPassword(row.id)"
             href="javascript:;"> 重置密码 </a>
-          <a
-            class="oprate-btn btn-del"
-            @click="handleDelete(row.id)"
-            href="javascript:;"> 删除 </a>
+          <a-popconfirm
+            title="是否要删除此行？"
+            @confirm="handleDelete(row.id)">
+            <a class="oprate-btn btn-del" href="javascript:;"> 删除 </a>
+          </a-popconfirm>
         </template>
       </a-table>
       <div class="page-wrapper">
@@ -92,7 +93,7 @@
 
 <script>
 import UserForm from './UserForm';
-import { getUserList, changeUserStatus, resetPassword } from '@/api/user';
+import { getUserList, changeUserStatus, resetPassword, deleteUserInfo } from '@/api/user';
 
 export default {
   name: 'User',
@@ -254,6 +255,18 @@ export default {
     // 重置密码
     handleResetPassword (id) {
       resetPassword(id)
+        .then((res) => {
+          this.$message.success(res.msg);
+          this.getList();
+        })
+        .catch((error) => {
+          this.$message.error(error.msg);
+        });
+    },
+
+    // 删除
+    handleDelete (id) {
+      deleteUserInfo(id)
         .then((res) => {
           this.$message.success(res.msg);
           this.getList();
