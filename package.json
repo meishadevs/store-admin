@@ -10,6 +10,7 @@
     "build:preview": "vue-cli-service build --no-module --mode preview",
     "lint:nofix": "vue-cli-service lint --no-fix",
     "lint:js": "eslint src/**/*.js --fix",
+    "lint:vue": "eslint src/**/*.vue --fix",
     "lint:css": "stylelint src/**/*.*ss --fix  --custom-syntax postcss-less",
     "prepare": "husky install"
   },

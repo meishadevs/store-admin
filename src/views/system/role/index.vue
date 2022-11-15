@@ -36,6 +36,10 @@
             class="oprate-btn"
             @click="handleEdit(row.id)"
             href="javascript:;"> 编辑 </a>
+          <a
+            class="oprate-btn"
+            @click="handlePermission(row)"
+            href="javascript:;">操作权限</a>
           <a-popconfirm
             title="是否要删除此行？"
             @confirm="handleDelete(row.id)">
@@ -62,28 +66,40 @@
         @refresh-data="refreshRoleData"
         @close-dialog="closeRoleDialog"
       />
+      <role-permission
+        v-if="rolePermissionVisible"
+        :roleId="roleId"
+        :roleName="roleName"
+        @close-dialog="closeRoleDialog"
+      />
     </a-card>
   </page-header-wrapper>
 </template>
 
 <script>
 import RoleForm from './RoleForm';
+import RolePermission from './RolePermission';
 import { getRoleList, deleteRoleInfo } from '@/api/role';
 
 export default {
   name: 'Role',
 
   components: {
-    RoleForm
+    RoleForm,
+    RolePermission
   },
 
   data () {
     return {
       roleFormVisible: false,
+      rolePermissionVisible: false,
       tableLoading: false,
 
       // 角色 id
       roleId: 0,
+
+      // 角色名称
+      roleName: '',
 
       // 数据条数
       total: 0,
@@ -205,6 +221,13 @@ export default {
       this.roleFormVisible = true;
     },
 
+    // 操作权限
+    handlePermission ({ id, roleName }) {
+      this.roleId = id;
+      this.roleName = roleName;
+      this.rolePermissionVisible = true;
+    },
+
     // 删除
     handleDelete (id) {
       deleteRoleInfo(id)
@@ -225,6 +248,7 @@ export default {
     // 关闭新增、编辑角色信息对话框后的回调
     closeRoleDialog () {
       this.roleFormVisible = false;
+      this.rolePermissionVisible = false;
     }
   }
 };
