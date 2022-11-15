@@ -4,7 +4,24 @@
       <div class="table-page-search-wrapper">
         <a-form layout="inline">
           <a-row :gutter="48">
-            <a-col :md="8" :sm="24">
+            <a-col :md="6" :sm="24">
+              <a-form-item label="所属角色">
+                <a-select
+                  v-model="listQuery.roleId"
+                  allowClear
+                  placeholder="请选择所属角色"
+                  @change="handleSearch">
+                  <a-select-option
+                    v-for="item in roleList"
+                    :key="item.id"
+                    :value="item.id"
+                  >
+                    {{ item.roleName }}
+                  </a-select-option>
+                </a-select>
+              </a-form-item>
+            </a-col>
+            <a-col :md="6" :sm="24">
               <a-form-item label="用户状态">
                 <a-select
                   v-model="listQuery.status"
@@ -16,12 +33,12 @@
                 </a-select>
               </a-form-item>
             </a-col>
-            <a-col :md="8" :sm="24">
+            <a-col :md="6" :sm="24">
               <a-form-item label="用户名">
                 <a-input v-model="listQuery.userName" placeholder="请输入用户名" />
               </a-form-item>
             </a-col>
-            <a-col :md="8" :sm="24">
+            <a-col :md="6" :sm="24">
               <span class="table-page-search-submitButtons">
                 <a-button type="primary" @click="handleSearch">查询</a-button>
                 <a-button style="margin-left: 8px" @click="handleClear">重置</a-button>
@@ -96,6 +113,7 @@
 
 <script>
 import UserForm from './UserForm';
+import { getAllRoleList } from '@/api/role';
 import { getUserList, changeUserStatus, resetPassword, deleteUserInfo } from '@/api/user';
 
 export default {
@@ -113,6 +131,9 @@ export default {
 
       // 数据条数
       total: 0,
+
+      // 角色列表
+      roleList: [],
 
       // 列表数据
       list: [],
@@ -189,6 +210,7 @@ export default {
       listQuery: {
         userName: '',
         status: undefined,
+        roleId: undefined,
         pageNumber: 1,
         pageSize: 10
       }
@@ -204,9 +226,18 @@ export default {
 
   created () {
     this.getList();
+    this.getAllRoleList();
   },
 
   methods: {
+     getAllRoleList () {
+      getAllRoleList().then(res => {
+        this.roleList = res.data.list;
+      }).catch(error => {
+        this.$message.error(error.msg);
+      });
+    },
+
     getList () {
       this.tableLoading = true;
       getUserList(this.listQuery)
@@ -234,6 +265,7 @@ export default {
     handleClear () {
       this.listQuery.userName = '';
       this.listQuery.status = undefined;
+      this.listQuery.roleId = undefined;
       this.listQuery.pageNumber = 1;
       this.getList();
     },
