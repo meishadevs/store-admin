@@ -66,7 +66,10 @@
           <a-popconfirm
             title="是否要删除此行？"
             @confirm="handleDelete(row.id)">
-            <a class="oprate-btn btn-del" href="javascript:;"> 删除 </a>
+            <a
+              :disabled="[userName, 'admin'].includes(row.userName)"
+              class="oprate-btn btn-del"
+              href="javascript:;"> 删除 </a>
           </a-popconfirm>
         </template>
       </a-table>
@@ -190,6 +193,13 @@ export default {
         pageSize: 10
       }
     };
+  },
+
+  computed: {
+    // 当前登录用户的用户名
+    userName () {
+      return this.$store.state.user.userName;
+    }
   },
 
   created () {
