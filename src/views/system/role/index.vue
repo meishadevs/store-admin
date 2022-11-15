@@ -1,0 +1,234 @@
+<template>
+  <page-header-wrapper>
+    <a-card :bordered="false">
+      <div class="table-page-search-wrapper">
+        <a-form layout="inline">
+          <a-row :gutter="48">
+            <a-col :md="8" :sm="24">
+              <a-form-item label="角色名">
+                <a-input v-model="listQuery.roleName" placeholder="请输入角色名" />
+              </a-form-item>
+            </a-col>
+            <a-col :md="8" :sm="24">
+              <span class="table-page-search-submitButtons">
+                <a-button type="primary" @click="handleSearch">查询</a-button>
+                <a-button style="margin-left: 8px" @click="handleClear">重置</a-button>
+              </span>
+            </a-col>
+          </a-row>
+        </a-form>
+      </div>
+
+      <div class="table-operator">
+        <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
+      </div>
+
+      <a-table
+        :loading="tableLoading"
+        :pagination="false"
+        :columns="tablecolumn"
+        :data-source="list"
+        :rowKey="(record) => record.id"
+        bordered
+      >
+        <template slot="action" slot-scope="row">
+          <a
+            class="oprate-btn"
+            @click="handleEdit(row.id)"
+            href="javascript:;"> 编辑 </a>
+          <a-popconfirm
+            title="是否要删除此行？"
+            @confirm="handleDelete(row.id)">
+            <a
+              class="oprate-btn btn-del"
+              href="javascript:;"> 删除 </a>
+          </a-popconfirm>
+        </template>
+      </a-table>
+      <div class="page-wrapper">
+        <a-pagination
+          v-if="total > 0"
+          show-size-changer
+          v-model="listQuery.pageNumber"
+          :total="total"
+          :page-size.sync="listQuery.pageSize"
+          @change="getList"
+          @showSizeChange="handlePageSizeChange"
+        />
+      </div>
+      <role-form
+        v-if="roleFormVisible"
+        :roleId="roleId"
+        @refresh-data="refreshRoleData"
+        @close-dialog="closeRoleDialog"
+      />
+    </a-card>
+  </page-header-wrapper>
+</template>
+
+<script>
+import RoleForm from './RoleForm';
+import { getRoleList, deleteRoleInfo } from '@/api/role';
+
+export default {
+  name: 'Role',
+
+  components: {
+    RoleForm
+  },
+
+  data () {
+    return {
+      roleFormVisible: false,
+      tableLoading: false,
+
+      // 角色 id
+      roleId: 0,
+
+      // 数据条数
+      total: 0,
+
+      // 列表数据
+      list: [],
+
+      tablecolumn: [
+        {
+          title: '序号',
+          key: 'index',
+          dataIndex: 'index',
+          width: 80,
+          align: 'center',
+          customRender: (text, record, index) => {
+            return index + (this.listQuery.pageNumber - 1) * this.listQuery.pageSize + 1;
+          }
+        },
+        {
+          title: '角色名',
+          key: 'roleName',
+          dataIndex: 'roleName',
+          customHeaderCell: (column) => {
+            return {
+              style: {
+                'min-width': '200px'
+              }
+            };
+          }
+        },
+        {
+          title: '创建人',
+          key: 'createBy',
+          dataIndex: 'createBy',
+          customHeaderCell: (column) => {
+            return {
+              style: {
+                'min-width': '200px'
+              }
+            };
+          }
+        },
+        {
+          title: '创建时间',
+          key: 'createTime',
+          dataIndex: 'createTime',
+          customHeaderCell: (column) => {
+            return {
+              style: {
+                'min-width': '200px'
+              }
+            };
+          }
+        },
+        {
+          title: '操作',
+          key: 'action',
+          width: 240,
+          fixed: 'right',
+          scopedSlots: {
+            customRender: 'action'
+          }
+        }
+      ],
+
+      // 查询条件
+      listQuery: {
+        roleName: '',
+        pageNumber: 1,
+        pageSize: 10
+      }
+    };
+  },
+
+  created () {
+    this.getList();
+  },
+
+  methods: {
+    getList () {
+      this.tableLoading = true;
+      getRoleList(this.listQuery)
+        .then((res) => {
+          this.list = res.data.list;
+          this.total = res.data.count;
+          this.tableLoading = false;
+        })
+        .catch((error) => {
+          this.$message.error(error.msg);
+        });
+    },
+
+    handlePageSizeChange (current, pageSize) {
+      this.listQuery.pageNumber = 1;
+      this.listQuery.pageSize = pageSize;
+      this.getList();
+    },
+
+    handleSearch () {
+      this.listQuery.pageNumber = 1;
+      this.getList();
+    },
+
+    handleClear () {
+      this.listQuery.roleName = '';
+      this.listQuery.pageNumber = 1;
+      this.getList();
+    },
+
+    // 新增角色信息
+    handleAdd () {
+      this.roleId = 0;
+      this.roleFormVisible = true;
+    },
+
+    // 编辑角色信息
+    handleEdit (id) {
+      this.roleId = id;
+      this.roleFormVisible = true;
+    },
+
+    // 删除
+    handleDelete (id) {
+      deleteRoleInfo(id)
+        .then((res) => {
+          this.$message.success(res.msg);
+          this.getList();
+        })
+        .catch((error) => {
+          this.$message.error(error.msg);
+        });
+    },
+
+    refreshRoleData () {
+      this.roleFormVisible = false;
+      this.handleSearch();
+    },
+
+    // 关闭新增、编辑角色信息对话框后的回调
+    closeRoleDialog () {
+      this.roleFormVisible = false;
+    }
+  }
+};
+</script>
+
+<style lang="less" scoped>
+</style>

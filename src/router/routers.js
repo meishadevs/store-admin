@@ -62,6 +62,17 @@ export const asyncRouter = [
               permission: ['user']
             },
             component: () => import('@/views/system/user')
+          },
+          {
+            path: 'role',
+            name: 'role',
+            hideChildrenInMenu: true,
+            meta: {
+              title: '角色管理',
+              keepAlive: true,
+              permission: ['role']
+            },
+            component: () => import('@/views/system/role')
           }
         ]
       }
