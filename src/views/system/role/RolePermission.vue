@@ -20,6 +20,8 @@
       <div class="drawer-footer">
         <a-dropdown>
           <a-menu slot="overlay" @click="handleMenuClick">
+            <a-menu-item key="selectAll">全部勾选</a-menu-item>
+            <a-menu-item key="unSelectAll">取消全选</a-menu-item>
             <a-menu-item key="merge">合并所有</a-menu-item>
             <a-menu-item key="expand">展开所有</a-menu-item>
           </a-menu>
@@ -66,6 +68,9 @@ export default {
 
       // 父节点
       parentNodes: [],
+
+      // 所有节点
+      allNodes: [],
 
       // 当前选中的节点
       selectedNodes: [],
@@ -138,19 +143,31 @@ export default {
           this.expandedNodes.push(item.id);
           this.traverseTree(item.children);
         }
+
+        this.allNodes.push(item.id);
       });
     },
 
     // 展开/收起父节点
     handleMenuClick ({ key }) {
-      if (key === 'expand') {
-        this.expandedNodes = [...this.parentNodes];
-      } else {
+      if (key === 'selectAll') {
+        this.selectedNodes = [
+          ...this.allNodes
+        ];
+      } else if (key === 'unSelectAll') {
+        this.selectedNodes = [];
+      } else if (key === 'expand') {
+        this.expandedNodes = [
+          ...this.parentNodes
+        ];
+      } else if (key === 'merge') {
         this.expandedNodes = [];
       }
     },
 
-    handleSubmit () {},
+    handleSubmit () {
+      console.log('selectedNodes:', this.selectedNodes);
+    },
 
     closeDrawer () {
       this.visible = false;
