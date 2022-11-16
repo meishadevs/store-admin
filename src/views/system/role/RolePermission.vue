@@ -10,19 +10,21 @@
       <div class="drawer-content">
         <a-tree
           v-if="permissionData.length"
-          v-model="checkedKeys"
           checkable
-          :treeData="permissionData"
-          :defaultExpandAll="true"
-          :selected-keys="selectedKeys"
-          :replaceFields="{
-            'key':'id'
-          }"
-          @select="handleSelect"
-          @check="handleCheck"
+          :tree-data="permissionData"
+          :selected-keys="selectedNodes"
+          :expanded-keys="expandedNodes"
+          :replace-fields="replaceFields"
         />
       </div>
       <div class="drawer-footer">
+        <a-dropdown>
+          <a-menu slot="overlay" @click="handleMenuClick">
+            <a-menu-item key="merge">合并所有</a-menu-item>
+            <a-menu-item key="expand">展开所有</a-menu-item>
+          </a-menu>
+          <a-button style="margin-right:8px">树操作<a-icon type="down" /></a-button>
+        </a-dropdown>
         <a-button :style="{ marginRight: '8px' }" @click="closeDrawer">取消</a-button>
         <a-button type="primary" @click="handleSubmit">确定</a-button>
       </div>
@@ -54,9 +56,23 @@ export default {
     return {
       visible: false,
       loading: false,
-      checkedKeys: [],
-      selectedKeys: [],
-      permissionData: []
+
+      replaceFields: {
+        key: 'id'
+      },
+
+       // 权限数据
+      permissionData: [],
+
+      // 父节点
+      parentNodes: [],
+
+      // 当前选中的节点
+      selectedNodes: [],
+
+      // 展开的节点
+      expandedNodes: []
+
     };
   },
 
@@ -66,11 +82,16 @@ export default {
   },
 
   methods: {
+    initData () {
+      this.visible = true;
+    },
+
     getPermissionData () {
       this.loading = true;
       getPermissionData()
         .then((res) => {
           this.permissionData = res.data.list;
+          this.traverseTree(this.permissionData);
           this.loading = false;
         })
         .catch((error) => {
@@ -78,19 +99,27 @@ export default {
         });
     },
 
-    initData () {
-      this.visible = true;
+    // 遍历树
+    traverseTree (treeList) {
+      treeList.map((item) => {
+        // 如果节点下有子节点
+        if (item.children && item.children.length) {
+          this.parentNodes.push(item.id);
+          this.expandedNodes.push(item.id);
+          this.traverseTree(item.children);
+        }
+      });
     },
 
-    handleSelect (selectedKeys) {
-      console.log('select');
-      console.log('selectedKeys:', selectedKeys);
-      this.selectedKeys = selectedKeys;
-    },
-
-    handleCheck (checkedKeys) {
-      console.log('check');
-      console.log('checkedKeys:', checkedKeys);
+    // 展开/收起父节点
+    handleMenuClick ({ key }) {
+      if (key === 'expand') {
+        this.expandedNodes = [
+          ...this.parentNodes
+        ];
+      } else {
+        this.expandedNodes = [];
+      }
     },
 
     handleSubmit () {
