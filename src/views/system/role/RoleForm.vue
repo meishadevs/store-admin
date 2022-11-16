@@ -66,7 +66,10 @@ export default {
         id: 0,
 
         // 角色名称
-        roleName: ''
+        roleName: '',
+
+        // 菜单权限
+        menus: []
       }
     };
   },

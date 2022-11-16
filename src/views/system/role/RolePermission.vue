@@ -11,8 +11,8 @@
         <a-tree
           v-if="permissionData.length"
           checkable
+          v-model="selectedNodes"
           :tree-data="permissionData"
-          :selected-keys="selectedNodes"
           :expanded-keys="expandedNodes"
           :replace-fields="replaceFields"
         />
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { getPermissionData } from '@/api/role';
+import { getPermissionData, getRoleDetail } from '@/api/role';
 
 export default {
   name: 'RolePermission',
@@ -61,7 +61,7 @@ export default {
         key: 'id'
       },
 
-       // 权限数据
+      // 权限数据
       permissionData: [],
 
       // 父节点
@@ -71,8 +71,18 @@ export default {
       selectedNodes: [],
 
       // 展开的节点
-      expandedNodes: []
+      expandedNodes: [],
 
+      // 角色详情
+      roleDetail: {
+        id: 0,
+
+        // 角色名称
+        roleName: '',
+
+        // 菜单权限
+        menus: []
+      }
     };
   },
 
@@ -84,8 +94,10 @@ export default {
   methods: {
     initData () {
       this.visible = true;
+      this.getRoleDetail();
     },
 
+    // 获得权限数据
     getPermissionData () {
       this.loading = true;
       getPermissionData()
@@ -93,6 +105,24 @@ export default {
           this.permissionData = res.data.list;
           this.traverseTree(this.permissionData);
           this.loading = false;
+        })
+        .catch((error) => {
+          this.$message.error(error.msg);
+        });
+    },
+
+    // 获得角色详情
+    getRoleDetail () {
+      getRoleDetail(this.roleId)
+        .then((res) => {
+          this.roleDetail = {
+            ...this.roleDetail,
+            ...res.data
+          };
+
+          this.selectedNodes = [
+            ...this.roleDetail.menus
+          ];
         })
         .catch((error) => {
           this.$message.error(error.msg);
@@ -114,16 +144,13 @@ export default {
     // 展开/收起父节点
     handleMenuClick ({ key }) {
       if (key === 'expand') {
-        this.expandedNodes = [
-          ...this.parentNodes
-        ];
+        this.expandedNodes = [...this.parentNodes];
       } else {
         this.expandedNodes = [];
       }
     },
 
-    handleSubmit () {
-    },
+    handleSubmit () {},
 
     closeDrawer () {
       this.visible = false;
