@@ -70,6 +70,7 @@
         v-if="rolePermissionVisible"
         :roleId="roleId"
         :roleName="roleName"
+        @refresh-data="refreshRoleData"
         @close-dialog="closeRoleDialog"
       />
     </a-card>
@@ -242,6 +243,7 @@ export default {
 
     refreshRoleData () {
       this.roleFormVisible = false;
+      this.rolePermissionVisible = false;
       this.handleSearch();
     },
 

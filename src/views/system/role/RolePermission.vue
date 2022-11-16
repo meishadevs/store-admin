@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { getPermissionData, getRoleDetail } from '@/api/role';
+import { getPermissionData, getRoleDetail, setRolePermissions } from '@/api/role';
 
 export default {
   name: 'RolePermission',
@@ -80,13 +80,11 @@ export default {
 
       // 角色详情
       roleDetail: {
-        id: 0,
+        // 角色 id
+        roleId: 0,
 
-        // 角色名称
-        roleName: '',
-
-        // 菜单权限
-        menus: []
+        // 角色权限
+        permissions: []
       }
     };
   },
@@ -99,6 +97,7 @@ export default {
   methods: {
     initData () {
       this.visible = true;
+      this.roleDetail.roleId = this.roleId;
       this.getRoleDetail();
     },
 
@@ -125,9 +124,7 @@ export default {
             ...res.data
           };
 
-          this.selectedNodes = [
-            ...this.roleDetail.menus
-          ];
+          this.selectedNodes = [...this.roleDetail.menus];
         })
         .catch((error) => {
           this.$message.error(error.msg);
@@ -151,22 +148,34 @@ export default {
     // 展开/收起父节点
     handleMenuClick ({ key }) {
       if (key === 'selectAll') {
-        this.selectedNodes = [
-          ...this.allNodes
-        ];
+        this.selectedNodes = [...this.allNodes];
       } else if (key === 'unSelectAll') {
         this.selectedNodes = [];
       } else if (key === 'expand') {
-        this.expandedNodes = [
-          ...this.parentNodes
-        ];
+        this.expandedNodes = [...this.parentNodes];
       } else if (key === 'merge') {
         this.expandedNodes = [];
       }
     },
 
     handleSubmit () {
-      console.log('selectedNodes:', this.selectedNodes);
+      this.roleDetail.permissions = [
+        ...this.selectedNodes
+      ];
+
+      if (this.roleDetail.permissions.length) {
+        setRolePermissions(this.roleDetail)
+          .then((res) => {
+            this.visible = false;
+            this.$emit('refresh-data');
+            this.$message.success(res.msg);
+          })
+          .catch((err) => {
+            this.$message.error(err.msg);
+          });
+      } else {
+        this.$message.error('请选择为角色分配的权限');
+      }
     },
 
     closeDrawer () {

@@ -55,3 +55,12 @@ export function getPermissionData () {
     method: 'get'
   });
 }
+
+// 设置角色权限
+export function setRolePermissions (formData) {
+  return axios.request({
+    url: '/role/set_permissions',
+    method: 'post',
+    data: formData
+  });
+}
