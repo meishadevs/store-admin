@@ -1,9 +1,9 @@
 import axios from '@/utils/request';
 
-// 获得菜单列表
-export function getMenuList () {
+// 获得权限数据
+export function getPermissionData () {
   return axios.request({
-    url: '/menu/list',
+    url: '/menu/permissions_list',
     method: 'get'
   });
 }

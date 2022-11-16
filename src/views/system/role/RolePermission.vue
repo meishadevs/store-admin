@@ -36,7 +36,8 @@
 </template>
 
 <script>
-import { getPermissionData, getRoleDetail, setRolePermissions } from '@/api/role';
+import { getPermissionData } from '@/api/menu';
+import { getRoleDetail, setRolePermissions } from '@/api/role';
 
 export default {
   name: 'RolePermission',
@@ -73,11 +74,11 @@ export default {
       // 所有节点
       allNodes: [],
 
-      // 当前选中的节点
+      // 当前选中的节点（不包含父节点）
       selectedNodes: [],
 
-      // 当前选中的半选节点
-      selectHalfNodes: [],
+      // 当前选中的半选节点（父节点）
+      selectParentNodes: [],
 
       // 展开的节点
       expandedNodes: [],
@@ -128,7 +129,15 @@ export default {
             ...res.data
           };
 
-          this.selectedNodes = [...this.roleDetail.menus];
+          console.log('parentNodes:', this.parentNodes);
+
+          this.roleDetail.menus.map(menuId => {
+            if (this.parentNodes.includes(menuId)) {
+            this.selectParentNodes.push(menuId);
+            } else {
+            this.selectedNodes.push(menuId);
+            }
+          });
         })
         .catch((error) => {
           this.$message.error(error.msg);
@@ -151,7 +160,7 @@ export default {
 
     // 勾选节点后的回调
     handleCheckTree (node, event) {
-      this.selectHalfNodes = event.halfCheckedKeys;
+      this.selectParentNodes = event.halfCheckedKeys;
     },
 
     // 展开/收起父节点
@@ -170,7 +179,7 @@ export default {
     handleSubmit () {
       this.roleDetail.permissions = [
         ...this.selectedNodes,
-        ...this.selectHalfNodes
+        ...this.selectParentNodes
       ];
 
       if (this.roleDetail.permissions.length) {
