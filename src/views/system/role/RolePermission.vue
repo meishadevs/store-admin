@@ -129,8 +129,6 @@ export default {
             ...res.data
           };
 
-          console.log('parentNodes:', this.parentNodes);
-
           this.roleDetail.menus.map(menuId => {
             if (this.parentNodes.includes(menuId)) {
             this.selectParentNodes.push(menuId);
@@ -166,8 +164,10 @@ export default {
     // 展开/收起父节点
     handleMenuClick ({ key }) {
       if (key === 'selectAll') {
+        this.selectParentNodes = [];
         this.selectedNodes = [...this.allNodes];
       } else if (key === 'unSelectAll') {
+        this.selectParentNodes = [];
         this.selectedNodes = [];
       } else if (key === 'expand') {
         this.expandedNodes = [...this.parentNodes];
