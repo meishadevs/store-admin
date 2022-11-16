@@ -23,9 +23,9 @@
             <a-menu-item key="merge">合并所有</a-menu-item>
             <a-menu-item key="expand">展开所有</a-menu-item>
           </a-menu>
-          <a-button style="margin-right:8px">树操作<a-icon type="down" /></a-button>
+          <a-button class="mr-10">树操作<a-icon type="down" /></a-button>
         </a-dropdown>
-        <a-button :style="{ marginRight: '8px' }" @click="closeDrawer">取消</a-button>
+        <a-button class="mr-10" @click="closeDrawer">取消</a-button>
         <a-button type="primary" @click="handleSubmit">确定</a-button>
       </div>
     </a-drawer>
