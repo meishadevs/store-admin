@@ -15,6 +15,7 @@
           :tree-data="permissionData"
           :expanded-keys="expandedNodes"
           :replace-fields="replaceFields"
+          @check="handleCheckTree"
         />
       </div>
       <div class="drawer-footer">
@@ -74,6 +75,9 @@ export default {
 
       // 当前选中的节点
       selectedNodes: [],
+
+      // 当前选中的半选节点
+      selectHalfNodes: [],
 
       // 展开的节点
       expandedNodes: [],
@@ -145,6 +149,11 @@ export default {
       });
     },
 
+    // 勾选节点后的回调
+    handleCheckTree (node, event) {
+      this.selectHalfNodes = event.halfCheckedKeys;
+    },
+
     // 展开/收起父节点
     handleMenuClick ({ key }) {
       if (key === 'selectAll') {
@@ -160,7 +169,8 @@ export default {
 
     handleSubmit () {
       this.roleDetail.permissions = [
-        ...this.selectedNodes
+        ...this.selectedNodes,
+        ...this.selectHalfNodes
       ];
 
       if (this.roleDetail.permissions.length) {
