@@ -1,5 +1,5 @@
 # 电商网后台管理系统简介
-> 整个系统基于 [Ant Design Pro of Vue](https://pro.antdv.com/) 搭建，整个系统由登录、工作台、用户管理、角色管理、菜单管理等模块组成，整个系统包含了权限分配、登录等功能。
+> 整个系统基于 [Ant Design Pro of Vue](https://pro.antdv.com/) 搭建，整个系统由登录、工作台、用户管理、角色管理、菜单管理等模块组成，系统中包含了权限分配、登录等功能。
 
 ## 技术栈
 vue + vuex + vue-router + axios + ant-desigin-vue + ESLint + ES6/7
