@@ -13,7 +13,8 @@ export const asyncRouter = [
     name: 'index',
     component: BasicLayout,
     meta: {
-      title: '首页'
+      title: '首页',
+      permission: ['home']
     },
     redirect: '/dashboard/workplace',
     children: [
@@ -36,7 +37,7 @@ export const asyncRouter = [
             meta: {
               title: '工作台',
               keepAlive: false,
-              permission: ['dashboard']
+              permission: ['workplace']
             }
           }
         ]
