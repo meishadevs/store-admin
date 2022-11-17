@@ -72,11 +72,15 @@
           <a
             class="oprate-btn"
             @click="handleEdit(row.id)"
-            href="javascript:;"> 编辑 </a>
+            href="javascript:;">
+            编辑
+          </a>
           <a
             class="oprate-btn"
             @click="handleResetPassword(row.id)"
-            href="javascript:;"> 重置密码 </a>
+            href="javascript:;">
+            重置密码
+          </a>
           <a
             :disabled="[userName, 'admin'].includes(row.userName)"
             class="oprate-btn btn-del"
@@ -317,8 +321,6 @@ export default {
               this.getList();
             })
             .catch((error) => {
-              console.log('this:', this);
-              console.log('error:', error);
               this.$message.error(error.msg);
             });
         }

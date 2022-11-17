@@ -5,8 +5,8 @@
         <a-form layout="inline">
           <a-row :gutter="48">
             <a-col :md="8" :sm="24">
-              <a-form-item label="角色名">
-                <a-input v-model="listQuery.roleName" placeholder="请输入角色名" />
+              <a-form-item label="角色名称">
+                <a-input v-model="listQuery.roleName" placeholder="请输入角色名称" />
               </a-form-item>
             </a-col>
             <a-col :md="8" :sm="24">
@@ -35,18 +35,21 @@
           <a
             class="oprate-btn"
             @click="handleEdit(row.id)"
-            href="javascript:;"> 编辑 </a>
+            href="javascript:;">
+            编辑
+          </a>
           <a
             class="oprate-btn"
             @click="handlePermission(row)"
-            href="javascript:;">操作权限</a>
-          <a-popconfirm
-            title="是否要删除此行？"
-            @confirm="handleDelete(row.id)">
-            <a
-              class="oprate-btn btn-del"
-              href="javascript:;"> 删除 </a>
-          </a-popconfirm>
+            href="javascript:;">
+            操作权限
+          </a>
+          <a
+            class="oprate-btn btn-del"
+            @click="handleDelete(row)"
+            href="javascript:;">
+            删除
+          </a>
         </template>
       </a-table>
       <div class="page-wrapper">
@@ -230,15 +233,21 @@ export default {
     },
 
     // 删除
-    handleDelete (id) {
-      deleteRoleInfo(id)
-        .then((res) => {
-          this.$message.success(res.msg);
-          this.getList();
-        })
-        .catch((error) => {
-          this.$message.error(error.msg);
-        });
+    handleDelete ({ id, roleName }) {
+      this.$confirm({
+        title: '提示',
+        content: `确定要删除角色名称为 “${roleName}” 的角色信息吗？`,
+        onOk: () => {
+          deleteRoleInfo(id)
+            .then((res) => {
+              this.$message.success(res.msg);
+              this.getList();
+            })
+            .catch((error) => {
+              this.$message.error(error.msg);
+            });
+        }
+      });
     },
 
     refreshRoleData () {
