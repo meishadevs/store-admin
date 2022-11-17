@@ -1,22 +1,17 @@
-# 电商网简介
-> 整个网站使用 vue、vuex、vue-router、axios、ESLint、ES6 等搭建，整个网站由网站首页、商品分类页、注册页、登录页、商品信息展示页、商品筛选页、购物车及结算页组成，整个网站包含了将网页添加到收藏夹、关键字搜索、图片轮播、商品分类菜单切换、商品筛选、商品简介、商品咨询、省市区三级联动、放大镜、注册、登录等功能。
-
-## 在线访问
-**[http://meishadevs.github.io/store-vue/index.html#/](http://meishadevs.github.io/store-vue/index.html#/)**  
+# 电商网后台管理系统简介
+> 整个系统基于 [Ant Design Pro of Vue](https://pro.antdv.com/) 搭建，整个系统由登录、工作台、用户管理、角色管理、菜单管理等模块组成，整个系统包含了权限分配、登录等功能。
 
 ## 技术栈
-- **前端：** vue + vuex + vue-router + axios + element-ui + ESLint + ES6
-- **后端：** Node.js + Express + MongoDB + Mongoose + ES6
-- **数据库：** MongoDB
+- **前端：** vue + vuex + vue-router + axios + ant-desigin-vue + ESLint + ES6/7
 
 ## 运行项目
 
 ```
 # 将项目克隆到本地
-git clone https://github.com/meishadevs/store-vue.git
+git clone https://github.com/meishadevs/store-admin.git
 
 # 进入 store-vue 目录下
-cd store-vue
+cd store-admin
 
 # 安装依赖
 npm install
@@ -126,8 +121,8 @@ npm run build
 └── vue.config.js                  // vue 配置文件
 ```
 
-## 配置网站的服务端
-网站服务端配置请移步到电商网服务端项目：[https://github.com/meishadevs/store-node](https://github.com/meishadevs/store-node)
+## 配置系统的服务端
+系统服务端配置请移步到电商网服务端项目：[https://github.com/meishadevs/store-node](https://github.com/meishadevs/store-node)
 
 ## 特别说明
 当你的服务端地址和我设置的服务端地址不同时，可以修改 \src\config 下的 index.js 文件
