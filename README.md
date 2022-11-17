@@ -2,7 +2,7 @@
 > 整个系统基于 [Ant Design Pro of Vue](https://pro.antdv.com/) 搭建，整个系统由登录、工作台、用户管理、角色管理、菜单管理等模块组成，整个系统包含了权限分配、登录等功能。
 
 ## 技术栈
-- **前端：** vue + vuex + vue-router + axios + ant-desigin-vue + ESLint + ES6/7
+vue + vuex + vue-router + axios + ant-desigin-vue + ESLint + ES6/7
 
 ## 运行项目
 
@@ -10,7 +10,7 @@
 # 将项目克隆到本地
 git clone https://github.com/meishadevs/store-admin.git
 
-# 进入 store-vue 目录下
+# 进入 store-admin 目录下
 cd store-admin
 
 # 安装依赖
