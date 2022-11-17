@@ -1,87 +1,155 @@
-Overview
-----
+# 电商网简介
+> 整个网站使用 vue、vuex、vue-router、axios、ESLint、ES6 等搭建，整个网站由网站首页、商品分类页、注册页、登录页、商品信息展示页、商品筛选页、购物车及结算页组成，整个网站包含了将网页添加到收藏夹、关键字搜索、图片轮播、商品分类菜单切换、商品筛选、商品简介、商品咨询、省市区三级联动、放大镜、注册、登录等功能。
 
-基于 [Ant Design of Vue](https://vuecomponent.github.io/ant-design-vue/docs/vue/introduce-cn/) 实现的 [Ant Design Pro](https://pro.ant.design/) 
+## 在线访问
+**[http://meishadevs.github.io/store-vue/index.html#/](http://meishadevs.github.io/store-vue/index.html#/)**  
 
-![dashboard](https://static-2.loacg.com/open/static/github/SP1.png)
+## 技术栈
+- **前端：** vue + vuex + vue-router + axios + element-ui + ESLint + ES6
+- **后端：** Node.js + Express + MongoDB + Mongoose + ES6
+- **数据库：** MongoDB
 
-环境和依赖
-----
+## 运行项目
 
-- node
-- yarn
-- webpack
-- eslint
-- @vue/cli
-- [ant-design-vue@1.x](https://github.com/vueComponent/ant-design-vue) - Ant Design Of Vue 实现
-- [vue-cropper](https://github.com/xyxiao001/vue-cropper) - 头像裁剪组件
-- [@antv/g2](https://antv.alipay.com/zh-cn/index.html) - Alipay AntV 数据可视化图表
-- [Viser-vue](https://viserjs.github.io/docs.html#/viser/guide/installation)  - antv/g2 封装实现
+```
+# 将项目克隆到本地
+git clone https://github.com/meishadevs/store-vue.git
 
-> 请注意，我们强烈建议本项目使用 [Yarn](https://yarnpkg.com/) 包管理工具，这样可以与本项目演示站所加载完全相同的依赖版本 (yarn.lock) 。由于我们没有对依赖进行强制的版本控制，采用非 yarn 包管理进行引入时，可能由于 Pro 所依赖的库已经升级版本而引入了新版本所导致的问题。作者可能会由于时间问题无法及时排查而导致您采用本项目作为基项目而出现问题。
+# 进入 store-vue 目录下
+cd store-vue
 
+# 安装依赖
+npm install
 
+# 运行项目
+npm run dev
 
-项目下载和运行
-----
-
-- 拉取项目代码
-```bash
-git clone https://github.com/vueComponent/ant-design-vue-pro.git
-cd ant-design-vue-pro
+# 编译并压缩代码用于发布，将编译后生成的dist文件夹放在服务器下即可访问
+npm run build
 ```
 
-- 安装依赖
+## 项目的目录结构
+
+```  
+├── public                         // 不需要打包的文件               
+├── src                            // 源码目录
+|   |── api                        // api 接口文件
+│   │   ├── advisory.js            // 咨询相关的 api 接口
+│   │   ├── product.js             // 产品相关的 api 接口
+│   │   ├── region.js              // 地址相关的 api 接口
+│   │   ├── token.js               // token 相关的 api 接口
+│   │   ├── user.js                // 用户相关的 api 接口
+|   |── assets                     // 资源文件
+│   │   ├── less                   // Less 文件
+│   │   ├── font                   // 字体
+│   │   ├── images                 // 图片
+│   ├── components                 // 公共组件
+│   │   ├── AdvisoryList.vue       // 商品咨询列表组件
+│   │   ├── Banner.vue             // 轮播图组件
+│   │   ├── CartHead.vue           // 购物车页上的头部组件
+│   │   ├── CateMenu.vue           // 分类菜单组件
+│   │   ├── CateShowProduct.vue    // 商品分类页的商品展示组件
+│   │   ├── ChangePage.vue         // 翻页组件
+│   │   ├── ChangeProductNum.vue   // 改变商品数量组件
+│   │   ├── CollSite.vue           // 收藏网页组件
+│   │   ├── DeliveryInfo.vue       // 送货信息组件
+│   │   ├── GoTop.vue              // 回到顶部按钮组件
+│   │   ├── IndexShowProduct.vue   // 网站首页的商品展示组件
+│   │   ├── InvoiceInfo.vue        // 发票信息组件
+│   │   ├── LoginHead.vue          // 登录页的头部组件
+│   │   ├── NavBar.vue             // 导航栏组件
+│   │   ├── OrderSett.vue          // 订单结算组件
+│   │   ├── PayMethod.vue          // 支付方式组件
+│   │   ├── ProductCate.vue        // 商品分类组件
+│   │   ├── ProductCateNav.vue     // 商品分类导航组件
+│   │   ├── ProductComment.vue     // 商品评价组件
+│   │   ├── ProductFilter.vue      // 商品筛选组件
+│   │   ├── ProductImage.vue       // 商品图片组件
+│   │   ├── ProductIntro.vue       // 商品介绍组件
+│   │   ├── ProductPosition.vue    // 商品位置组件
+│   │   ├── ProinfoNavBar.vue      // 商品信息展示页的导航栏组件
+│   │   ├── ProinfoProductList.vue // 商品信息展示页的商品列表组件
+│   │   ├── ReceiveInfo.vue        // 收货信息组件
+│   │   ├── RegisterHead.vue       // 注册页的头部组件
+│   │   ├── SelectAddress.vue      // 地址选择组件
+│   │   ├── SelectColor.vue        // 颜色选择组件
+│   │   ├── SelectProductList.vue  // 商品选择页的商品列表组件
+│   │   ├── SelectShowProduct.vue  // 商品选择页的商品展示组件
+│   │   ├── SelectStyle.vue        // 商品规格选择组件
+│   │   ├── ShowProinfo.vue        // 商品信息展示组件
+│   │   ├── SiteFoot.vue           // 脚部组件
+│   │   ├── SiteHead.vue           // 头部组件
+│   │   ├── TopBar.vue             // 顶部通栏组件
+│   │ 	└── UserPosition.vue       // 用户位置组件 
+|   |── config
+|   │ 	└── index.js               // 配置文件
+|   |── filter                  
+|   │ 	└── index.js              // 过滤器文件
+|   |── libs      
+│   │   ├── api.request.js         // api 请求
+│   │   ├── axios.js               // axios 配置              
+|   │ 	└── util.js                // 常用功能
+│   ├── router                    
+│   │   ├── index.js
+│   │ 	└── routers.js             // 项目路由
+│   ├── store                  
+│   │   ├── module   
+│   │   │   └── user.js            // 用户状态     
+│   │   ├── getters.js              
+│   │ 	└── index.js               // 状态管理
+│   ├── views
+│   │   ├── error-page             // 错误页
+│   │   │   ├── 401.vue            // 401 页
+│   │   │   ├── 404.vue            // 404 页
+│   │   │   ├── 500.vue            // 500 页
+│   │   │   ├── back-btn-group.vue
+│   │   │   ├── error-content.vue
+│   │   │ 	└── error.less         // 错误页的样式
+│   │   ├── cart.vue               // 购物车和商品结算页
+│   │   ├── cate.vue               // 商品分类页
+│   │   ├── index.vue              // 网站首页
+│   │   ├── login.vue              // 登录页
+│   │   ├── proinfo.vue            // 商品信息展示页
+│   │   ├── register.vue           // 注册页
+│   │ 	└── select.vue             // 商品选择页
+│   ├── App.vue
+│   ├── main.js
+├── tests                          // 自动化测试
+├── .babelrc                       // babel编译的配置
+├── .editorconfig                  // 编辑器的配置
+├── .eslintignore                  // 设置忽略做语法检查的文件
+├── .eslintrc.js                   // 设置ESLint语法检查的规则
+├── .gitignore                     // 提交到git上时，忽略提交的文件和文件夹
+├── .postcssrc.js                  // 自动加载配置为PostCSS
+├── package-lock.json        
+├── package.json                   // 项目配置文件
+└── vue.config.js                  // vue 配置文件
 ```
-yarn install
+
+## 配置网站的服务端
+网站服务端配置请移步到电商网服务端项目：[https://github.com/meishadevs/store-node](https://github.com/meishadevs/store-node)
+
+## 特别说明
+当你的服务端地址和我设置的服务端地址不同时，可以修改 \src\config 下的 index.js 文件
+
 ```
+export default {
+  // token 在 Cookie 中存储的天数，默认 1 天
+  cookieExpires: 1,
 
-- 开发模式运行
+  // api 请求基础路径
+  baseUrl: {
+    dev: 'http://localhost:8002',
+    pro: 'http://localhost:8002'
+  },
+
+  // 淘宝网商品搜索 url
+  taobaoUrl: 'https://suggest.taobao.com/sug?q=',
+
+  // 百度搜索 url
+  baiduUrl: 'http://www.baidu.com/s',
+
+  // 默认打开的首页的路由 name 值，默认为 home
+  homeName: 'home'
+};
 ```
-yarn run serve
-```
-
-- 编译项目
-```
-yarn run build
-```
-
-- Lints and fixes files
-```
-yarn run lint
-```
-
-
-
-其他说明
-----
-
-- **关于 Issue 反馈 (重要!重要!重要!) 请在开 *Issue* 前，先阅读该内容：[Issue / PR 编写建议](https://github.com/vueComponent/ant-design-vue-pro/issues/90)** 
-
-- 项目使用的 [vue-cli3](https://cli.vuejs.org/guide/), 请确保你所使用的 vue-cli 是新版，并且已经学习 cli 官方文档使用教程
-
-- 关闭 Eslint (不推荐) 移除 `package.json` 中 `eslintConfig` 整个节点代码, `vue.config.js` 下的 `lintOnSave` 值改为 `false`
-
-- 组件按需加载 `/src/main.js` L14 相关代码 `import './core/lazy_use'` / `import './core/use'` 
-
-- [修改 Ant Design 配色 (@kokoroli)](https://github.com/kokoroli/antd-awesome/blob/master/docs/Ant_Design_%E6%A0%B7%E5%BC%8F%E8%A6%86%E7%9B%96.md)
-
-- I18n: [多语言支持 (@musnow)](./src/locales/index.js)
-
-- 生产环境默认不加载 `mock`，更多详情请看 `src/mock/index.js`
-
-- **用于生产环境，请使用 `release` 版本代码，使用 master 代码出现的任何问题需要你自行解决**
-
-## 浏览器兼容
-
-Modern browsers and IE10.
-
-| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Opera |
-| --- | --- | --- | --- | --- |
-| IE10, Edge | last 2 versions | last 2 versions | last 2 versions | last 2 versions |
-
-
-## Contributors
-
-This project exists thanks to all the people who contribute. 
-<a href="https://github.com/vueComponent/ant-design-vue-pro/graphs/contributors"><img src="https://opencollective.com/ant-design-pro-vue/contributors.svg?width=890&button=false" /></a>
