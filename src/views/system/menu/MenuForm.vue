@@ -179,8 +179,6 @@ export default {
             title: '父级菜单',
             parentId: 0
           });
-
-          console.log('permissionData:', this.permissionData);
         })
         .catch((error) => {
           this.$message.error(error.msg);

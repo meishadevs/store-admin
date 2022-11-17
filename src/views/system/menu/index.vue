@@ -198,7 +198,7 @@ export default {
     },
 
     refreshMenuData () {
-      this.MenuFormVisible = false;
+      this.menuFormVisible = false;
       this.getList();
     },
 
