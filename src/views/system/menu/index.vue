@@ -171,13 +171,13 @@ export default {
     },
 
     handleAdd () {
-      this.roleId = 0;
-      this.roleFormVisible = true;
+      this.menuId = 0;
+      this.menuFormVisible = true;
     },
 
     handleEdit (id) {
-      this.roleId = id;
-      this.roleFormVisible = true;
+      this.menuId = id;
+      this.menuFormVisible = true;
     },
 
     handleDelete ({ id, title }) {

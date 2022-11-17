@@ -17,6 +17,26 @@ export function getMenuList (query) {
   });
 }
 
+// 获得菜单详情
+export function getMenuDetail (menuId) {
+  return axios.request({
+    url: '/menu/detail',
+    method: 'get',
+    params: {
+      menuId
+    }
+  });
+}
+
+// 保存菜单信息
+export function saveMenuData (formData) {
+  return axios.request({
+    url: '/menu/save',
+    method: 'post',
+    data: formData
+  });
+}
+
 // 删除菜单信息
 export function deleteMenuInfo (menuId) {
   return axios.request({
