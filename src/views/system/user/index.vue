@@ -14,8 +14,7 @@
                   <a-select-option
                     v-for="item in roleList"
                     :key="item.id"
-                    :value="item.id"
-                  >
+                    :value="item.id">
                     {{ item.roleName }}
                   </a-select-option>
                 </a-select>
@@ -47,11 +46,9 @@
           </a-row>
         </a-form>
       </div>
-
       <div class="table-operator">
         <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
       </div>
-
       <a-table
         :loading="tableLoading"
         :pagination="false"
@@ -80,14 +77,14 @@
             class="oprate-btn"
             @click="handleResetPassword(row.id)"
             href="javascript:;"> 重置密码 </a>
-          <a-popconfirm
-            title="是否要删除此行？"
-            @confirm="handleDelete(row.id)">
-            <a
-              :disabled="[userName, 'admin'].includes(row.userName)"
-              class="oprate-btn btn-del"
-              href="javascript:;"> 删除 </a>
-          </a-popconfirm>
+          <a
+            :disabled="[userName, 'admin'].includes(row.userName)"
+            class="oprate-btn btn-del"
+            href="javascript:;"
+            @click="handleDelete(row)"
+          >
+            删除
+          </a>
         </template>
       </a-table>
       <div class="page-wrapper">
@@ -230,12 +227,14 @@ export default {
   },
 
   methods: {
-     getAllRoleList () {
-      getAllRoleList().then(res => {
-        this.roleList = res.data.list;
-      }).catch(error => {
-        this.$message.error(error.msg);
-      });
+    getAllRoleList () {
+      getAllRoleList()
+        .then((res) => {
+          this.roleList = res.data.list;
+        })
+        .catch((error) => {
+          this.$message.error(error.msg);
+        });
     },
 
     getList () {
@@ -307,15 +306,23 @@ export default {
     },
 
     // 删除
-    handleDelete (id) {
-      deleteUserInfo(id)
-        .then((res) => {
-          this.$message.success(res.msg);
-          this.getList();
-        })
-        .catch((error) => {
-          this.$message.error(error.msg);
-        });
+    handleDelete ({ id, userName }) {
+      this.$confirm({
+        title: '提示',
+        content: `确定要删除用户名为 “${userName}” 的用户信息吗？`,
+        onOk: () => {
+          deleteUserInfo(id)
+            .then((res) => {
+              this.$message.success(res.msg);
+              this.getList();
+            })
+            .catch((error) => {
+              console.log('this:', this);
+              console.log('error:', error);
+              this.$message.error(error.msg);
+            });
+        }
+      });
     },
 
     refreshUserData () {
