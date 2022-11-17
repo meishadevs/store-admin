@@ -14,6 +14,9 @@
         :row-key="(record) => record.id"
         bordered
       >
+        <template slot="type" slot-scope="row">
+          {{ row.type ? '按钮' : '菜单' }}
+        </template>
         <template slot="action" slot-scope="row">
           <a
             class="oprate-btn"
@@ -96,6 +99,9 @@ export default {
                 'min-width': '200px'
               }
             };
+          },
+          scopedSlots: {
+            customRender: 'type'
           }
         },
         {
