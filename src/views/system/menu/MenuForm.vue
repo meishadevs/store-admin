@@ -27,7 +27,7 @@
         label="菜单名称"
         prop="title"
       >
-        <a-input v-model="menuDetail.title" />
+        <a-input v-model="menuDetail.title" :maxLength="30" />
       </a-form-model-item>
       <a-form-model-item
         label="上级菜单"
@@ -56,19 +56,19 @@
         label="路由地址"
         prop="url"
       >
-        <a-input v-model="menuDetail.url" />
+        <a-input v-model="menuDetail.url" :maxLength="30" />
       </a-form-model-item>
       <a-form-model-item
         label="图标"
         prop="icon"
       >
-        <a-input v-model="menuDetail.icon" />
+        <a-input v-model="menuDetail.icon" :maxLength="30" />
       </a-form-model-item>
       <a-form-model-item
         label="排序"
         prop="sort"
       >
-        <a-input-number v-model="menuDetail.sort" :min="1" />
+        <a-input-number v-model="menuDetail.sort" :min="1" :maxLength="10" />
       </a-form-model-item>
     </a-form-model>
   </a-modal>

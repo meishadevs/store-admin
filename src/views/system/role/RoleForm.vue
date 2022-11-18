@@ -18,7 +18,7 @@
         label="角色名称"
         prop="roleName"
       >
-        <a-input v-model="roleDetail.roleName" />
+        <a-input v-model="roleDetail.roleName" :maxLength="20" />
       </a-form-model-item>
     </a-form-model>
   </a-modal>

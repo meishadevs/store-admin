@@ -18,7 +18,7 @@
         label="用户名"
         prop="userName"
       >
-        <a-input v-model="userDetail.userName" />
+        <a-input v-model="userDetail.userName" :maxLength="30" />
       </a-form-model-item>
       <a-form-model-item
         label="所属角色"
@@ -42,7 +42,7 @@
         label="邮箱"
         prop="email"
       >
-        <a-input v-model="userDetail.email" />
+        <a-input v-model="userDetail.email" :maxLength="30" />
       </a-form-model-item>
       <a-form-model-item
         label="用户状态"
