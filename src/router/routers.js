@@ -85,6 +85,17 @@ export const asyncRouter = [
               permission: ['menu']
             },
             component: () => import('@/views/system/menu')
+          },
+          {
+            path: 'province',
+            name: 'province',
+            hideChildrenInMenu: true,
+            meta: {
+              title: '省份管理',
+              keepAlive: true,
+              permission: ['province']
+            },
+            component: () => import('@/views/system/province')
           }
         ]
       }
