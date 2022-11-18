@@ -129,11 +129,11 @@ export default {
             ...res.data
           };
 
-          this.roleDetail.menus.map(menuId => {
+          this.roleDetail.menus.map((menuId) => {
             if (this.parentNodes.includes(menuId)) {
-            this.selectParentNodes.push(menuId);
+              this.selectParentNodes.push(menuId);
             } else {
-            this.selectedNodes.push(menuId);
+              this.selectedNodes.push(menuId);
             }
           });
         })
