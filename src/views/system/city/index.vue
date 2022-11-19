@@ -4,17 +4,33 @@
       <div class="table-page-search-wrapper">
         <a-form layout="inline">
           <a-row :gutter="48">
-            <a-col :md="8" :sm="24">
+            <a-col :md="6" :sm="24">
+              <a-form-item label="所属省份">
+                <a-select
+                  v-model="listQuery.provinceCode"
+                  allowClear
+                  placeholder="请选择所属市"
+                  @change="handleSearch">
+                  <a-select-option
+                    v-for="item in provinceList"
+                    :key="item.provinceCode"
+                    :value="item.provinceCode">
+                    {{ item.provinceName }}
+                  </a-select-option>
+                </a-select>
+              </a-form-item>
+            </a-col>
+            <a-col :md="6" :sm="24">
               <a-form-item label="市名称">
                 <a-input v-model="listQuery.cityName" placeholder="请输入市名称" />
               </a-form-item>
             </a-col>
-            <a-col :md="8" :sm="24">
+            <a-col :md="6" :sm="24">
               <a-form-item label="市编码">
                 <a-input v-model="listQuery.cityCode" placeholder="请输入市编码" />
               </a-form-item>
             </a-col>
-            <a-col :md="8" :sm="24">
+            <a-col :md="6" :sm="24">
               <span class="table-page-search-submitButtons">
                 <a-button type="primary" @click="handleSearch">查询</a-button>
                 <a-button style="margin-left: 8px" @click="handleClear">重置</a-button>
@@ -74,6 +90,7 @@
 
 <script>
 import CityForm from './CityForm';
+import { getAllProvinceList } from '@/api/province';
 import { getCityList, deleteCityInfo } from '@/api/city';
 
 export default {
@@ -96,6 +113,9 @@ export default {
 
       // 列表数据
       list: [],
+
+      // 省份列表
+      provinceList: [],
 
       tablecolumn: [
         {
@@ -183,6 +203,7 @@ export default {
       listQuery: {
         cityName: '',
         cityCode: '',
+        provinceCode: undefined,
         pageNumber: 1,
         pageSize: 10
       }
@@ -190,10 +211,21 @@ export default {
   },
 
   created () {
+    this.getAllProvinceList();
     this.getList();
   },
 
   methods: {
+    getAllProvinceList () {
+      getAllProvinceList()
+        .then((res) => {
+          this.provinceList = res.data.list;
+        })
+        .catch((error) => {
+          this.$message.error(error.msg);
+        });
+    },
+
     getList () {
       this.tableLoading = true;
       getCityList(this.listQuery)
@@ -221,6 +253,7 @@ export default {
     handleClear () {
       this.listQuery.cityName = '';
       this.listQuery.cityCode = '';
+      this.listQuery.provinceCode = undefined;
       this.listQuery.pageNumber = 1;
       this.getList();
     },
