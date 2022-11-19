@@ -22,12 +22,31 @@
           v-model="districtDetail.provinceCode"
           allowClear
           placeholder="请选择所属省份"
+          @change="handleSelectProvince"
         >
           <a-select-option
             v-for="item in provinceList"
             :key="item.provinceCode"
             :value="item.provinceCode">
             {{ item.provinceName }}
+          </a-select-option>
+        </a-select>
+      </a-form-model-item>
+      <a-form-model-item
+        label="所属市"
+        prop="cityCode"
+      >
+        <a-select
+          v-model="districtDetail.cityCode"
+          allowClear
+          placeholder="请选择所属市"
+        >
+          <a-select-option
+            v-for="item in cityList"
+            :key="item.cityCode"
+            :value="item.cityCode"
+          >
+            {{ item.cityName }}
           </a-select-option>
         </a-select>
       </a-form-model-item>
@@ -49,6 +68,7 @@
 
 <script>
 import { getAllProvinceList } from '@/api/province';
+import { getAllCityList } from '@/api/city';
 import { getDistrictDetail, saveDistrictData } from '@/api/district';
 
 export default {
@@ -92,8 +112,17 @@ export default {
       // 省份列表
       provinceList: [],
 
+      // 市列表
+      cityList: [],
+
       // 验证规则
       rules: {
+       provinceCode: [
+          { required: true, message: '请选择所属省份', trigger: 'change' }
+        ],
+        cityCode: [
+          { required: true, message: '请选择所属市', trigger: 'change' }
+        ],
         districtName: [
           { required: true, message: '区名称不能为空', trigger: 'blur' }
         ],
@@ -108,6 +137,7 @@ export default {
 
         // 省份编码
         provinceCode: undefined,
+        cityCode: undefined,
 
         // 区名称
         districtName: '',
@@ -144,6 +174,16 @@ export default {
         });
     },
 
+     getAllCityList () {
+      getAllCityList(this.districtDetail.provinceCode)
+        .then((res) => {
+          this.cityList = res.data.list;
+        })
+        .catch((error) => {
+          this.$message.error(error.msg);
+        });
+    },
+
     getDistrictDetail () {
       getDistrictDetail(this.districtId).then(res => {
         this.districtDetail = {
@@ -153,6 +193,12 @@ export default {
       }).catch(error => {
         this.$message.error(error.msg);
       });
+    },
+
+    handleSelectProvince () {
+      this.cityList = [];
+      this.districtDetail.cityCode = undefined;
+      this.getAllCityList();
     },
 
     handleSubmit () {
