@@ -10,6 +10,11 @@
               </a-form-item>
             </a-col>
             <a-col :md="8" :sm="24">
+              <a-form-item label="省份编码">
+                <a-input v-model="listQuery.provinceCode" placeholder="请输入省份编码" />
+              </a-form-item>
+            </a-col>
+            <a-col :md="8" :sm="24">
               <span class="table-page-search-submitButtons">
                 <a-button type="primary" @click="handleSearch">查询</a-button>
                 <a-button style="margin-left: 8px" @click="handleClear">重置</a-button>
@@ -165,6 +170,7 @@ export default {
       // 查询条件
       listQuery: {
         provinceName: '',
+        provinceCode: '',
         pageNumber: 1,
         pageSize: 10
       }
@@ -202,6 +208,7 @@ export default {
 
     handleClear () {
       this.listQuery.provinceName = '';
+      this.listQuery.provinceCode = '';
       this.listQuery.pageNumber = 1;
       this.getList();
     },
