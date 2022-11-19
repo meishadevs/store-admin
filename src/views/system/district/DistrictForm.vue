@@ -49,10 +49,10 @@
 
 <script>
 import { getAllProvinceList } from '@/api/province';
-import { getdistrictDetail, savedistrictData } from '@/api/district';
+import { getDistrictDetail, saveDistrictData } from '@/api/district';
 
 export default {
-  name: 'districtForm',
+  name: 'DistrictForm',
 
   props: {
     // 区 id
@@ -129,7 +129,7 @@ export default {
     this.getAllProvinceList();
 
     if (this.districtId) {
-      this.getdistrictDetail();
+      this.getDistrictDetail();
     }
   },
 
@@ -144,8 +144,8 @@ export default {
         });
     },
 
-    getdistrictDetail () {
-      getdistrictDetail(this.districtId).then(res => {
+    getDistrictDetail () {
+      getDistrictDetail(this.districtId).then(res => {
         this.districtDetail = {
           ...this.districtDetail,
           ...res.data
@@ -159,7 +159,7 @@ export default {
       this.$refs.districtForm.validate(valid => {
         if (valid) {
           this.loading = true;
-          savedistrictData(this.districtDetail).then(res => {
+          saveDistrictData(this.districtDetail).then(res => {
             this.loading = false;
             this.visible = false;
             this.$emit('refresh-data');

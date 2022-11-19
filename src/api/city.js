@@ -1,10 +1,13 @@
 import axios from '@/utils/request';
 
 // 获得所有市列表数据
-export function getAllCityList () {
+export function getAllCityList (provinceCode) {
   return axios.request({
     url: '/city/all',
-    method: 'get'
+    method: 'get',
+    params: {
+      provinceCode
+    }
   });
 }
 

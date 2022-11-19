@@ -10,24 +10,42 @@
                   v-model="listQuery.provinceCode"
                   allowClear
                   placeholder="请选择所属省份"
-                  @change="handleSearch">
+                  @change="handleSelectProvince"
+                >
                   <a-select-option
                     v-for="item in provinceList"
                     :key="item.provinceCode"
-                    :value="item.provinceCode">
+                    :value="item.provinceCode"
+                  >
                     {{ item.provinceName }}
                   </a-select-option>
                 </a-select>
               </a-form-item>
             </a-col>
             <a-col :md="6" :sm="24">
-              <a-form-item label="区名称">
-                <a-input v-model="listQuery.districtName" placeholder="请输入区名称" />
+              <a-form-item label="所属市">
+                <a-select
+                  v-model="listQuery.cityCode"
+                  allowClear
+                  placeholder="请选择所属市"
+                  @change="handleSearch"
+                >
+                  <a-select-option
+                    v-for="item in cityList"
+                    :key="item.cityCode"
+                    :value="item.cityCode"
+                  >
+                    {{ item.cityName }}
+                  </a-select-option>
+                </a-select>
               </a-form-item>
             </a-col>
             <a-col :md="6" :sm="24">
-              <a-form-item label="区编码">
-                <a-input v-model="listQuery.districtCode" placeholder="请输入区编码" />
+              <a-form-item label="区名称">
+                <a-input
+                  v-model="listQuery.districtName"
+                  placeholder="请输入区名称"
+                />
               </a-form-item>
             </a-col>
             <a-col :md="6" :sm="24">
@@ -39,11 +57,9 @@
           </a-row>
         </a-form>
       </div>
-
       <div class="table-operator">
         <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
       </div>
-
       <a-table
         :loading="tableLoading"
         :pagination="false"
@@ -56,13 +72,15 @@
           <a
             class="oprate-btn"
             @click="handleEdit(row.id)"
-            href="javascript:;">
+            href="javascript:;"
+          >
             编辑
           </a>
           <a
             class="oprate-btn btn-del"
             @click="handleDelete(row)"
-            href="javascript:;">
+            href="javascript:;"
+          >
             删除
           </a>
         </template>
@@ -91,6 +109,7 @@
 <script>
 import DistrictForm from './DistrictForm';
 import { getAllProvinceList } from '@/api/province';
+import { getAllCityList } from '@/api/city';
 import { getDistrictList, deleteDistrictInfo } from '@/api/district';
 
 export default {
@@ -116,6 +135,9 @@ export default {
 
       // 省份列表
       provinceList: [],
+
+      // 市列表数据
+      cityList: [],
 
       tablecolumn: [
         {
@@ -216,6 +238,7 @@ export default {
         districtName: '',
         districtCode: '',
         provinceCode: undefined,
+        cityCode: '',
         pageNumber: 1,
         pageSize: 10
       }
@@ -238,6 +261,16 @@ export default {
         });
     },
 
+    getAllCityList () {
+      getAllCityList(this.listQuery.provinceCode)
+        .then((res) => {
+          this.cityList = res.data.list;
+        })
+        .catch((error) => {
+          this.$message.error(error.msg);
+        });
+    },
+
     getList () {
       this.tableLoading = true;
       getDistrictList(this.listQuery)
@@ -249,6 +282,14 @@ export default {
         .catch((error) => {
           this.$message.error(error.msg);
         });
+    },
+
+    // 选择省份后的回调
+    handleSelectProvince () {
+      this.cityList = [];
+      this.listQuery.cityCode = undefined;
+      this.listQuery.districtName = undefined;
+      this.getAllCityList();
     },
 
     handlePageSizeChange (current, pageSize) {
@@ -266,7 +307,9 @@ export default {
       this.listQuery.districtName = '';
       this.listQuery.districtCode = '';
       this.listQuery.provinceCode = undefined;
+      this.listQuery.cityCode = undefined;
       this.listQuery.pageNumber = 1;
+      this.cityList = [];
       this.getList();
     },
 
