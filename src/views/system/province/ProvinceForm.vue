@@ -46,6 +46,17 @@ export default {
   },
 
   data () {
+    // 验证省份编码
+    const validateProvinceCode = (rule, value, callback) => {
+      if (!this.provinceDetail.provinceCode) {
+        callback(new Error('省份编码不能为空'));
+      } else if (!(/^[1-9]\d{5}$/.test(this.provinceDetail.provinceCode))) {
+        callback(new Error('省份编码应由6位数字组成，且第1位不能为0'));
+      } else {
+        callback();
+      }
+    };
+
     return {
       visible: false,
       loading: false,
@@ -66,7 +77,7 @@ export default {
           { required: true, message: '省份名称不能为空', trigger: 'blur' }
         ],
         provinceCode: [
-          { required: true, message: '省份编码不能为空', trigger: 'blur' }
+          { required: true, validator: validateProvinceCode, trigger: 'blur' }
         ]
       },
 
