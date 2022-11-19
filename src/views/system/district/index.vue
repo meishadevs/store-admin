@@ -165,6 +165,18 @@ export default {
           }
         },
         {
+          title: '所属省',
+          key: 'provinceName',
+          dataIndex: 'provinceName',
+          customHeaderCell: (column) => {
+            return {
+              style: {
+                'min-width': '200px'
+              }
+            };
+          }
+        },
+        {
           title: '创建人',
           key: 'createBy',
           dataIndex: 'createBy',
