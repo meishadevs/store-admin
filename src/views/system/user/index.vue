@@ -250,6 +250,7 @@ export default {
           this.tableLoading = false;
         })
         .catch((error) => {
+          this.tableLoading = false;
           this.$message.error(error.msg);
         });
     },
