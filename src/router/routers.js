@@ -107,6 +107,17 @@ export const asyncRouter = [
               permission: ['city']
             },
             component: () => import('@/views/system/city')
+          },
+          {
+            path: 'district',
+            name: 'district',
+            hideChildrenInMenu: true,
+            meta: {
+              title: '区管理',
+              keepAlive: true,
+              permission: ['district']
+            },
+            component: () => import('@/views/system/district')
           }
         ]
       }
