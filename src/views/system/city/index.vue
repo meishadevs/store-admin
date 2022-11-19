@@ -9,7 +9,7 @@
                 <a-select
                   v-model="listQuery.provinceCode"
                   allowClear
-                  placeholder="请选择所属市"
+                  placeholder="请选择所属省份"
                   @change="handleSearch">
                   <a-select-option
                     v-for="item in provinceList"

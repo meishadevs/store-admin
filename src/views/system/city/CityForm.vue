@@ -15,6 +15,23 @@
       v-bind="layout"
     >
       <a-form-model-item
+        label="所属省份"
+        prop="provinceCode"
+      >
+        <a-select
+          v-model="cityDetail.provinceCode"
+          allowClear
+          placeholder="请选择所属省份"
+        >
+          <a-select-option
+            v-for="item in provinceList"
+            :key="item.provinceCode"
+            :value="item.provinceCode">
+            {{ item.provinceName }}
+          </a-select-option>
+        </a-select>
+      </a-form-model-item>
+      <a-form-model-item
         label="市名称"
         prop="cityName"
       >
@@ -31,6 +48,7 @@
 </template>
 
 <script>
+import { getAllProvinceList } from '@/api/province';
 import { getCityDetail, saveCityData } from '@/api/city';
 
 export default {
@@ -71,6 +89,9 @@ export default {
         }
       },
 
+      // 省份列表
+      provinceList: [],
+
       // 验证规则
       rules: {
         cityName: [
@@ -84,6 +105,9 @@ export default {
       // 市信息
       cityDetail: {
         id: 0,
+
+        // 省份编码
+        provinceCode: undefined,
 
         // 市名称
         cityName: '',
@@ -102,6 +126,7 @@ export default {
 
   created () {
     this.visible = true;
+    this.getAllProvinceList();
 
     if (this.cityId) {
       this.getCityDetail();
@@ -109,6 +134,16 @@ export default {
   },
 
   methods: {
+     getAllProvinceList () {
+      getAllProvinceList()
+        .then((res) => {
+          this.provinceList = res.data.list;
+        })
+        .catch((error) => {
+          this.$message.error(error.msg);
+        });
+    },
+
     getCityDetail () {
       getCityDetail(this.cityId).then(res => {
         this.cityDetail = {
