@@ -47,7 +47,8 @@ import {
   message,
   notification,
   Pagination,
-  FormModel
+  FormModel,
+  Tree
 } from 'ant-design-vue';
 import Viser from 'viser-vue';
 
@@ -101,6 +102,7 @@ Vue.use(Descriptions);
 Vue.use(Space);
 Vue.use(Pagination);
 Vue.use(FormModel);
+Vue.use(Tree);
 
 Vue.prototype.$confirm = Modal.confirm;
 Vue.prototype.$message = message;
