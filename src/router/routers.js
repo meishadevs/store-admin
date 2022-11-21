@@ -60,7 +60,7 @@ export const asyncRouter = [
             meta: {
               title: '用户管理',
               keepAlive: true,
-              permission: ['user']
+              permission: ['user:list']
             },
             component: () => import('@/views/system/user')
           },
