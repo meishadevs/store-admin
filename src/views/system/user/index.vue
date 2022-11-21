@@ -54,7 +54,14 @@
         </a-form>
       </div>
       <div class="table-operator">
-        <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
+        <a-button
+          type="primary"
+          icon="plus"
+          v-permission="{rule:'user:add'}"
+          @click="handleAdd"
+        >
+          新增
+        </a-button>
       </div>
       <a-table
         :loading="tableLoading"

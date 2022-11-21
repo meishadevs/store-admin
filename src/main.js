@@ -13,6 +13,9 @@ import bootstrap from './core/bootstrap';
 // 使用懒加载组件
 import './core/lazy_use';
 
+// 全局指令
+import importDirective from '@/directive';
+
 // 权限控制
 import './permission';
 
@@ -39,6 +42,9 @@ const baseUrl = process.env.NODE_ENV === 'development' ? config.baseUrl.dev : co
 
 // 全局注册后端基础路径
 Vue.prototype.$baseUrl = baseUrl;
+
+// 注册指令
+importDirective(Vue);
 
 new Vue({
   router,

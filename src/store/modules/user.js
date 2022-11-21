@@ -23,8 +23,11 @@ const user = {
     // 用户信息
     info: {},
 
-    // 权限
-    permissions: []
+    // 路由权限
+    routePermissionsList: [],
+
+    // 按钮权限
+    btnPermissionsList: []
   },
 
   mutations: {
@@ -54,9 +57,14 @@ const user = {
       state.info = info;
     },
 
-    // 设置权限
-    SET_PERMISSION: (state, permissions) => {
-      state.permissions = permissions;
+    // 设置路由权限
+    SET_ROUTE_PERMISSION: (state, permissions) => {
+      state.routePermissionsList = permissions;
+    },
+
+    // 设置按钮权限
+    SET_BTN_PERMISSION: (state, permissions) => {
+      state.btnPermissionsList = permissions;
     },
 
     // 清空用户数据
@@ -67,7 +75,8 @@ const user = {
       state.avatar = '';
       state.roles = [];
       state.info = {};
-      state.permissions = [];
+      state.routePermissionsList = [];
+      state.btnPermissionsList = [];
       storage.remove(ACCESS_TOKEN);
     }
   },
@@ -98,7 +107,8 @@ const user = {
           commit('SET_INFO', data);
           commit('SET_USER_NAME', { userName: data.userName, welcome: welcome() });
           commit('SET_AVATAR', data.avatar);
-          commit('SET_PERMISSION', data.permissions);
+          commit('SET_ROUTE_PERMISSION', data.routePermissionsList);
+          commit('SET_BTN_PERMISSION', data.btnPermissionsList);
           resolve(data);
         }).catch(error => {
           reject(error);
