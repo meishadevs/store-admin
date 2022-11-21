@@ -15,7 +15,7 @@
         bordered
       >
         <template slot="type" slot-scope="row">
-          {{ row.type ? '按钮' : '菜单' }}
+          {{ row.type }}
         </template>
         <template slot="action" slot-scope="row">
           <a

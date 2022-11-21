@@ -15,19 +15,24 @@
       v-bind="layout"
     >
       <a-form-model-item
-        label="菜单类型"
+        label="类型"
         prop="type"
       >
-        <a-radio-group v-model="menuDetail.type">
+        <a-radio-group
+          v-model="menuDetail.type"
+        >
           <a-radio :value="0">菜单</a-radio>
           <a-radio :value="1">按钮</a-radio>
         </a-radio-group>
       </a-form-model-item>
       <a-form-model-item
-        label="菜单名称"
+        :label="menuDetail.type ? '按钮' : '菜单'"
         prop="title"
       >
-        <a-input v-model="menuDetail.title" :maxLength="30" />
+        <a-input
+          v-model="menuDetail.title"
+          :maxLength="30"
+        />
       </a-form-model-item>
       <a-form-model-item
         label="上级菜单"
@@ -53,22 +58,34 @@
         <a-input v-model="menuDetail.permissions" />
       </a-form-model-item>
       <a-form-model-item
+        v-if="!menuDetail.type"
         label="路由地址"
         prop="url"
       >
-        <a-input v-model="menuDetail.url" :maxLength="30" />
+        <a-input
+          v-model="menuDetail.url"
+          :maxLength="30"
+        />
       </a-form-model-item>
       <a-form-model-item
+        v-if="!menuDetail.type"
         label="图标"
         prop="icon"
       >
-        <a-input v-model="menuDetail.icon" :maxLength="30" />
+        <a-input
+          v-model="menuDetail.icon"
+          :maxLength="30"
+        />
       </a-form-model-item>
       <a-form-model-item
         label="排序"
         prop="sort"
       >
-        <a-input-number v-model="menuDetail.sort" :min="1" :maxLength="10" />
+        <a-input-number
+          v-model="menuDetail.sort"
+          :min="1"
+          :maxLength="10"
+        />
       </a-form-model-item>
     </a-form-model>
   </a-modal>
@@ -112,19 +129,6 @@ export default {
         value: 'id'
       },
 
-      // 验证规则
-      rules: {
-        title: [
-          { required: true, message: '菜单名称不能为空', trigger: 'blur' }
-        ],
-        parentId: [
-          { required: true, type: 'number', message: '上级菜单不能为空', trigger: 'change' }
-        ],
-        permissions: [
-          { required: true, message: '权限不能为空', trigger: 'blur' }
-        ]
-      },
-
       // 菜单详情
       menuDetail: {
         id: 0,
@@ -156,6 +160,22 @@ export default {
   computed: {
     dialogTitle () {
       return this.menuId ? '编辑菜单' : '新增菜单';
+    },
+
+    rules () {
+      const text = this.menuDetail.type ? '按钮' : '菜单';
+
+      return {
+        title: [
+          { required: true, message: `${text}名称不能为空`, trigger: 'blur' }
+        ],
+        parentId: [
+          { required: true, type: 'number', message: '上级菜单不能为空', trigger: 'change' }
+        ],
+        permissions: [
+          { required: true, message: '权限不能为空', trigger: 'blur' }
+        ]
+      };
     }
   },
 
