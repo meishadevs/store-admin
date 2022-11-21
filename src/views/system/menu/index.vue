@@ -14,8 +14,8 @@
         :row-key="(record) => record.id"
         bordered
       >
-        <template slot="type" slot-scope="row">
-          {{ row.type }}
+        <template slot="type" slot-scope="type">
+          {{ type ? '按钮' : '菜单' }}
         </template>
         <template slot="action" slot-scope="row">
           <a
