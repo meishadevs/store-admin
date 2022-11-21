@@ -5,6 +5,8 @@
     :visible="visible"
     :maskClosable="false"
     :confirmLoading="loading"
+    okText="确定"
+    cancelText="取消"
     @ok="handleSubmit"
     @cancel="handleCloseDialog"
   >
