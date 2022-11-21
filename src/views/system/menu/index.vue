@@ -105,18 +105,6 @@ export default {
           }
         },
         {
-          title: '排序',
-          key: 'sort',
-          dataIndex: 'sort',
-          customHeaderCell: (column) => {
-            return {
-              style: {
-                'min-width': '200px'
-              }
-            };
-          }
-        },
-        {
           title: '路由',
           key: 'url',
           dataIndex: 'url',
@@ -132,6 +120,18 @@ export default {
           title: '权限',
           key: 'permissions',
           dataIndex: 'permissions',
+          customHeaderCell: (column) => {
+            return {
+              style: {
+                'min-width': '200px'
+              }
+            };
+          }
+        },
+        {
+          title: '排序',
+          key: 'sort',
+          dataIndex: 'sort',
           customHeaderCell: (column) => {
             return {
               style: {
