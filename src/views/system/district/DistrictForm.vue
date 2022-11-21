@@ -190,6 +190,8 @@ export default {
           ...this.districtDetail,
           ...res.data
         };
+
+        this.getAllCityList();
       }).catch(error => {
         this.$message.error(error.msg);
       });
