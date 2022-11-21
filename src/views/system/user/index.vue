@@ -7,10 +7,11 @@
             <a-col :md="6" :sm="24">
               <a-form-item label="所属角色">
                 <a-select
-                  v-model="listQuery.roleId"
                   allowClear
+                  v-model="listQuery.roleId"
                   placeholder="请选择所属角色"
-                  @change="handleSearch">
+                  @change="handleSearch"
+                >
                   <a-select-option
                     v-for="item in roleList"
                     :key="item.id"
@@ -23,10 +24,11 @@
             <a-col :md="6" :sm="24">
               <a-form-item label="用户状态">
                 <a-select
-                  v-model="listQuery.status"
                   allowClear
+                  v-model="listQuery.status"
                   placeholder="请选择用户状态"
-                  @change="handleSearch">
+                  @change="handleSearch"
+                >
                   <a-select-option :value="1">启用</a-select-option>
                   <a-select-option :value="0">禁用</a-select-option>
                 </a-select>
@@ -34,7 +36,12 @@
             </a-col>
             <a-col :md="6" :sm="24">
               <a-form-item label="用户名">
-                <a-input v-model="listQuery.userName" placeholder="请输入用户名" />
+                <a-input
+                  allowClear
+                  v-model="listQuery.userName"
+                  placeholder="请输入用户名"
+                  @change="handleChangeUserName"
+                />
               </a-form-item>
             </a-col>
             <a-col :md="6" :sm="24">
@@ -272,6 +279,12 @@ export default {
       this.listQuery.roleId = undefined;
       this.listQuery.pageNumber = 1;
       this.getList();
+    },
+
+    handleChangeUserName () {
+      if (!this.listQuery.userName) {
+        this.handleSearch();
+      }
     },
 
     // 新增用户信息

@@ -6,12 +6,22 @@
           <a-row :gutter="48">
             <a-col :md="8" :sm="24">
               <a-form-item label="省份名称">
-                <a-input v-model="listQuery.provinceName" placeholder="请输入省份名称" />
+                <a-input
+                  allowClear
+                  v-model="listQuery.provinceName"
+                  placeholder="请输入省份名称"
+                  @change="handleChangeProvinceName"
+                />
               </a-form-item>
             </a-col>
             <a-col :md="8" :sm="24">
               <a-form-item label="省份编码">
-                <a-input v-model="listQuery.provinceCode" placeholder="请输入省份编码" />
+                <a-input
+                  allowClear
+                  v-model="listQuery.provinceCode"
+                  placeholder="请输入省份编码"
+                  @change="handleChangeProvinceCode"
+                />
               </a-form-item>
             </a-col>
             <a-col :md="8" :sm="24">
@@ -205,6 +215,18 @@ export default {
     handleSearch () {
       this.listQuery.pageNumber = 1;
       this.getList();
+    },
+
+    handleChangeProvinceName () {
+      if (!this.listQuery.provinceName) {
+        this.handleSearch();
+      }
+    },
+
+    handleChangeProvinceCode () {
+      if (!this.listQuery.provinceCode) {
+        this.handleSearch();
+      }
     },
 
     handleClear () {

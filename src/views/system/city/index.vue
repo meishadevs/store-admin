@@ -22,12 +22,22 @@
             </a-col>
             <a-col :md="6" :sm="24">
               <a-form-item label="市名称">
-                <a-input v-model="listQuery.cityName" placeholder="请输入市名称" />
+                <a-input
+                  allowClear
+                  v-model="listQuery.cityName"
+                  placeholder="请输入市名称"
+                  @change="handleChangeCityName"
+                />
               </a-form-item>
             </a-col>
             <a-col :md="6" :sm="24">
               <a-form-item label="市编码">
-                <a-input v-model="listQuery.cityCode" placeholder="请输入市编码" />
+                <a-input
+                  allowClear
+                  v-model="listQuery.cityCode"
+                  placeholder="请输入市编码"
+                  @change="handleChangeCityCode"
+                />
               </a-form-item>
             </a-col>
             <a-col :md="6" :sm="24">
@@ -249,6 +259,18 @@ export default {
     handleSearch () {
       this.listQuery.pageNumber = 1;
       this.getList();
+    },
+
+    handleChangeCityName () {
+      if (!this.listQuery.cityName) {
+        this.handleSearch();
+      }
+    },
+
+    handleChangeCityCode () {
+      if (!this.listQuery.cityCode) {
+        this.handleSearch();
+      }
     },
 
     handleClear () {

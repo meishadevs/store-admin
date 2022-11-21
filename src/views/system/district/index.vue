@@ -43,8 +43,10 @@
             <a-col :md="6" :sm="24">
               <a-form-item label="区名称">
                 <a-input
+                  allowClear
                   v-model="listQuery.districtName"
                   placeholder="请输入区名称"
+                  @change="handleChangeDistrictName"
                 />
               </a-form-item>
             </a-col>
@@ -302,6 +304,12 @@ export default {
     handleSearch () {
       this.listQuery.pageNumber = 1;
       this.getList();
+    },
+
+    handleChangeDistrictName () {
+      if (!this.listQuery.districtName) {
+        this.handleSearch();
+      }
     },
 
     handleClear () {

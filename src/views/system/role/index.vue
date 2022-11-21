@@ -6,7 +6,12 @@
           <a-row :gutter="48">
             <a-col :md="8" :sm="24">
               <a-form-item label="角色名称">
-                <a-input v-model="listQuery.roleName" placeholder="请输入角色名称" />
+                <a-input
+                  allowClear
+                  v-model="listQuery.roleName"
+                  placeholder="请输入角色名称"
+                  @change="handleChangeRoleName"
+                />
               </a-form-item>
             </a-col>
             <a-col :md="8" :sm="24">
@@ -206,6 +211,12 @@ export default {
     handleSearch () {
       this.listQuery.pageNumber = 1;
       this.getList();
+    },
+
+    handleChangeRoleName () {
+      if (!this.listQuery.roleName) {
+        this.handleSearch();
+      }
     },
 
     handleClear () {
