@@ -6,13 +6,10 @@ import App from './App.vue';
 import router from './router';
 import store from './store/';
 import i18n from './locales';
-import Antd from 'ant-design-vue/es';
 import ProLayout, { PageHeaderWrapper } from '@ant-design-vue/pro-layout';
 import themePluginConfig from '../config/themePluginConfig';
 
 import bootstrap from './core/bootstrap';
-
-import 'ant-design-vue/dist/antd.css';
 
 // 使用懒加载组件
 import './core/lazy_use';
@@ -30,8 +27,6 @@ import '@/assets/less/global.less';
 import config from '@/config';
 
 Vue.config.productionTip = false;
-
-Vue.use(Antd);
 
 // use pro-layout components
 Vue.component('pro-layout', ProLayout);
