@@ -251,6 +251,8 @@ export default {
       this.$confirm({
         title: '提示',
         content: `确定要删除省份名称为 “${provinceName}” 的省份信息吗？`,
+        okText: '确定',
+        cancelText: '取消',
         onOk: () => {
           deleteProvinceInfo(id)
             .then((res) => {

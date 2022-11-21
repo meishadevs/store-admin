@@ -249,6 +249,8 @@ export default {
       this.$confirm({
         title: '提示',
         content: `确定要删除角色名称为 “${roleName}” 的角色信息吗？`,
+        okText: '确定',
+        cancelText: '取消',
         onOk: () => {
           deleteRoleInfo(id)
             .then((res) => {

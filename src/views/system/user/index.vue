@@ -328,6 +328,8 @@ export default {
       this.$confirm({
         title: '提示',
         content: `确定要删除用户名为 “${userName}” 的用户信息吗？`,
+        okText: '确定',
+        cancelText: '取消',
         onOk: () => {
           deleteUserInfo(id)
             .then((res) => {

@@ -185,6 +185,8 @@ export default {
       this.$confirm({
         title: '提示',
         content: `确定要删除菜单名称为 “${title}” 的菜单信息吗？`,
+        okText: '确定',
+        cancelText: '取消',
         onOk: () => {
           deleteMenuInfo(id)
             .then((res) => {

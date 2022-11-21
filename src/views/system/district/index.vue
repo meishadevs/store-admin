@@ -337,6 +337,8 @@ export default {
       this.$confirm({
         title: '提示',
         content: `确定要删除区名称为 “${districtName}” 的区信息吗？`,
+        okText: '确定',
+        cancelText: '取消',
         onOk: () => {
           deleteDistrictInfo(id)
             .then((res) => {
