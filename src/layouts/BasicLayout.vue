@@ -6,7 +6,6 @@
     :isMobile="isMobile"
     :handleMediaQuery="handleMediaQuery"
     :handleCollapse="handleCollapse"
-    :i18nRender="i18nRender"
     v-bind="settings"
   >
     <template v-slot:menuHeaderRender>
@@ -31,7 +30,6 @@
 </template>
 
 <script>
-import { i18nRender } from '@/locales';
 import { mapState } from 'vuex';
 import { CONTENT_WIDTH_TYPE, SIDEBAR_TYPE, TOGGLE_MOBILE_TYPE } from '@/store/mutation-types';
 import config from '@/config';
@@ -120,7 +118,6 @@ export default {
   },
 
   methods: {
-    i18nRender,
     handleMediaQuery (val) {
       this.query = val;
 

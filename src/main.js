@@ -5,7 +5,6 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 import store from './store/';
-import i18n from './locales';
 import ProLayout, { PageHeaderWrapper } from '@ant-design-vue/pro-layout';
 import themePluginConfig from '../config/themePluginConfig';
 
@@ -44,7 +43,6 @@ Vue.prototype.$baseUrl = baseUrl;
 new Vue({
   router,
   store,
-  i18n,
   created: bootstrap,
   render: h => h(App)
 }).$mount('#app');

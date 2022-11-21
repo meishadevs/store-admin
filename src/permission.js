@@ -6,7 +6,6 @@ import '@/components/NProgress/nprogress.less';
 import notification from 'ant-design-vue/es/notification';
 import { setDocumentTitle, domTitle } from '@/utils/domUtil';
 import { ACCESS_TOKEN } from '@/store/mutation-types';
-import { i18nRender } from '@/locales';
 
 NProgress.configure({ showSpinner: false });
 
@@ -23,7 +22,7 @@ const defaultRoutePath = '/dashboard';
 router.beforeEach((to, from, next) => {
   NProgress.start();
 
-  to.meta && typeof to.meta.title !== 'undefined' && setDocumentTitle(`${i18nRender(to.meta.title)} - ${domTitle}`);
+  to.meta && typeof to.meta.title !== 'undefined' && setDocumentTitle(`${to.meta.title} - ${domTitle}`);
 
   // 获得当前登录的 token
   const token = storage.get(ACCESS_TOKEN);
