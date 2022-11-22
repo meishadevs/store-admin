@@ -53,6 +53,7 @@
         <a-button
           type="primary"
           icon="plus"
+          v-permission="{rule:'city:add'}"
           @click="handleAdd"
         >
           新增
@@ -69,14 +70,18 @@
         <template slot="action" slot-scope="row">
           <a
             class="oprate-btn"
+            href="javascript:;"
+            v-permission="{rule:'city:edit'}"
             @click="handleEdit(row.id)"
-            href="javascript:;">
+          >
             编辑
           </a>
           <a
             class="oprate-btn btn-del"
+            href="javascript:;"
+            v-permission="{rule:'city:delete'}"
             @click="handleDelete(row)"
-            href="javascript:;">
+          >
             删除
           </a>
         </template>
