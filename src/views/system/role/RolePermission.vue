@@ -4,20 +4,23 @@
       :title="`操作权限：${roleName}`"
       :width="450"
       :visible="visible"
-      :body-style="{ paddingBottom: '80px' }"
+      :body-style="{
+        maxHeight: 'calc(100% - 55px)',
+        paddingTop: '10px',
+        paddingBottom: '60px',
+        overflowY: 'auto'
+      }"
       @close="closeDrawer"
     >
-      <div class="drawer-content">
-        <a-tree
-          v-if="permissionData.length"
-          checkable
-          v-model="selectedNodes"
-          :tree-data="permissionData"
-          :expanded-keys="expandedNodes"
-          :replace-fields="replaceFields"
-          @check="handleCheckTree"
-        />
-      </div>
+      <a-tree
+        v-if="permissionData.length"
+        checkable
+        v-model="selectedNodes"
+        :tree-data="permissionData"
+        :expanded-keys="expandedNodes"
+        :replace-fields="replaceFields"
+        @check="handleCheckTree"
+      />
       <div class="drawer-footer">
         <a-dropdown>
           <a-menu slot="overlay" @click="handleMenuClick">
@@ -207,14 +210,14 @@ export default {
 
 <style lang="less" scoped>
 .drawer-footer {
+  padding: 10px 16px;
+  background: #fff;
+  text-align: right;
+  border-top: 1px solid #e9e9e9;
+  z-index: 1;
   position: absolute;
   right: 0;
   bottom: 0;
   width: 100%;
-  border-top: 1px solid #e9e9e9;
-  padding: 10px 16px;
-  background: #fff;
-  text-align: right;
-  z-index: 1;
 }
 </style>
