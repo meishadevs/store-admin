@@ -2,9 +2,9 @@ import store from '@/store';
 
 export default {
   inserted: (el, binding) => {
-    console.log('permissions:', store.state.user.permissions);
+    // 获得按钮权限
+    const rules = store.state.user.btnPermissionsList;
 
-    const rules = store.getters.roles;
     const hasPermission = rules.includes(binding.value.rule);
     if (!hasPermission) {
       el.parentNode && el.parentNode.removeChild(el);

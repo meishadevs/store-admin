@@ -198,7 +198,7 @@ export default {
           this.permissionData = res.data.list;
           this.permissionData.unshift({
             id: 0,
-            title: '父级菜单',
+            title: '一级菜单',
             parentId: 0
           });
         })

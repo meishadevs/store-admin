@@ -79,26 +79,33 @@
         <template slot="action" slot-scope="row">
           <a
             class="oprate-btn"
+            href="javascript:;"
+            v-permission="{rule:'user:changeStatus'}"
             @click="handlePublish(row.id)"
-            href="javascript:;">
+          >
             {{ row.status ? '禁用' : '启用' }}
           </a>
           <a
             class="oprate-btn"
+            href="javascript:;"
+            v-permission="{rule:'user:edit'}"
             @click="handleEdit(row.id)"
-            href="javascript:;">
+          >
             编辑
           </a>
           <a
             class="oprate-btn"
+            href="javascript:;"
+            v-permission="{rule:'user:resetPassword'}"
             @click="handleResetPassword(row.id)"
-            href="javascript:;">
+          >
             重置密码
           </a>
           <a
             :disabled="[userName, 'admin'].includes(row.userName)"
             class="oprate-btn btn-del"
             href="javascript:;"
+            v-permission="{rule:'user:delete'}"
             @click="handleDelete(row)"
           >
             删除
