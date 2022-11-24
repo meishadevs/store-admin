@@ -20,7 +20,10 @@
         label="用户名"
         prop="userName"
       >
-        <a-input v-model="userDetail.userName" :maxLength="30" />
+        <a-input
+          v-model="userDetail.userName"
+          :maxLength="30"
+        />
       </a-form-model-item>
       <a-form-model-item
         label="所属角色"
@@ -44,19 +47,23 @@
         label="邮箱"
         prop="email"
       >
-        <a-input v-model="userDetail.email" :maxLength="30" />
+        <a-input
+          v-model="userDetail.email"
+          :maxLength="30"
+        />
       </a-form-model-item>
       <a-form-model-item
         label="用户状态"
         prop="status"
       >
-        <a-select
-          v-model="userDetail.status"
-          placeholder="请选择用户状态"
-        >
-          <a-select-option :value="1">启用</a-select-option>
-          <a-select-option :value="0">禁用</a-select-option>
-        </a-select>
+        <a-radio-group v-model="userDetail.status">
+          <a-radio :value="1">
+            启用
+          </a-radio>
+          <a-radio :value="0">
+            禁用
+          </a-radio>
+        </a-radio-group>
       </a-form-model-item>
     </a-form-model>
   </a-modal>
