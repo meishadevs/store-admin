@@ -16,8 +16,18 @@
             </a-col>
             <a-col :md="6" :sm="24">
               <span class="table-page-search-submitButtons">
-                <a-button type="primary" @click="handleSearch">查询</a-button>
-                <a-button style="margin-left: 8px" @click="handleClear">重置</a-button>
+                <a-button
+                  type="primary"
+                  @click="handleSearch"
+                >
+                  查询
+                </a-button>
+                <a-button
+                  style="margin-left: 8px"
+                  @click="handleClear"
+                >
+                  重置
+                </a-button>
               </span>
             </a-col>
           </a-row>
@@ -27,7 +37,7 @@
         <a-button
           type="primary"
           icon="plus"
-          v-permission="{rule:'banner:add'}"
+          v-permission="{ rule: 'banner:add' }"
           @click="handleAdd"
         >
           新增
@@ -41,23 +51,40 @@
         :rowKey="(record) => record.id"
         bordered
       >
-        <template slot="publishStatus" slot-scope="publishStatus">
+        <template
+          slot="publishStatus"
+          slot-scope="publishStatus"
+        >
           <a-badge
             :status="publishStatus ? 'success' : 'error'"
             :text="publishStatus ? '已发布' : '未发布'"
           />
         </template>
-        <template slot="topStatus" slot-scope="topStatus">
+        <template
+          slot="topStatus"
+          slot-scope="topStatus"
+        >
           <a-badge
             :status="topStatus ? 'success' : 'error'"
             :text="topStatus ? '已置顶' : '未置顶'"
           />
         </template>
-        <template slot="action" slot-scope="row">
+        <template
+          slot="action"
+          slot-scope="row"
+        >
           <a
             class="oprate-btn"
             href="javascript:;"
-            v-permission="{rule:'banner:edit'}"
+            v-permission="{ rule: 'banner:publish' }"
+            @click="handlePublish(row)"
+          >
+            {{ row.publishStatus ? '撤销' : '发布' }}
+          </a>
+          <a
+            class="oprate-btn"
+            href="javascript:;"
+            v-permission="{ rule: 'banner:edit' }"
             @click="handleEdit(row.id)"
           >
             编辑
@@ -65,7 +92,7 @@
           <a
             class="oprate-btn btn-del"
             href="javascript:;"
-            v-permission="{rule:'banner:delete'}"
+            v-permission="{ rule: 'banner:delete' }"
             @click="handleDelete(row)"
           >
             删除
@@ -95,7 +122,7 @@
 
 <script>
 import BannerForm from './BannerForm';
-import { getBannerList, deleteBanner } from '@/api/banner';
+import { getBannerList, changePublishStatus, deleteBanner } from '@/api/banner';
 
 export default {
   name: 'Banner',
@@ -264,6 +291,18 @@ export default {
     handleEdit (id) {
       this.bannerId = id;
       this.bannerFormVisible = true;
+    },
+
+    // 发布/撤销轮播图
+    handlePublish ({ id }) {
+      changePublishStatus(id)
+        .then((res) => {
+          this.$message.success(res.msg);
+          this.getList();
+        })
+        .catch((error) => {
+          this.$message.error(error.msg);
+        });
     },
 
     // 删除

@@ -30,7 +30,7 @@ export function saveBannerData (formData) {
 }
 
 // 发布/取消发布轮播图
-export function changeBannerPublishStatus (bannerId) {
+export function changePublishStatus (bannerId) {
   return axios.request({
     url: '/banner/publish',
     method: 'post',
