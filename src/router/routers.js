@@ -43,6 +43,30 @@ export const asyncRouter = [
         ]
       },
       {
+        path: '/content',
+        name: 'content',
+        redirect: '/content/banner',
+        component: RouteView,
+        meta: {
+          title: '内容管理',
+          icon: 'table',
+          permission: ['content']
+        },
+        children: [
+          {
+            name: 'banner',
+            path: '/content/banner',
+            hideChildrenInMenu: true,
+            meta: {
+              title: '轮播图管理',
+              keepAlive: true,
+              permission: ['banner']
+            },
+            component: () => import('@/views/content/banner')
+          }
+        ]
+      },
+      {
         path: '/system',
         name: 'system',
         redirect: '/system/user',
