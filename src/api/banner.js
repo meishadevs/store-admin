@@ -29,10 +29,21 @@ export function saveBannerData (formData) {
   });
 }
 
-// 发布/取消发布轮播图
+// 发布/撤销轮播图
 export function changePublishStatus (bannerId) {
   return axios.request({
     url: '/banner/publish',
+    method: 'post',
+    data: {
+      bannerId
+    }
+  });
+}
+
+// 置顶/取消置顶轮播图
+export function changeTopStatus (bannerId) {
+  return axios.request({
+    url: '/banner/top',
     method: 'post',
     data: {
       bannerId

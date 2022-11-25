@@ -84,6 +84,14 @@
           <a
             class="oprate-btn"
             href="javascript:;"
+            v-permission="{ rule: 'banner:top' }"
+            @click="handleTop(row)"
+          >
+            {{ row.topStatus ? '取消置顶' : '置顶' }}
+          </a>
+          <a
+            class="oprate-btn"
+            href="javascript:;"
             v-permission="{ rule: 'banner:edit' }"
             @click="handleEdit(row.id)"
           >
@@ -121,8 +129,13 @@
 </template>
 
 <script>
+import {
+getBannerList,
+changePublishStatus,
+changeTopStatus,
+deleteBanner
+} from '@/api/banner';
 import BannerForm from './BannerForm';
-import { getBannerList, changePublishStatus, deleteBanner } from '@/api/banner';
 
 export default {
   name: 'Banner',
@@ -296,6 +309,18 @@ export default {
     // 发布/撤销轮播图
     handlePublish ({ id }) {
       changePublishStatus(id)
+        .then((res) => {
+          this.$message.success(res.msg);
+          this.getList();
+        })
+        .catch((error) => {
+          this.$message.error(error.msg);
+        });
+    },
+
+    // 置顶/取消置顶轮播图
+    handleTop ({ id }) {
+      changeTopStatus(id)
         .then((res) => {
           this.$message.success(res.msg);
           this.getList();
