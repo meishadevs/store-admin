@@ -35,21 +35,6 @@
         />
       </a-form-model-item>
       <a-form-model-item
-        label="置顶状态"
-        prop="topStatus"
-      >
-        <a-radio-group
-          v-model="bannerDetail.topStatus"
-        >
-          <a-radio :value="0">
-            不置顶
-          </a-radio>
-          <a-radio :value="1">
-            置顶
-          </a-radio>
-        </a-radio-group>
-      </a-form-model-item>
-      <a-form-model-item
         label="发布状态"
         prop="publishStatus"
       >
