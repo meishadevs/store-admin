@@ -28,11 +28,20 @@
       <a-form-model-item
         label="轮播图片"
         prop="imageUrl"
+        class="form-item-offset"
       >
-        <a-input
-          v-model="bannerDetail.imageUrl"
-          :maxLength="30"
-        />
+        <a-upload
+          action=""
+          list-type="picture-card"
+          :file-list="fileList"
+          @preview="handlePreview"
+          @change="handleChange"
+        >
+          <div>
+            <a-icon type="plus" />
+            <div class="ant-upload-text">Upload</div>
+          </div>
+        </a-upload>
       </a-form-model-item>
       <a-form-model-item
         label="发布状态"
@@ -41,15 +50,10 @@
         <a-radio-group
           v-model="bannerDetail.publishStatus"
         >
-          <a-radio :value="0">
-            不发布
-          </a-radio>
-          <a-radio :value="1">
-            发布
-          </a-radio>
+          <a-radio :value="0">不发布</a-radio>
+          <a-radio :value="1">发布</a-radio>
         </a-radio-group>
       </a-form-model-item>
-
       <a-form-model-item
         label="显示顺序"
         prop="sort"
@@ -99,12 +103,8 @@ export default {
 
       // 验证规则
       rules: {
-        bannerName: [
-          { required: true, message: '轮播图名称不能为空', trigger: 'blur' }
-        ],
-        imageUrl: [
-          { required: true, message: '轮播图片不能为空', trigger: 'blur' }
-        ]
+        bannerName: [{ required: true, message: '轮播图名称不能为空', trigger: 'blur' }],
+        imageUrl: [{ required: true, message: '轮播图片不能为空', trigger: 'blur' }]
       },
 
       // 轮播图详情
@@ -125,7 +125,15 @@ export default {
 
         // 显示顺序
         sort: 1
-      }
+      },
+
+      // 是否查看图片
+      isViewImage: false,
+
+      previewImage: '',
+
+      // 图片列表
+      fileList: []
     };
   },
 
@@ -145,29 +153,44 @@ export default {
 
   methods: {
     getBannerDetail () {
-      getBannerDetail(this.bannerId).then(res => {
-        this.bannerDetail = {
-          ...this.bannerDetail,
-          ...res.data
-        };
-      }).catch(error => {
-        this.$message.error(error.msg);
-      });
+      getBannerDetail(this.bannerId)
+        .then((res) => {
+          this.bannerDetail = {
+            ...this.bannerDetail,
+            ...res.data
+          };
+        })
+        .catch((error) => {
+          this.$message.error(error.msg);
+        });
+    },
+
+    handleCancel () {
+      this.previewVisible = false;
+    },
+
+    handlePreview (file) {
+    },
+
+    handleChange ({ fileList }) {
+      this.fileList = fileList;
     },
 
     handleSubmit () {
-      this.$refs.bannerForm.validate(valid => {
+      this.$refs.bannerForm.validate((valid) => {
         if (valid) {
           this.loading = true;
-          saveBannerData(this.bannerDetail).then(res => {
-            this.loading = false;
-            this.visible = false;
-            this.$emit('refresh-data');
-            this.$message.success(res.msg);
-          }).catch(err => {
-            this.loading = false;
-            this.$message.error(err.msg);
-          });
+          saveBannerData(this.bannerDetail)
+            .then((res) => {
+              this.loading = false;
+              this.visible = false;
+              this.$emit('refresh-data');
+              this.$message.success(res.msg);
+            })
+            .catch((err) => {
+              this.loading = false;
+              this.$message.error(err.msg);
+            });
         } else {
           return false;
         }
@@ -183,4 +206,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.form-item-offset {
+  margin-bottom: 0;
+}
 </style>
