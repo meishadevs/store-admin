@@ -32,9 +32,10 @@
       >
         <a-upload
           :action="actionUrl"
-          list-type="picture-card"
           :headers="headers"
           :file-list="fileList"
+          list-type="picture-card"
+          accept=".jpg,.jpeg,.png,.gif"
           @preview="handlePreview"
           @change="handleChange"
         >
@@ -110,8 +111,12 @@ export default {
 
       // 验证规则
       rules: {
-        bannerName: [{ required: true, message: '轮播图名称不能为空', trigger: 'blur' }],
-        imageUrl: [{ required: true, message: '轮播图片不能为空', trigger: 'blur' }]
+        bannerName: [
+          { required: true, message: '轮播图名称不能为空', trigger: 'blur' }
+        ],
+        imageUrl: [
+          { required: true, message: '轮播图片不能为空', trigger: 'blur' }
+        ]
       },
 
       // 轮播图详情
@@ -142,6 +147,7 @@ export default {
       // 图片列表
       fileList: [],
 
+      // 图片上传 Url
       actionUrl: `${this.$baseUrl}/auth/upload`
     };
   },
@@ -154,7 +160,6 @@ export default {
 
   created () {
     this.visible = true;
-
     if (this.bannerId) {
       this.getBannerDetail();
     }
@@ -168,6 +173,15 @@ export default {
             ...this.bannerDetail,
             ...res.data
           };
+
+          if (this.bannerDetail.imageUrl) {
+            this.fileList.push({
+              uid: '-1',
+              name: '1.jpg',
+              status: 'done',
+              url: this.bannerDetail.imageUrl
+            });
+          }
         })
         .catch((error) => {
           this.$message.error(error.msg);
@@ -181,8 +195,11 @@ export default {
     handlePreview (file) {
     },
 
-    handleChange ({ fileList }) {
+    handleChange ({ file, fileList }) {
       this.fileList = fileList;
+      if (file.status === 'done') {
+        this.bannerDetail.imageUrl = file.response.data.fileUrl;
+      }
     },
 
     handleSubmit () {
