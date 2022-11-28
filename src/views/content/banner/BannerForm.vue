@@ -31,8 +31,9 @@
         class="form-item-offset"
       >
         <a-upload
-          action=""
+          :action="actionUrl"
           list-type="picture-card"
+          :headers="headers"
           :file-list="fileList"
           @preview="handlePreview"
           @change="handleChange"
@@ -69,6 +70,8 @@
 </template>
 
 <script>
+import storage from 'store';
+import { ACCESS_TOKEN } from '@/store/mutation-types';
 import { getBannerDetail, saveBannerData } from '@/api/banner';
 
 export default {
@@ -85,6 +88,10 @@ export default {
 
   data () {
     return {
+      headers: {
+        Authorization: 'Bearer ' + storage.get(ACCESS_TOKEN)
+      },
+
       visible: false,
       loading: false,
 
@@ -133,7 +140,9 @@ export default {
       previewImage: '',
 
       // 图片列表
-      fileList: []
+      fileList: [],
+
+      actionUrl: `${this.$baseUrl}/auth/upload`
     };
   },
 
