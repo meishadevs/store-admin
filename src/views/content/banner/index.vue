@@ -204,13 +204,7 @@ export default {
           title: '轮播图图片',
           key: 'imageUrl',
           dataIndex: 'imageUrl',
-          customHeaderCell: (column) => {
-            return {
-              style: {
-                'min-width': '200px'
-              }
-            };
-          },
+          width: 200,
           scopedSlots: {
             customRender: 'imageUrl'
           }
