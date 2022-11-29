@@ -126,7 +126,10 @@ export default {
         // 轮播图名称
         bannerName: '',
 
-        // 轮播图片
+        // 图片名称
+        imageName: '',
+
+        // 图片地址
         imageUrl: '',
 
         // 发布状态
@@ -176,9 +179,9 @@ export default {
 
           if (this.bannerDetail.imageUrl) {
             this.fileList.push({
-              uid: '-1',
-              name: '1.jpg',
+              uid: 1,
               status: 'done',
+              name: this.bannerDetail.imageName,
               url: this.bannerDetail.imageUrl
             });
           }
@@ -198,6 +201,7 @@ export default {
     handleChange ({ file, fileList }) {
       this.fileList = fileList;
       if (file.status === 'done') {
+        this.bannerDetail.imageName = file.response.data.fileName;
         this.bannerDetail.imageUrl = file.response.data.fileUrl;
       }
     },
