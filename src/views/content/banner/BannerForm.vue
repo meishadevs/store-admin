@@ -36,6 +36,7 @@
           :file-list="fileList"
           list-type="picture-card"
           accept=".jpg,.jpeg,.png,.gif"
+          :remove="handleRemove"
           @preview="handlePreview"
           @change="handleChange"
         >
@@ -196,6 +197,13 @@ export default {
     },
 
     handlePreview (file) {
+      console.log('预览');
+    },
+
+    handleRemove () {
+      this.fileList = [];
+      this.bannerDetail.imageName = '';
+      this.bannerDetail.imageUrl = '';
     },
 
     handleChange ({ file, fileList }) {
