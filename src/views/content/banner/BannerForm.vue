@@ -200,6 +200,12 @@ export default {
 
     handleChange ({ file, fileList }) {
       this.fileList = fileList;
+
+      // 限制只能上传一张图片
+      if (this.fileList.length > 1) {
+        this.fileList.splice(0, 1);
+      }
+
       if (file.status === 'done') {
         this.bannerDetail.imageName = file.response.data.fileName;
         this.bannerDetail.imageUrl = file.response.data.fileUrl;
