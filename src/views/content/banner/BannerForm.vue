@@ -68,6 +68,9 @@
         />
       </a-form-model-item>
     </a-form-model>
+    <image-viewer
+      ref="viewer"
+    />
   </a-modal>
 </template>
 
@@ -75,6 +78,7 @@
 import storage from 'store';
 import { ACCESS_TOKEN } from '@/store/mutation-types';
 import { getBannerDetail, saveBannerData } from '@/api/banner';
+import ImageViewer from '@/components/ImageViewer';
 
 export default {
   name: 'BannerForm',
@@ -86,6 +90,10 @@ export default {
       required: false,
       default: 0
     }
+  },
+
+  components: {
+    ImageViewer
   },
 
   data () {
@@ -197,7 +205,17 @@ export default {
     },
 
     handlePreview (file) {
-      console.log('预览');
+      var imageUrl = '';
+      var imageArray = [];
+
+      if (file.url) {
+        imageUrl = file.url;
+      } else {
+        imageUrl = file.response.data.fileUrl;
+      }
+
+      imageArray.push({ thumbnail: imageUrl, source: imageUrl });
+      this.$refs.viewer.show(imageArray);
     },
 
     handleRemove () {

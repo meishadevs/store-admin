@@ -52,6 +52,19 @@
         bordered
       >
         <template
+          slot="imageUrl"
+          slot-scope="imageUrl"
+        >
+          <img
+            v-if="imageUrl"
+            :src="imageUrl"
+            @click="handleView(imageUrl)"
+            width="50px"
+            height="50px"
+            style="margin: 0 auto"
+          />
+        </template>
+        <template
           slot="publishStatus"
           slot-scope="publishStatus"
         >
@@ -124,6 +137,9 @@
         @refresh-data="refreshBannerData"
         @close-dialog="closeBannerDialog"
       />
+      <image-viewer
+        ref="viewer"
+      />
     </a-card>
   </page-header-wrapper>
 </template>
@@ -136,11 +152,13 @@ changeTopStatus,
 deleteBanner
 } from '@/api/banner';
 import BannerForm from './BannerForm';
+import ImageViewer from '@/components/ImageViewer';
 
 export default {
   name: 'Banner',
 
   components: {
+    ImageViewer,
     BannerForm
   },
 
@@ -192,6 +210,9 @@ export default {
                 'min-width': '200px'
               }
             };
+          },
+          scopedSlots: {
+            customRender: 'imageUrl'
           }
         },
         {
@@ -294,13 +315,20 @@ export default {
       }
     },
 
-    // 新增用户信息
+    // 查看图片
+    handleView (imageUrl) {
+      if (imageUrl) {
+        var imageArray = [];
+        imageArray.push({ thumbnail: imageUrl, source: imageUrl });
+        this.$refs.viewer.show(imageArray);
+      }
+    },
+
     handleAdd () {
       this.bannerId = 0;
       this.bannerFormVisible = true;
     },
 
-    // 编辑用户信息
     handleEdit (id) {
       this.bannerId = id;
       this.bannerFormVisible = true;
