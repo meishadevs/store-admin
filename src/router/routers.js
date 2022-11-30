@@ -33,7 +33,7 @@ export const asyncRouter = [
           {
             path: '/dashboard/workplace',
             name: 'workplace',
-            component: () => import('@/views/dashboard'),
+            component: () => import(/* webpackChunkName: "dashboard" */ '@/views/dashboard'),
             meta: {
               title: '工作台',
               keepAlive: false,
@@ -62,7 +62,7 @@ export const asyncRouter = [
               keepAlive: true,
               permission: ['banner']
             },
-            component: () => import('@/views/content/banner')
+            component: () => import(/* webpackChunkName: "banner" */ '@/views/content/banner')
           }
         ]
       },
@@ -86,7 +86,7 @@ export const asyncRouter = [
               keepAlive: true,
               permission: ['user']
             },
-            component: () => import('@/views/system/user')
+            component: () => import(/* webpackChunkName: "user" */ '@/views/system/user')
           },
           {
             path: 'role',
@@ -97,7 +97,7 @@ export const asyncRouter = [
               keepAlive: true,
               permission: ['role']
             },
-            component: () => import('@/views/system/role')
+            component: () => import(/* webpackChunkName: "role" */ '@/views/system/role')
           },
           {
             path: 'menu',
@@ -108,7 +108,7 @@ export const asyncRouter = [
               keepAlive: true,
               permission: ['menu']
             },
-            component: () => import('@/views/system/menu')
+            component: () => import(/* webpackChunkName: "menu" */ '@/views/system/menu')
           },
           {
             path: 'province',
@@ -119,7 +119,7 @@ export const asyncRouter = [
               keepAlive: true,
               permission: ['province']
             },
-            component: () => import('@/views/system/province')
+            component: () => import(/* webpackChunkName: "province" */ '@/views/system/province')
           },
           {
             path: 'city',
@@ -130,7 +130,7 @@ export const asyncRouter = [
               keepAlive: true,
               permission: ['city']
             },
-            component: () => import('@/views/system/city')
+            component: () => import(/* webpackChunkName: "city" */ '@/views/system/city')
           },
           {
             path: 'district',
@@ -141,7 +141,7 @@ export const asyncRouter = [
               keepAlive: true,
               permission: ['district']
             },
-            component: () => import('@/views/system/district')
+            component: () => import(/* webpackChunkName: "district" */ '@/views/system/district')
           }
         ]
       }
@@ -163,7 +163,7 @@ export const baseRouter = [
         meta: {
           title: '登录'
         },
-        component: () => import(/* webpackChunkName: "user" */ '@/views/login')
+        component: () => import(/* webpackChunkName: "login" */ '@/views/login')
       }
     ]
   },
