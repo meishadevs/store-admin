@@ -17,7 +17,7 @@
       v-bind="layout"
     >
       <a-form-model-item
-        label="轮播图名"
+        label="轮播图名称"
         prop="bannerName"
       >
         <a-input
