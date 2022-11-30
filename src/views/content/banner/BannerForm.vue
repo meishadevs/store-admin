@@ -58,6 +58,15 @@
         </a-radio-group>
       </a-form-model-item>
       <a-form-model-item
+        label="对应商品链接"
+        prop="url"
+      >
+        <a-input
+          v-model="bannerDetail.url"
+          :maxLength="50"
+        />
+      </a-form-model-item>
+      <a-form-model-item
         label="显示顺序"
         prop="sort"
       >
@@ -148,7 +157,10 @@ export default {
         topStatus: 0,
 
         // 显示顺序
-        sort: 1
+        sort: 1,
+
+        // 对应商品链接
+        url: ''
       },
 
       // 是否查看图片
